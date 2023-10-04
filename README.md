@@ -10,14 +10,22 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 * We provide code for visualization, autometrics and Amazon mechanical turk templates.
 
 ## News
-TBA
+Coming Soon
 
 # Quick Start
-TBA
+Coming Soon
 
-## Citation
+# Contributing
 
-If Modules is helpful to your research, please cite it as below.
+_**Community contributions are encouraged!**_
+
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+
+# Citation
+
+Please kindly cite our paper if you use our code, data, models or results:
 
 ```
 @article{ku2023imagenhub,
