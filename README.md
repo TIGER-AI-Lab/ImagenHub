@@ -1,7 +1,9 @@
 # ImagenHub
 [![arXiv](https://img.shields.io/badge/arXiv-2310.01596-b31b1b.svg)](https://arxiv.org/abs/2310.01596)
+<div align="center">
+<img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="75%">
+ </div>
 
-![](https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png)
 
 ImagenHub is a one-stop library to standardize the inference and evaluation of all the conditional image generation models.
 * We define 7 prominent tasks and curate 7 high-quality evaluation datasets for each task. 
