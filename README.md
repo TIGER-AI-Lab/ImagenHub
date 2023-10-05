@@ -1,4 +1,4 @@
-# ImagenHub
+# 🖼️ ImagenHub 
 [![arXiv](https://img.shields.io/badge/arXiv-2310.01596-b31b1b.svg)](https://arxiv.org/abs/2310.01596)
 <div align="center">
 <img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="75%">
@@ -18,10 +18,27 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 ## News
 Coming Soon
 
-# Quick Start
+## 📄 Table of Contents
+
+- [🛠️ Installation](#-installation-)
+- [👨‍🏫 Get Started](#-get-started-)
+- [📘 Documentation](#-documentation-)
+- [🙌 Contributing](#-contributing-)
+- [🎫 License](#-license-)
+- [🖊️ Citation](#-citation-)
+- [💻 Sponsors](#-sponsors-)
+- [🤝 Acknowledgement](#-acknowledgement-)
+
+## 🛠️ Installation [🔝](#-table-of-contents)
 Coming Soon
 
-# Contributing
+## 👨‍🏫 Get Started [🔝](#-table-of-contents)
+Coming Soon
+
+## 📘 Documentation [🔝](#-table-of-contents)
+Coming Soon
+
+## 🙌 Contributing [🔝](#-table-of-contents)
 
 _**Community contributions are encouraged!**_
 
@@ -29,7 +46,7 @@ Please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
 
-# Citation
+## 🖊️ Citation [🔝](#-table-of-contents)
 
 Please kindly cite our paper if you use our code, data, models or results:
 
@@ -41,3 +58,14 @@ Please kindly cite our paper if you use our code, data, models or results:
   year={2023}
 }
 ```
+
+## 🎫 License [🔝](#-table-of-contents)
+
+This project is released under the [License](LICENSE).
+
+## 💻 Sponsors [🔝](#-table-of-contents)
+
+
+## 🤝 Acknowledgement [🔝](#-table-of-contents)
+
+Please refer to [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md)
