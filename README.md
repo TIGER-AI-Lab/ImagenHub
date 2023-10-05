@@ -20,7 +20,7 @@ Coming Soon
 
 ## 📄 Table of Contents
 
-- [🛠️ Installation](#-installation-)
+- [🛠️ Installation](#%EF%B8%8F-installation-)
 - [👨‍🏫 Get Started](#-get-started-)
 - [📘 Documentation](#-documentation-)
 - [🙌 Contributing](#-contributing-)
