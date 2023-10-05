@@ -25,7 +25,7 @@ Coming Soon
 - [📘 Documentation](#-documentation-)
 - [🙌 Contributing](#-contributing-)
 - [🎫 License](#-license-)
-- [🖊️ Citation](#-citation-)
+- [🖊️ Citation](#%EF%B8%8F-citation-)
 - [💻 Sponsors](#-sponsors-)
 - [🤝 Acknowledgement](#-acknowledgement-)
 
