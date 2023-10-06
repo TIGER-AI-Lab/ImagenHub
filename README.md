@@ -21,8 +21,9 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
  🔥 🔥 🔥 Check out our <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[Project Page]</a> for more results and analysis!
 </div>
 
-## News
-Coming Soon
+## 📰 News
+* 2023 Oct 4: Our paper is featured on [Huggingface Daily Papers](https://huggingface.co/papers?date=2023-10-04)!
+* 2023 Oct 2: Paper available on [Arxiv](https://arxiv.org/abs/2310.01596). Code coming Soon!
 
 ## 📄 Table of Contents
 
