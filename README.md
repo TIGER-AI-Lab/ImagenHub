@@ -27,6 +27,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 
 ## 📄 Table of Contents
 
+- [🧠 Philosophy](#-philosophy-)
 - [🛠️ Installation](#%EF%B8%8F-installation-)
 - [👨‍🏫 Get Started](#-get-started-)
 - [📘 Documentation](#-documentation-)
@@ -35,6 +36,13 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 - [🖊️ Citation](#%EF%B8%8F-citation-)
 - [💻 Sponsors](#-sponsors-)
 - [🤝 Acknowledgement](#-acknowledgement-)
+
+## 🧠 Philosophy [🔝](#-philosophy-)
+By streamlining research and collaboration, ImageHub plays a pivotal role in propelling the field of Image Generation and Editing.
+
+* Purity of Evaluation: We ensure a fair and consistent evaluation for all models, eliminating biases.
+* Research Roadmap: By defining tasks and curating datasets, we provide clear direction for researchers. 
+* Open Collaboration: Our platform fosters the exchange and cooperation of related technologies, bringing together minds and innovations.
 
 ## 🛠️ Installation [🔝](#-table-of-contents)
 Coming Soon
