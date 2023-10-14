@@ -85,3 +85,10 @@ This project is released under the [License](LICENSE).
 ## 🤝 Acknowledgement [🔝](#-table-of-contents)
 
 Please refer to [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md)
+
+
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=TIGER-AI-Lab/ImagenHub&type=Date)](https://star-history.com/#TIGER-AI-Lab/ImagenHub&Date)
+
