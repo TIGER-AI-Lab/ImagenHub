@@ -68,7 +68,7 @@ model = imagen_hub.load("SDXL")
 image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
 image
 ```
-<img src="https://i.imgur.com/ruU0BJ0.jpg" style="zoom:33%;" />
+<img src="https://i.imgur.com/ruU0BJ0.jpg" width="256" />
 
 ### Benchmarking
 To reproduce our experiment reported in the paper:
