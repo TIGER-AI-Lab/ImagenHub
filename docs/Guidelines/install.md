@@ -5,23 +5,33 @@
 > We might introduce different conda envs for methods(hopefully there will not be too many)
 > * `imagen`: The one env that should be able to run most of the code.
 ```shell
+git clone https://github.com/TIGER-AI-Lab/ImagenHub.git
+cd ImagenHub
 conda env create -f env_cfg/imagen_environment.yml
 conda activate imagen
+pip install -e .
 ```
 
-### Extra Setup for Text-guided Image Generation
+### Verify the installation
+```python
+import imagen_hub
 
-**Running Dall-E**
+print(imagen_hub.__version__) # should print a string
+```
+
+## Extra Setup for Text-guided Image Generation
+
+### **Running Dall-E**
 * Put your API key in a file `openai.env` in the `keys` folder (or anywhere else, the program will be able to fetch it).
 * You can also follow the suggested way from openai (setting up OS environment variable).
 
-### Extra Setup for Subject-driven Image Editing
+## Extra Setup for Subject-driven Image Editing
 
-**Downloading weights**
+### **Downloading weights** into `checkpoints` folder
 ```shell
 ./download_Subject-Driven_IE_weights.sh
 ```
-**Running DreamEdit**
+### **Running DreamEdit**
 DreamEdit depends on SAM / GroundingDINO with CUDA support.
 Somehow the installation of SAM/GroundingDINO with GPU support requires some extra work on conda. 
 ```shell
@@ -35,16 +45,33 @@ pip install git+https://github.com/IDEA-Research/GroundingDINO.git
 pip install git+https://github.com/facebookresearch/segment-anything.git
 ```
 
-**Running BLIP-Diffusion**
+### **Running BLIP-Diffusion**
 Use the environment `blip_environment.yml`. Current `lavis` is not supported in our default yaml.
 ```shell
 conda env create -f env_cfg/blip_environment.yml
 conda activate imagen_blip
 ```
 
-### Extra Setup for Multi-concept Image Composition
+## Extra Setup for Multi-concept Image Composition
 
-**Downloading weights**
+### **Downloading weights** into `checkpoints` folder
 ```shell
 ./download_Multi-Concept_IC_weights.sh
+```
+
+## Miscellaneous
+
+### Updating the environment
+```shell
+# To update env (If it doesnt work, delete the environment and create again)
+conda env update imagen --file env_cfg/imagen_environment.yml  --prune
+```
+
+### Reinstalling the environment
+```shell
+# If you need to reinstall through deleting the environment and create again:
+conda deactivate
+conda remove --name imagen --all
+conda env create -f env_cfg/imagen_environment.yml
+conda activate imagen
 ```
