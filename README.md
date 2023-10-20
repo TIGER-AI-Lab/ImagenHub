@@ -57,7 +57,32 @@ pip install -e .
 ```
 
 ## 👨‍🏫 Get Started [🔝](#-table-of-contents)
-Coming Soon
+
+### Infering one model
+```python
+import imagen_hub
+
+print(imagen_hub.__version__)
+model = imagen_hub.load("SDXL")
+image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
+image
+```
+<img src="https://i.imgur.com/ruU0BJ0.jpg" style="zoom:33%;" />
+
+### Benchmarking
+To reproduce our experiment reported in the paper:
+
+Example for text-guided image generation:
+```shell
+python3 benchmarking.py -cfg benchmark_cfg/ih_t2i.yml
+```
+Then after running the experiment, you can run
+```shell
+python3 visualize.py --cfg benchmark_cfg/ih_t2i.yml
+```
+to produce a `index.html` file for visualization.
+
+
 
 ## 📘 Documentation [🔝](#-table-of-contents)
 [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html)
