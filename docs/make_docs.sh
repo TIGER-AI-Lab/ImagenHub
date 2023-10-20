@@ -12,7 +12,5 @@ pip install -e .
 sphinx-apidoc -o docs/source/ src/imagen_hub
 cd docs
 
-#pip install sphinx-rtd-theme
-#pip install myst_parser
 make clean
 make html
