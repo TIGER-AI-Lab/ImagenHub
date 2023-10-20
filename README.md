@@ -1,5 +1,6 @@
 # 🖼️ ImagenHub 
 [![arXiv](https://img.shields.io/badge/arXiv-2310.01596-b31b1b.svg)](https://arxiv.org/abs/2310.01596)
+[![Docs](https://img.shields.io/badge/docs-latest-blue)](https://imagenhub.readthedocs.io/en/latest/)
 [![contributors](https://img.shields.io/github/contributors/TIGER-AI-Lab/ImagenHub)](https://github.com/TIGER-AI-Lab/ImagenHub/graphs/contributors)
 [![open issues](https://isitmaintained.com/badge/open/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/TIGER-AI-Lab/ImagenHub.svg)](http://isitmaintained.com/project/TIGER-AI-Lab/ImagenHub "Average time to resolve an issue")
