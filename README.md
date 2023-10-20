@@ -35,9 +35,8 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 - [👨‍🏫 Get Started](#-get-started-)
 - [📘 Documentation](#-documentation-)
 - [🙌 Contributing](#-contributing-)
-- [🎫 License](#-license-)
 - [🖊️ Citation](#%EF%B8%8F-citation-)
-- [💻 Sponsors](#-sponsors-)
+- [🎫 License](#-license-)
 - [🤝 Acknowledgement](#-acknowledgement-)
 
 ## 🧠 Philosophy [🔝](#-philosophy-)
@@ -111,9 +110,6 @@ Please kindly cite our paper if you use our code, data, models or results:
 ## 🎫 License [🔝](#-table-of-contents)
 
 This project is released under the [License](LICENSE).
-
-## 💻 Sponsors [🔝](#-table-of-contents)
-
 
 ## 🤝 Acknowledgement [🔝](#-table-of-contents)
 
