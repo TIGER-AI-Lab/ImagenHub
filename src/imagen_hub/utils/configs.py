@@ -1,7 +1,7 @@
-from omegaconf import OmegaConf
+from omegaconf import OmegaConf, DictConfig
 
 
-def get_SD_conf() -> OmegaConf.DictConfig:
+def get_SD_conf() -> DictConfig:
     """
     Return the OmegaConf configuration based on the Stable Diffusion model.
 
@@ -9,7 +9,7 @@ def get_SD_conf() -> OmegaConf.DictConfig:
     https://github.com/CompVis/stable-diffusion/blob/main/configs/stable-diffusion/v1-inference.yaml
 
     Returns:
-        OmegaConf.DictConfig: Configuration dictionary for the Stable Diffusion model.
+        Configuration dictionary for the Stable Diffusion model.
 
     Examples:
         >>> config = get_SD_conf()

@@ -16,8 +16,8 @@ def infer_subject_driven_ie_bench(model,
     Run inference on the subject-driven image editing benchmark.
 
     This function processes a dataset for image editing tasks based on prompts and the specific
-    subject-driven model provided. Depending on the model type, it uses pre-trained weights for 
-    the inference. The function supports resumption by checking and potentially overwriting existing 
+    subject-driven model provided. Depending on the model type, it uses pre-trained weights for
+    the inference. The function supports resumption by checking and potentially overwriting existing
     model outputs and inputs.
 
     Args:
@@ -32,8 +32,8 @@ def infer_subject_driven_ie_bench(model,
         None. The edited images and other relevant files are saved to disk.
 
     Notes:
-        The function processes each sample from the dataset, generates a unique ID for it, and saves 
-        the results in the respective directories. The results include the processed image and any 
+        The function processes each sample from the dataset, generates a unique ID for it, and saves
+        the results in the respective directories. The results include the processed image and any
         associated metadata.
     """
 
@@ -51,7 +51,7 @@ def infer_subject_driven_ie_bench(model,
     def get_default_prompts(class_name: str, special_token: str):
         """
         class_name : str is the subject class name
-        special_token : str 
+        special_token : str
         """
         src_prompt = "photo of a " + class_name
         target_prompt = "photo of a " + special_token + " " + class_name
@@ -84,21 +84,21 @@ def infer_subject_driven_ie_bench(model,
 
         if overwrite_model_outputs or not os.path.exists(dest_file):
             print("========> Inferencing", dest_file)
-            
+
             sample_input = sample['image'].resize(
                 (512, 512), Image.LANCZOS)
-            
+
             if isinstance(model, infermodels.PhotoSwap):
-                model.load_new_subject_weight(os.path.join("checkpoints", "DreamBooth-Models", subject), 
-                                              subject, 
+                model.load_new_subject_weight(os.path.join("checkpoints", "DreamBooth-Models", subject),
+                                              subject,
                                               special_token)
                 output = model.infer_one_image(src_image=sample_input,
                                                src_prompt=src_prompt,
                                                target_prompt=target_prompt)
             if isinstance(model, infermodels.DreamEdit):
                 weight_path = os.path.join("checkpoints", "last.ckpt")
-                model.load_new_subject_weight(os.path.join("checkpoints", "DreamEdit-DreamBooth-Models", "dreamedit_official_ckpt", f"{subject}-{special_token}", weight_path), 
-                                              subject, 
+                model.load_new_subject_weight(os.path.join("checkpoints", "DreamEdit-DreamBooth-Models", "dreamedit_official_ckpt", f"{subject}-{special_token}", weight_path),
+                                              subject,
                                               special_token)
                 output = model.infer_one_image(src_image=sample_input,
                                                src_prompt=src_prompt,
@@ -110,7 +110,7 @@ def infer_subject_driven_ie_bench(model,
                                 src_subject_name=subject_name,
                                 cond_subject_name=subject_name,
                                 target_subject_name=subject_name)
-                
+
             output = output.resize((512, 512), Image.LANCZOS)
             save_pil_image(sample_input, os.path.join(
                 result_folder, experiment_name, "input"), file_basename, overwrite=overwrite_inputs)

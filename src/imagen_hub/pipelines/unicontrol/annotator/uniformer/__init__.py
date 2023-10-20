@@ -24,6 +24,6 @@ class UniformerDetector:
 
     def __call__(self, img):
         result = inference_segmentor(self.model, img)
-        
+
         res_img = show_result_pyplot(self.model, img, result, get_palette('ade'), opacity=1)
         return res_img

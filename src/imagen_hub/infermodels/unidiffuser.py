@@ -1,10 +1,10 @@
 import torch
-from PIL import Image
+import PIL
 
 class UniDiffuser():
     """
     A wrapper class for UniDiffuserPipeline to infer images based on prompts.
-    
+
     References:
         https://huggingface.co/docs/diffusers/api/pipelines/unidiffuser
 
@@ -14,7 +14,7 @@ class UniDiffuser():
         """
         Attributes:
             pipe (UniDiffuserPipeline): The underlying UniDiffuser pipeline object.
-        
+
         Args:
             device (str, optional): The device on which the pipeline should run, default is "cuda".
             weight (str, optional): The pre-trained model weights, default is "thu-ml/unidiffuser-v1".
@@ -29,11 +29,11 @@ class UniDiffuser():
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
         Infer an image based on the given prompt and seed.
-        
+
         Args:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: The inferred image.
         """
@@ -41,7 +41,7 @@ class UniDiffuser():
         image = self.pipe(
             prompt=prompt,
             generator=generator,
-            num_inference_steps=20, 
+            num_inference_steps=20,
             guidance_scale=8.0
         ).images[0]
         return image

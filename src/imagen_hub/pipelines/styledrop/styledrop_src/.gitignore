@@ -1,8 +1,0 @@
-__pycache__
-*.ckpt
-*.npz
-wandb/
-*.ipynb_checkpoints
-.vscode/
-*style/
-*.sh

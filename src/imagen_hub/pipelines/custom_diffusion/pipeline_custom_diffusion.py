@@ -30,15 +30,15 @@ class CustomDiffusionPipeline():
         print(f"Training custom diffusion and saving to {self.output_folder}")
         retrieve(self.concept1, self.real_reg_image_data_concept1, 200)
         retrieve(self.concept2, self.real_reg_image_data_concept2, 200)
-        train(self.now, self.name, self.gpus, self.config, self.model_folder, self.pretrained_ckpt, 
+        train(self.now, self.name, self.gpus, self.config, self.model_folder, self.pretrained_ckpt,
               f"<new1> {self.concept1}", self.image_data_concept1,
               os.path.join(self.real_reg_image_data_concept1, 'images.txt'),
               os.path.join(self.real_reg_image_data_concept1, 'caption.txt'),
               f"<new2> {self.concept2}", self.image_data_concept2,
               os.path.join(self.real_reg_image_data_concept2, 'images.txt'),
-              os.path.join(self.real_reg_image_data_concept2, 'caption.txt'), 
+              os.path.join(self.real_reg_image_data_concept2, 'caption.txt'),
               self.modifier_token, self.batch_size)
-        
+
 
     @torch.no_grad()
     def sample(self, prompt, delta_ckpt, pretrained_ckpt) -> PIL.Image.Image:

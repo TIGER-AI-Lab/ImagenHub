@@ -35,7 +35,7 @@ def text2image(
     batch_size = len(prompt)
     register_attention_control(model, controller)
     height = width = 512
-    
+
     text_input = model.tokenizer(
         prompt,
         padding="max_length",
@@ -61,7 +61,7 @@ def text2image(
         else:
             context = torch.cat([uncond_embeddings_, text_embeddings])
         latents = diffusion_step(model, controller, latents, context, t, guidance_scale, low_resource=False)
-        
+
     if return_type == 'image':
         image = latent2image(model.vae, latents)
     else:

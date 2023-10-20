@@ -1,7 +1,7 @@
 import os
 import openai
 import torch
-from PIL import Image
+import PIL
 from imagen_hub.utils.image_helper import load_image
 from imagen_hub.utils.file_helper import get_file_path, read_key_from_file
 class DALLE():
@@ -21,11 +21,11 @@ class DALLE():
     def infer_one_image(self, prompt: str, seed: int = 42):
         """
         Infer an image based on the given prompt.
-        
+
         Args:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. (Not supported in openai's API)
-            
+
         Returns:
             PIL.Image.Image: The inferred image.
         """
@@ -47,7 +47,7 @@ class DALLE():
                 image = Image.new(mode="RGB", size=(512,512))
 
         return image
-    
+
 class StableUnCLIP():
     """
     Class for generating images based on text prompts using the StableUnCLIP pipeline from Huggingface.
@@ -55,16 +55,16 @@ class StableUnCLIP():
     - https://huggingface.co/docs/diffusers/api/pipelines/unclip
     - https://huggingface.co/docs/diffusers/api/pipelines/stable_unclip
     """
-    def __init__(self, 
+    def __init__(self,
                  device="cuda",
-                 prior_model_id="kakaobrain/karlo-v1-alpha", 
+                 prior_model_id="kakaobrain/karlo-v1-alpha",
                  prior_text_model_id = "openai/clip-vit-large-patch14",
                  stable_unclip_model_id = "stabilityai/stable-diffusion-2-1-unclip-small") -> None:
         """
         Initializes the StableUnCLIP model with specified settings.
-        
-        Note: 
-        For text-to-image, it is recommended to use "stabilityai/stable-diffusion-2-1-unclip-small" 
+
+        Note:
+        For text-to-image, it is recommended to use "stabilityai/stable-diffusion-2-1-unclip-small"
         as it was trained on the same CLIP ViT-L/14 embedding as the Karlo model prior.
         """
         from diffusers import UnCLIPScheduler, DDPMScheduler, StableUnCLIPPipeline
@@ -89,11 +89,11 @@ class StableUnCLIP():
     def infer_one_image(self, prompt: str, seed: int = 42):
         """
         Infer an image based on the given prompt and seed.
-        
+
         Args:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: The inferred image.
         """

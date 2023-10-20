@@ -27,7 +27,7 @@ class UniformerDetector:
             from basicsr.utils.download_util import load_file_from_url
             load_file_from_url(checkpoint_file, model_dir=annotator_ckpts_path)
 #             raise ValueError("wrong ckpt path")
-            
+
         config_file = os.path.join(os.path.dirname(annotator_ckpts_path), "uniformer_base", "exp", "upernet_global_base", "config.py")
         self.model = init_segmentor(config_file, modelpath).cuda()
 

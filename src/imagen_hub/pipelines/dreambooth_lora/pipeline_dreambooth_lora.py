@@ -383,4 +383,3 @@ class DreamBoothLoraPipeline:
 
         pipe.to(self.device)
         return pipe
-

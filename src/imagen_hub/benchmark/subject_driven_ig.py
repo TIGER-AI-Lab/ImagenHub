@@ -17,10 +17,10 @@ def infer_subject_driven_ig_bench(model,
     """
     Run inference on the subject-driven image generation benchmark.
 
-    This function processes a dataset for image generation based on prompts. 
-    Depending on the model type, it either trains the model on-the-fly or uses 
-    pre-trained weights. The function supports resumption by checking and 
-    potentially overwriting existing model outputs and inputs. 
+    This function processes a dataset for image generation based on prompts.
+    Depending on the model type, it either trains the model on-the-fly or uses
+    pre-trained weights. The function supports resumption by checking and
+    potentially overwriting existing model outputs and inputs.
 
     Args:
         model: The Subject-driven Image Generation model instance.
@@ -34,8 +34,8 @@ def infer_subject_driven_ig_bench(model,
         None. The generated images and other relevant files are saved to disk.
 
     Notes:
-        The function processes each sample from the dataset, generates a unique ID for it, and saves 
-        the results in the respective directories. The results include the processed image and any 
+        The function processes each sample from the dataset, generates a unique ID for it, and saves
+        the results in the respective directories. The results include the processed image and any
         associated metadata.
     """
     dataset, dataset_name = load_subject_driven_ig_dataset(with_name_att=True)
@@ -67,7 +67,7 @@ def infer_subject_driven_ig_bench(model,
         os.makedirs(input_folder, exist_ok=True)
 
     print("========> Running Benchmark Dataset:", experiment_name, "| Model:", model.__class__.__name__)
-    
+
     index = 0
     for sample in tqdm(eval_data):
         file_basename = process_dataset_uid(sample)
@@ -77,7 +77,7 @@ def infer_subject_driven_ig_bench(model,
         subject = sample['subject']
         subject_name = " ".join(subject.split('_'))
         subject_name = ''.join([i for i in subject_name if not i.isdigit()])
-        
+
         temp_dreambooth_data_path = os.path.join('data', 'DreamBooth', subject)
         class_dir = os.path.join(temp_dreambooth_data_path, "class")
         instance_dir = os.path.join(temp_dreambooth_data_path, "instance")
@@ -106,7 +106,7 @@ def infer_subject_driven_ig_bench(model,
             input_image_path = os.path.join(instance_dir, os.listdir(instance_dir)[0])
             input_image = Image.open(input_image_path)
             save_pil_image(input_image, input_folder, file_basename)
-            
+
         if overwrite_model_outputs or not os.path.exists(dest_file):
             print("========> Inferencing", dest_file)
 
@@ -121,7 +121,7 @@ def infer_subject_driven_ig_bench(model,
                                                 cond_subject_name=subject_name,
                                                 target_subject_name=subject_name)
                 save_pil_image(output, dest_folder=dest_folder, filename=file_basename)
-            
+
             if isinstance(model, infermodels.DreamBooth) or isinstance(model, infermodels.DreamBoothLora):
 
                 # Train
@@ -142,9 +142,9 @@ def infer_subject_driven_ig_bench(model,
                 prompt = sample['prompt'].replace('<token>', special_token)
                 print("prompt: ", prompt)
                 image = model.infer_one_image(model_path=weight_path, instruct_prompt=prompt)
-            
+
             if isinstance(model, infermodels.TextualInversion):
-                
+
                 # Train
                 if not os.path.exists(weight_path) or len(os.listdir(weight_path)) == 0:
                     print(f'not found checkpoint {weight_path}. Perform training now:')
@@ -154,9 +154,9 @@ def infer_subject_driven_ig_bench(model,
                             placeholder_token=special_token,
                             initializer_token=init_token[0],
                             output_dir=weight_path)
-                    
+
                     model.train(instance_dir)
-                
+
                 # Infer
                 model.set_pipe(what_to_teach='object',
                         placeholder_token=special_token,

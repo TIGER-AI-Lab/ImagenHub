@@ -67,17 +67,22 @@ class ClipClient:
             image: base64 string of image to be searched semantically
 
         Returns:
-            List of dictionaries containing the results in the form of:
-            [
-                {
-                    "id": 42,
-                    "similarity": 0.323424523424,
-                    "url": "https://example.com/image.jpg",
-                    "caption": "This is a caption",
-                },
-                ...
-            ]
+            List of dictionaries 
+            
         """
+
+        #   Sphinx says unexpected unindent
+        #    containing the results in the form of:
+        #    [
+        #        {
+        #            "id": 42,
+        #            "similarity": 0.323424523424,
+        #            "url": "https://example.com/image.jpg",
+        #            "caption": "This is a caption",
+        #        },
+        #        ...
+        #    ]
+        
         if text and image:
             raise ValueError("Only one of text or image can be provided.")
         if text:

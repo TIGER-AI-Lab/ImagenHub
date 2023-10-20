@@ -1,20 +1,20 @@
 import torch
-from PIL import Image
+import PIL
 
 class DiffEdit():
     """
-    DiffEdit provides functionality to edit images using the StableDiffusionDiffEditPipeline 
-    from Hugging Face's diffusers. 
-    
+    DiffEdit provides functionality to edit images using the StableDiffusionDiffEditPipeline
+    from Hugging Face's diffusers.
+
     The pipeline makes use of two schedulers: DDIMScheduler and DDIMInverseScheduler.
-    
+
     Reference: https://huggingface.co/docs/diffusers/api/pipelines/diffedit
     """
     def __init__(self, device="cuda", weight="stabilityai/stable-diffusion-2-1"):
         """
         Attributes:
             pipe (StableDiffusionDiffEditPipeline): The main pipeline used for image editing.
-        
+
         Args:
             device (str, optional): Device to load the pipeline on. Default is "cuda".
             weight (str, optional): Model weight to be loaded into the pipeline. Default is "stabilityai/stable-diffusion-2-1".
@@ -33,17 +33,17 @@ class DiffEdit():
         self.pipe.enable_model_cpu_offload()
         self.pipe.enable_vae_slicing()
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
         """
         Generate an edited image based on source image and given prompts.
-        
+
         Args:
             src_image (PIL.Image.Image): Source image to be edited.
             src_prompt (str, optional): Source image caption.
             target_prompt (str, optional): Target image caption.
             instruct_prompt (str, optional): Instruction prompt. Currently not used in this method.
             seed (int, optional): Random seed. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: Edited image.
         """

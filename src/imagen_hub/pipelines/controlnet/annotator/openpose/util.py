@@ -151,7 +151,7 @@ def handDetect(candidate, subset, oriImg):
     '''
     return value: [[x, y, w, True if left hand else False]].
     width=height since the network require squared input.
-    x, y is the coordinate of top left 
+    x, y is the coordinate of top left
     '''
     return detect_result
 

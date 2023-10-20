@@ -1,7 +1,7 @@
 _base_ = [
     '../../configs/_base_/models/cascade_mask_rcnn_uniformer_fpn.py',
     '../../configs/_base_/datasets/coco_instance.py',
-    '../../configs/_base_/schedules/schedule_1x.py', 
+    '../../configs/_base_/schedules/schedule_1x.py',
     '../../configs/_base_/default_runtime.py'
 ]
 

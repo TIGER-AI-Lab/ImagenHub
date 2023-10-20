@@ -25,7 +25,7 @@ class BlockTypeA(nn.Module):
         b = self.conv1(b)
         a = self.conv2(a)
         if self.upscale:
-             b = F.interpolate(b, scale_factor=2.0, mode='bilinear', align_corners=True)
+            b = F.interpolate(b, scale_factor=2.0, mode='bilinear', align_corners=True)
         return torch.cat((a, b), dim=1)
 
 
@@ -213,7 +213,7 @@ class MobileNetV2(nn.Module):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.zeros_(m.bias)
         if pretrained:
-           self._load_pretrained_model()
+            self._load_pretrained_model()
 
     def _forward_impl(self, x):
         # This exists since TorchScript doesn't support inheritance, so the superclass method

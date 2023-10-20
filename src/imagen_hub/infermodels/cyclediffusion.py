@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import CycleDiffusionPipeline, DDIMScheduler
 
@@ -25,7 +25,7 @@ class CycleDiffusion():
         self.pipe.scheduler = DDIMScheduler.from_config(
             self.pipe.scheduler.config)
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed=42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed=42):
         """
         Process an image using the diffusion model based on text prompts.
 

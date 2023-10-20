@@ -20,20 +20,20 @@ def benchmark_infer(experiment_basename: str,
     Benchmark various inference models on a given dataset.
 
     This function iterates through each model provided in `model_list`, initializes them,
-    and runs the provided `infer_dataset_fn` to benchmark them. If any model encounters 
-    an exception during the benchmarking, it captures and prints the traceback without 
+    and runs the provided `infer_dataset_fn` to benchmark them. If any model encounters
+    an exception during the benchmarking, it captures and prints the traceback without
     stopping the benchmarking for remaining models.
 
     Parameters:
         experiment_basename (str): Basename for the experiment.
-        infer_dataset_fn (Callable): A function to instantiate the dataset and perform 
-                                     inference. Users are expected to provide this function 
+        infer_dataset_fn (Callable): A function to instantiate the dataset and perform
+                                     inference. Users are expected to provide this function
                                      tailored to their specific experiment.
         model_list (list): A list of model names to be retrieved from `infermodels`.
-        model_init_with_default_params (bool, optional): Whether to initialize the model 
+        model_init_with_default_params (bool, optional): Whether to initialize the model
                                                          with default parameters. Defaults to True.
         result_folder (str, optional): Folder to store benchmark results. Defaults to "results".
-        limit_images_amount (Optional[int], optional): Limits the number of images to be 
+        limit_images_amount (Optional[int], optional): Limits the number of images to be
                                                        benchmarked, if provided. Defaults to None.
         pass_model_as_string (bool, optional): Whether to pass the model as string instead of instances or object. Defaults to False.
 
@@ -47,13 +47,13 @@ def benchmark_infer(experiment_basename: str,
     for model_name in model_list:
         try:
             if pass_model_as_string:
-                infer_dataset_fn(model_name, 
+                infer_dataset_fn(model_name,
                                 experiment_name=experiment_basename,
                                 result_folder=result_folder,
                                 limit_images_amount=limit_images_amount)
             else:
                 model = infermodels.get_model(
-                    model_name=model_name, 
+                    model_name=model_name,
                     init_with_default_params=model_init_with_default_params)
                 infer_dataset_fn(model,
                                 experiment_name=experiment_basename,

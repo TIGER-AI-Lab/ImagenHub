@@ -61,26 +61,25 @@ from functools import partial
 def get_model(model_name: str = None, init_with_default_params: bool = True):
     """
     Retrieves a model class or instance by its name.
-    
+
     Args:
         model_name (str): Name of the model class. Triggers an error if the module name does not exist.
-        init_with_default_params (bool, optional): If True, returns an initialized model instance; otherwise, returns 
-            the model class. Default is True. If set to True, be cautious of potential OutOfMemoryError with insufficient CUDA memory.
+        init_with_default_params (bool, optional): If True, returns an initialized model instance; otherwise, returns
+            the model class. Default is True. If set to True, be cautious of potential ``OutOfMemoryError`` with insufficient CUDA memory.
 
     Returns:
-        model_class or model_instance: Depending on `init_with_default_params`, either the model class or an instance of the model.
+        model_class or model_instance: Depending on ``init_with_default_params``, either the model class or an instance of the model.
 
-    Examples:
-        ```python
+    Examples::
         initialized_model = infermodels.get_model(model_name='DiffEdit', init_with_default_params=True)
 
         uninitialized_model = infermodels.get_model(model_name='DiffEdit', init_with_default_params=False)
         initialized_model = uninitialized_model(device="cuda", weight="stabilityai/stable-diffusion-2-1")
-        ```
     """
+
     if not hasattr(sys.modules[__name__], model_name):
         raise ValueError(f"No model named {model_name} found in infermodels.")
-    
+
     model_class = getattr(sys.modules[__name__], model_name)
     if init_with_default_params:
         model_instance = model_class()

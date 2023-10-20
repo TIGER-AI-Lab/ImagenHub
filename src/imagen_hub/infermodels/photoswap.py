@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import StableDiffusionPipeline, DDIMScheduler
 
@@ -15,7 +15,7 @@ class PhotoSwap():
     def __init__(self, device="cuda", weight="CompVis/stable-diffusion-v1-4", src_subject_word=None, target_subject_word=None):
         """
         Initialize the PhotoSwap class.
-        
+
         Args:
             device (str, optional): The device to run the model on. Defaults to "cuda".
             weight (str, optional): Model weights to load. Defaults to "CompVis/stable-diffusion-v1-4".
@@ -37,11 +37,11 @@ class PhotoSwap():
         self.photoswap_pipe = PhotoswapPipeline(
             self.pipe, steps=50, guidance_scale=7.5, LOW_RESOURCE=False)
 
-    def infer_one_image(self, 
-                        src_image: Image, 
-                        src_prompt: str, 
-                        target_prompt: str, 
-                        replace_steps: list = [0.3, 0.3, 0], 
+    def infer_one_image(self,
+                        src_image: PIL.Image.Image,
+                        src_prompt: str,
+                        target_prompt: str,
+                        replace_steps: list = [0.3, 0.3, 0],
                         seed: int = 42):
         """
         Modify the source image based on provided prompts.

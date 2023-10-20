@@ -570,7 +570,7 @@ class SuperResUNetModel(UNetModel):
         x = th.cat([x, upsampled], dim=1)
         return super().forward(x, timesteps, **kwargs)
 
-    
+
 class InpaintUNetModel(UNetModel):
     """
     A UNetModel which can perform inpainting.

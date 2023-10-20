@@ -207,7 +207,7 @@ class BlendedDiffusionPipeline():
                  skip_timesteps: int = 25,
                  ) -> PIL.Image.Image:
 
-        """ Blended Diffusion edits one image only with a mask and prompt. 
+        """ Blended Diffusion edits one image only with a mask and prompt.
         Parameters:
             original_image: The original image to edit.
             mask_image: The mask to edit with.

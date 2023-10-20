@@ -13,8 +13,7 @@ def gather_outputs(result_folder_path: Union[str, os.PathLike], look_up_images: 
     Gathers the outputs of multiple models for building HTML visualization.
 
     Args:
-        result_folder_path (Union[str, os.PathLike]): Path to the root folder containing experiment results. The structure
-            of the folder is expected as mentioned in the function comment.
+        result_folder_path (Union[str, os.PathLike]): Path to the root folder containing experiment results. The structure of the folder is expected as mentioned in the function comment.
         look_up_images (List, optional): List of images to look up. If not provided, defaults to None.
         input_folder_name (Union[str, list], optional): Name of the input folder. Defaults to 'input'.
 
@@ -22,19 +21,22 @@ def gather_outputs(result_folder_path: Union[str, os.PathLike], look_up_images: 
         list: A list with 4 nested lists for each lookup image, which contains the images, texts, links and information.
 
     Note:
-        This function expects a specific structure for the result_folder_path. If the structure is not adhered to, 
-        unexpected behavior might occur.
-        Expected structure of result_folder:
-        result_root_folder
-        └── result_folder (your experiment result folder)
-            ├── input
-            │   └── image_1.jpg ... 
-            ├── model1
-            │   └── image_1.jpg ... 
-            ├── model2
-            │   └── image_1.jpg ...
-            ├── ...
+        This function expects a specific structure for the result_folder_path. If the structure is not adhered to, unexpected behavior might occur.
+        
     """
+    #   Sphinx says unexpected unindent
+    #
+    #    Expected Folder Structure:
+    #    result_root_folder
+    #    └── result_folder (your experiment result folder)
+    #        ├── input
+    #        │   └── image_1.jpg ...
+    #        ├── model1
+    #        │   └── image_1.jpg ...
+    #        ├── model2
+    #        │   └── image_1.jpg ...
+    #        ├── ...
+
     json_object = None
     try:
         with open(os.path.join(result_folder_path, 'dataset_lookup.json'), 'r') as openfile:

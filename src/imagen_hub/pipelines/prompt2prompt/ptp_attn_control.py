@@ -18,11 +18,11 @@ class LocalBlend:
         mask = mask.gt(self.th[1-int(use_pool)])
         mask = mask[:1] + mask
         return mask
-    
+
     def __call__(self, x_t, attention_store):
         self.counter += 1
         if self.counter > self.start_blend:
-           
+
             maps = attention_store["down_cross"][2:4] + attention_store["up_cross"][:3]
             maps = [item.reshape(self.alpha_layers.shape[0], -1, 1, 16, 16, self.max_num_words) for item in maps]
             maps = torch.cat(maps, dim=1)
@@ -43,7 +43,7 @@ class LocalBlend:
             for word in words_:
                 ind = get_word_inds(prompt, word, tokenizer)
                 alpha_layers[i, :, :, :, :, ind] = 1
-        
+
         if substruct_words is not None:
             substruct_layers = torch.zeros(len(prompts),  1, 1, 1, 1, self.max_num_words)
             for i, (prompt, words_) in enumerate(zip(prompts, substruct_words)):
@@ -57,32 +57,32 @@ class LocalBlend:
             self.substruct_layers = None
         self.alpha_layers = alpha_layers.to(device)
         self.start_blend = int(start_blend * num_steps)
-        self.counter = 0 
+        self.counter = 0
         self.th=th
 
 class EmptyControl:
-    
+
     def step_callback(self, x_t):
         return x_t
-    
+
     def between_steps(self):
         return
-    
+
     def __call__(self, attn, is_cross: bool, place_in_unet: str):
         return attn
 
 class AttentionControl(abc.ABC):
-    
+
     def step_callback(self, x_t):
         return x_t
-    
+
     def between_steps(self):
         return
-    
+
     @property
     def num_uncond_att_layers(self):
         return self.num_att_layers if self.low_resource else 0
-    
+
     @abc.abstractmethod
     def forward (self, attn, is_cross: bool, place_in_unet: str):
         raise NotImplementedError
@@ -100,7 +100,7 @@ class AttentionControl(abc.ABC):
             self.cur_step += 1
             self.between_steps()
         return attn
-    
+
     def reset(self):
         self.cur_step = 0
         self.cur_att_layer = 0
@@ -112,7 +112,7 @@ class AttentionControl(abc.ABC):
         self.low_resource = LOW_RESOURCE
 
 class SpatialReplace(EmptyControl):
-    
+
     def step_callback(self, x_t):
         if self.cur_step < self.stop_inject:
             b = x_t.shape[0]
@@ -122,7 +122,7 @@ class SpatialReplace(EmptyControl):
     def __init__(self, stop_inject: float, NUM_DDIM_STEPS):
         super(SpatialReplace, self).__init__()
         self.stop_inject = int((1 - stop_inject) * NUM_DDIM_STEPS)
-        
+
 
 class AttentionStore(AttentionControl):
 
@@ -161,25 +161,25 @@ class AttentionStore(AttentionControl):
         self.step_store = self.get_empty_store()
         self.attention_store = {}
 
-        
+
 class AttentionControlEdit(AttentionStore, abc.ABC):
-    
+
     def step_callback(self, x_t):
         if self.local_blend is not None:
             x_t = self.local_blend(x_t, self.attention_store)
         return x_t
-        
+
     def replace_self_attention(self, attn_base, att_replace, place_in_unet):
         if att_replace.shape[2] <= 32 ** 2:
             attn_base = attn_base.unsqueeze(0).expand(att_replace.shape[0], *attn_base.shape)
             return attn_base
         else:
             return att_replace
-    
+
     @abc.abstractmethod
     def replace_cross_attention(self, attn_base, att_replace):
         raise NotImplementedError
-    
+
     def forward(self, attn, is_cross: bool, place_in_unet: str):
         super(AttentionControlEdit, self).forward(attn, is_cross, place_in_unet)
         if is_cross or (self.num_self_replace[0] <= self.cur_step < self.num_self_replace[1]):
@@ -194,7 +194,7 @@ class AttentionControlEdit(AttentionStore, abc.ABC):
                 attn[1:] = self.replace_self_attention(attn_base, attn_repalce, place_in_unet)
             attn = attn.reshape(self.batch_size * h, *attn.shape[2:])
         return attn
-    
+
     def __init__(self, device, prompts, tokenizer, num_steps: int,
                  cross_replace_steps: Union[float, Tuple[float, float], Dict[str, Tuple[float, float]]],
                  self_replace_steps: Union[float, Tuple[float, float]],
@@ -211,12 +211,12 @@ class AttentionReplace(AttentionControlEdit):
 
     def replace_cross_attention(self, attn_base, att_replace):
         return torch.einsum('hpw,bwn->bhpn', attn_base, self.mapper)
-      
+
     def __init__(self, device, prompts, tokenizer, num_steps: int, cross_replace_steps: float, self_replace_steps: float,
                  local_blend: Optional[LocalBlend] = None):
         super(AttentionReplace, self).__init__(device, prompts, tokenizer, num_steps, cross_replace_steps, self_replace_steps, local_blend)
         self.mapper = get_replacement_mapper(prompts, tokenizer).to(device)
-        
+
 
 class AttentionRefine(AttentionControlEdit):
 
@@ -255,7 +255,7 @@ def get_equalizer(text: str, word_select: Union[int, Tuple[int, ...]], values: U
     if type(word_select) is int or type(word_select) is str:
         word_select = (word_select,)
     equalizer = torch.ones(1, 77)
-    
+
     for word, val in zip(word_select, values):
         inds = get_word_inds(text, word, tokenizer)
         equalizer[:, inds] = val

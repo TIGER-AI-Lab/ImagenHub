@@ -130,7 +130,7 @@ class TrainDataset(data.Dataset):
 
     def __len__(self):
         return max(self.sizes)
-    
+
 
 class MultiTrainDataset(data.Dataset):
     """
@@ -174,5 +174,5 @@ class MultiTrainDataset(data.Dataset):
             img1 = self.data1[1][index]
             instance_prompt = self.instance_prompts[1]
             img2 = self.data2[1][index]
-            class_prompt = self.class_prompts[1]            
+            class_prompt = self.class_prompts[1]
         return img1, instance_prompt, img2, class_prompt

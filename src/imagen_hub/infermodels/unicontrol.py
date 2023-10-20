@@ -1,6 +1,6 @@
 import torch
 import pytorch_lightning as pl
-from PIL import Image
+import PIL
 import numpy as np
 import einops
 from pytorch_lightning import seed_everything
@@ -19,13 +19,13 @@ class UniControl():
     """
     UniControl pipeline for controlling the image generation process with a specific task.
     """
-    def __init__(self, 
-                 device="cuda", 
-                 weight=None, 
+    def __init__(self,
+                 device="cuda",
+                 weight=None,
                  config=cldm_v15_unicontrol_yaml):
         """
         Initializes the UniControl instance.
-        
+
         Args:
             device (str, optional): Device to use for inference ("cuda" or "cpu"). Defaults to "cuda".
             weight (str, optional): Path to model weights. If None, will download from the default URL.
@@ -36,7 +36,7 @@ class UniControl():
             weight = download_weights_to_directory(url="https://storage.googleapis.com/sfr-unicontrol-data-research/unicontrol.ckpt",
                                                    save_dir=os.path.join("checkpoints", "ImagenHub_Control-Guided_IG", "UniControl"),
                                                    filename="unicontrol.ckpt")
-            
+
         self.checkpoint_path = weight
         # First use cpu to load models. Pytorch Lightning will automatically move it to GPUs.
         self.model = create_model(config).cpu()
@@ -49,16 +49,16 @@ class UniControl():
         self.task_to_instruction = {"control_hed": "hed edge to image", "control_canny": "canny edge to image", "control_seg": "segmentation map to image", "control_depth": "depth map to image", "control_normal": "normal surface map to image", "control_img": "image editing", "control_openpose": "human pose skeleton to image", "control_hedsketch": "sketch to image", "control_bbox": "bounding box to image", "control_outpainting": "image outpainting", "control_grayscale": "gray image to color image", "control_blur": "deblur image to clean image", "control_inpainting": "image inpainting"}
         self.model.to(device)
 
-    def infer_one_image(self, src_image: Image = None, prompt: str = None, task: str = "control_canny", seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, prompt: str = None, task: str = "control_canny", seed: int = 42):
         """
         Generates an image using the UniControl model based on a given source image, prompt, and task.
-        
+
         Args:
             src_image (PIL.Image, optional): Pre-processed source image for guidance. Defaults to None.
             prompt (str, optional): Textual prompt for additional guidance. Defaults to None.
             task (str, optional): The specific task for controlling the image generation process. Defaults to "control_canny".
             seed (int, optional): Random seed for reproducibility. Defaults to 42.
-            
+
         Returns:
             PIL.Image: The generated image.
         """

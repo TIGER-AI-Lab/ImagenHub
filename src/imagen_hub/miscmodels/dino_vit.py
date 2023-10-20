@@ -7,7 +7,7 @@ class VITs16():
         self.model = torch.hub.load('facebookresearch/dino:main', 'dino_vits16').to(device)
         self.model.eval()
         self.device = device
-        
+
     def get_transform(self):
         val_transform = transforms.Compose([
             transforms.Resize(256, interpolation=3),
@@ -31,7 +31,7 @@ class VITs16():
 
 if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    import requests    
+    import requests
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
     image = Image.open(requests.get(url, stream=True).raw).convert('RGB')
     image = image.resize((512, 512))

@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 import os
 from pathlib import Path
@@ -31,7 +31,7 @@ class DreamBooth():
             data_path (str or None, optional): Path containing data for fine-tuning. Should have a subfolder named "instance"
                 with target images or a list of images. Defaults to None.
             output_dir (str or None, optional): Path where model checkpoints will be saved. Defaults to None.
-            model_id (str, optional): ID corresponding to the original weights of the diffusion models. 
+            model_id (str, optional): ID corresponding to the original weights of the diffusion models.
                 Defaults to "CompVis/stable-diffusion-v1-4".
         """
         self.device = device
@@ -45,15 +45,15 @@ class DreamBooth():
                       identifier=self.identifier,
                       data_path=self.data_path,
                       output_dir=self.model_path)
-        
-    def set_pipe(self, 
+
+    def set_pipe(self,
                  subject_name=None,
                  identifier=None,
                  data_path=None,
                  output_dir=None):
         """
         Override the pipeline for DreamBooth.
-        
+
         Args:
             subject_name (str, optional): Name of the target subject for the model. Defaults to current subject name.
             identifier (str, optional): A unique identifier for the fine-tuning process of DreamBooth. Defaults to current identifier.
@@ -66,7 +66,7 @@ class DreamBooth():
         self.subject_name = subject_name if subject_name is not None else self.subject_name
         self.data_path = data_path if data_path is not None else self.data_path
         self.identifier = identifier if identifier is not None else self.identifier
-        
+
         self.pipe = DreamBoothPipeline(device=self.device,
                     subject_name=self.subject_name,
                     identifier=self.identifier,
@@ -85,12 +85,12 @@ class DreamBooth():
     def infer_one_image(self, model_path=None, instruct_prompt: str = None, seed: int = 42):
         """
         Inference method for DreamBooth for generating a single image.
-        
+
         Args:
             model_path (str, optional): Path to the model for inference. Defaults to current model path.
             instruct_prompt (str, optional): Instruction prompt for the inference. Defaults to None.
             seed (int, optional): Seed for randomness. Defaults to 42.
-        
+
         Returns:
             Image: Generated image.
         """
@@ -122,20 +122,20 @@ class DreamBoothLora():
                       identifier=self.identifier,
                       data_path=self.data_path,
                       output_dir=self.model_path)
-        
-    def set_pipe(self, 
+
+    def set_pipe(self,
                  subject_name=None,
                  identifier=None,
                  data_path=None,
                  output_dir=None):
-        
+
         #override identifier etc.
         self.model_path = output_dir if output_dir is not None else self.model_path
         self.subject_name = subject_name if subject_name is not None else self.subject_name
         self.data_path = data_path if data_path is not None else self.data_path
         self.identifier = identifier if identifier is not None else self.identifier
 
-        self.pipe = DreamBoothLoraPipeline(device=self.device, 
+        self.pipe = DreamBoothLoraPipeline(device=self.device,
                         subject_name=self.subject_name,
                         identifier=self.identifier,
                         data_path=self.data_path,
@@ -200,15 +200,15 @@ class DreamBoothMulti():
                       self.identifier,
                       self.data_path,
                       self.model_path)
-        
-    def set_pipe(self, 
+
+    def set_pipe(self,
                  subject_name=None,
                  identifier=None,
                  data_path=None,
                  output_dir=None):
         """
         Override the pipeline for DreamBooth.
-        
+
         Args:
             subject_name (str, optional): Name of the target subject for the model. Defaults to current subject name.
             identifier (str, optional): A unique identifier for the fine-tuning process of DreamBooth. Defaults to current identifier.
@@ -221,9 +221,9 @@ class DreamBoothMulti():
         self.subject_name = subject_name if subject_name is not None else self.subject_name
         self.data_path = data_path if data_path is not None else self.data_path
         self.identifier = identifier if identifier is not None else self.identifier
-        
-        self.pipe = DreamBoothPipelineMulti(device=self.device, 
-                                            subject_names=self.subject_name, 
+
+        self.pipe = DreamBoothPipelineMulti(device=self.device,
+                                            subject_names=self.subject_name,
                                             identifiers=self.identifier,
                                             data_path=self.data_path,
                                             num_epochs=3,
@@ -232,7 +232,7 @@ class DreamBoothMulti():
                                             output_dir=self.model_path,
                                             model_id=self.model_id,
                                             num_ref_images=100)
-        
+
     def train(self):
         """
         Not supported currently

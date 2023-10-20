@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 class BLIPDiffusion():
     """
@@ -46,11 +46,11 @@ class BLIPDiffusion_Gen(BLIPDiffusion):
         self.device = device
         self.pipe, self.vis_preprocess, self.txt_preprocess = self.get_pipe()
 
-    def infer_one_image(self, 
-                        cond_image: Image, 
-                        text_prompt: str, 
+    def infer_one_image(self,
+                        cond_image: PIL.Image.Image,
+                        text_prompt: str,
                         cond_subject_name: str,
-                        target_subject_name: str=None, 
+                        target_subject_name: str=None,
                         seed: int = 42):
         """
         Inference method for zero-shot image generation.
@@ -71,7 +71,7 @@ class BLIPDiffusion_Gen(BLIPDiffusion):
 
         if target_subject_name is None:
             target_subject_name = cond_subject_name
-        
+
         tgt_subjects = [self.txt_preprocess["eval"](target_subject_name)]
         text_prompt = [self.txt_preprocess["eval"](text_prompt)]
 
@@ -112,13 +112,13 @@ class BLIPDiffusion_Edit(BLIPDiffusion):
         self.device = device
         self.pipe, self.vis_preprocess, self.txt_preprocess = self.get_pipe()
 
-    def infer_one_image(self, 
-                        src_image: Image, 
-                        cond_image: Image, 
-                        text_prompt: str, 
+    def infer_one_image(self,
+                        src_image: PIL.Image.Image,
+                        cond_image: PIL.Image.Image,
+                        text_prompt: str,
                         src_subject_name: str,
                         cond_subject_name: str,
-                        target_subject_name: str = None, 
+                        target_subject_name: str = None,
                         seed: int = 42):
         """
         Inference method for editing images.
@@ -136,18 +136,18 @@ class BLIPDiffusion_Edit(BLIPDiffusion):
             PIL.Image.Image: Edited image.
         """
         src_image = src_image.convert('RGB') # force it to RGB format
-        
+
         cond_image = cond_image.convert('RGB') # force it to RGB format
         cond_images = self.vis_preprocess["eval"](cond_image).unsqueeze(0).to(self.device)
-        
+
         if target_subject_name is None:
             target_subject_name = cond_subject_name
-        
+
         src_subject = self.txt_preprocess["eval"](src_subject_name)
         tgt_subject = self.txt_preprocess["eval"](target_subject_name)
         cond_subject = self.txt_preprocess["eval"](cond_subject_name)
         text_prompt = [self.txt_preprocess["eval"](text_prompt)]
-        
+
         samples = {
             "cond_images": cond_images,
             "cond_subject": cond_subject,

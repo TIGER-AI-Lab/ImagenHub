@@ -1,1 +1,0 @@
-from .pipeline_cones2 import Cones2Pipeline

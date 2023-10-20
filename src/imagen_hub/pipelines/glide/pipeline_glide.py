@@ -43,7 +43,7 @@ def _preprocess_image(image: Union[List, PIL.Image.Image, torch.Tensor], image_s
         image = torch.from_numpy(image)
     elif isinstance(image[0], torch.Tensor):
         image = torch.cat(image, dim=0)
-        
+
     return image
 
 
@@ -77,7 +77,7 @@ def _preprocess_mask(mask: Union[List, PIL.Image.Image, torch.Tensor], image_siz
         # print("torch mask shape", mask.shape)
         # if unseq_flag:
         #     mask = mask.unsqueeze(0)
-    
+
     return mask
 
 
@@ -171,8 +171,8 @@ class GlidePipeline():
         half_eps = uncond_eps + self.guidance_scale * (cond_eps - uncond_eps)
         eps = torch.cat([half_eps, half_eps], dim=0)
         return torch.cat([eps, rest], dim=1)
-    
-    
+
+
     @torch.no_grad()
     def __call__(
         self,
@@ -187,8 +187,8 @@ class GlidePipeline():
         output_type: Optional[str] = "pil",
         # return_dict: bool = True,
     ) -> List[PIL.Image.Image]:
-        
-        
+
+
         batch_size = len(prompts)
 
         self.guidance_scale = guidance_scale
@@ -229,7 +229,7 @@ class GlidePipeline():
                 x_start * (1 - model_kwargs_base['inpaint_mask'])
                 + model_kwargs_base['inpaint_image'] * model_kwargs_base['inpaint_mask']
             )
-        
+
         # Sample from the base model.
         self.model.del_cache()
         samples = self.diffusion.p_sample_loop(
@@ -302,12 +302,12 @@ class GlidePipeline():
             denoised_fn=denoised_fn_upsample,
         )[:batch_size]
         self.model_up.del_cache()
-        
+
         scaled_up_samples = ((up_samples + 1)*127.5).round().clamp(0, 255).to(torch.uint8).cpu()
         # transform each image to PIL image
         scaled_up_samples = scaled_up_samples.permute(0, 2, 3, 1).numpy()
         reshaped_up_samples = scaled_up_samples.reshape(batch_size, self.options_up["image_size"], self.options_up["image_size"], 3)
-        
+
         up_images = [Image.fromarray(reshaped_up_samples[i]) for i in range(batch_size)]
         # up_images = Image.fromarray(reshaped_up_samples.numpy())
 

@@ -44,7 +44,7 @@ def load_replacement(x):
         return y
     except Exception:
         return x
-    
+
 def check_safety(x_image):
     safety_model_id = "CompVis/stable-diffusion-safety-checker"
     safety_feature_extractor = AutoFeatureExtractor.from_pretrained(safety_model_id)

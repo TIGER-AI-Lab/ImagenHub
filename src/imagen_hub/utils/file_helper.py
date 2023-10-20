@@ -17,11 +17,11 @@ def download_weights_to_directory(url: str, save_dir: str, filename: str) -> str
 
     Returns:
         str: The path to the saved weights file.
-    
+
     Raises:
         HTTPError: If there was an issue with the download request.
     """
-    
+
     # Ensure the directory exists
     os.makedirs(save_dir, exist_ok=True)
     save_path = os.path.join(save_dir, filename)

@@ -288,7 +288,7 @@ def pars():
     )
     opt = parser.parse_args()
     return opt
-    
+
 def main(prompt, delta_ckpt, ckpt):
     opt = pars()
     opt.prompt = prompt
@@ -310,7 +310,7 @@ def main(prompt, delta_ckpt, ckpt):
     else:
         if len(glob.glob(os.path.join(opt.ckpt.split('checkpoints')[0], "configs/*.yaml"))) > 0:
             opt.config = sorted(glob.glob(os.path.join(opt.ckpt.split('checkpoints')[0], "configs/*.yaml")))[-1]
-    
+
 
     seed_everything(opt.seed)
     config = OmegaConf.load(f"{opt.config}")

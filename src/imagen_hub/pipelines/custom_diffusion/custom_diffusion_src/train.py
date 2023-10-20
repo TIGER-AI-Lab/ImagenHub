@@ -256,7 +256,7 @@ def get_parser():
         type=str,
         default="",
         help="path to target images",
-    ) 
+    )
     parser.add_argument(
         "--datapath2",
         type=str,
@@ -298,13 +298,13 @@ def get_parser():
         type=int,
         default=0,
         help="repeat the target dataset by how many times. Used when training without regularization",
-    ) 
+    )
     parser.add_argument(
         "--batch_size",
         type=int,
         default=None,
         help="overwrite batch size",
-    )      
+    )
     return parser
 
 
@@ -626,7 +626,7 @@ class CUDACallback(Callback):
         except AttributeError:
             pass
 
-def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, caption, datapath, reg_datapath, reg_caption, 
+def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, caption, datapath, reg_datapath, reg_caption,
           caption2, datapath2, reg_datapath2, reg_caption2, modifier_token, batch_size=2):
     parser = get_parser()
     # now = 'save'
@@ -649,7 +649,7 @@ def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, captio
     opt.modifier_token = modifier_token
     opt.batch_size = batch_size
     opt.logdir = logdir
-    
+
     if opt.name and opt.resume:
         raise ValueError(
             "-n/--name and -r/--resume cannot be specified both."
@@ -729,10 +729,10 @@ def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, captio
         if opt.batch_size is not None:
             config.data.params.batch_size = opt.batch_size
         if opt.modifier_token is not None:
-            config.model.params.cond_stage_config.params.modifier_token = opt.modifier_token 
+            config.model.params.cond_stage_config.params.modifier_token = opt.modifier_token
         if opt.repeat > 0:
             config.data.params.train.params.repeat = opt.repeat
-        
+
         if opt.resume_from_checkpoint_custom:
             config.model.params.ckpt_path = None
         if opt.freeze_model is not None:
@@ -744,7 +744,7 @@ def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, captio
             token_weights = st["cond_stage_model.transformer.text_model.embeddings.token_embedding.weight"]
             del st["cond_stage_model.transformer.text_model.embeddings.token_embedding.weight"]
             model.load_state_dict(st, strict=False)
-            model.cond_stage_model.transformer.text_model.embeddings.token_embedding.weight.data[:token_weights.shape[0]] = token_weights 
+            model.cond_stage_model.transformer.text_model.embeddings.token_embedding.weight.data[:token_weights.shape[0]] = token_weights
         if opt.delta_ckpt is not None:
             st = torch.load(opt.delta_ckpt)
             embed = None
@@ -952,7 +952,7 @@ def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, captio
                 raise
         # if not opt.no_test and not trainer.interrupted:
         #     trainer.test(model, data)
-        
+
     except Exception:
         # opt.debug = True
         if opt.debug and trainer.global_rank == 0:
@@ -972,7 +972,7 @@ def train(now, name, gpus, config, logdir, resume_from_checkpoint_custom, captio
         if trainer.global_rank == 0:
             print(trainer.profiler.summary())
     return logdir
-    
+
 
 if __name__ == "__main__":
     # custom parser to specify config files, train, test and debug mode,
@@ -1106,10 +1106,10 @@ if __name__ == "__main__":
         if opt.batch_size is not None:
             config.data.params.batch_size = opt.batch_size
         if opt.modifier_token is not None:
-            config.model.params.cond_stage_config.params.modifier_token = opt.modifier_token 
+            config.model.params.cond_stage_config.params.modifier_token = opt.modifier_token
         if opt.repeat > 0:
             config.data.params.train.params.repeat = opt.repeat
-        
+
         if opt.resume_from_checkpoint_custom:
             config.model.params.ckpt_path = None
         if opt.freeze_model is not None:
@@ -1121,7 +1121,7 @@ if __name__ == "__main__":
             token_weights = st["cond_stage_model.transformer.text_model.embeddings.token_embedding.weight"]
             del st["cond_stage_model.transformer.text_model.embeddings.token_embedding.weight"]
             model.load_state_dict(st, strict=False)
-            model.cond_stage_model.transformer.text_model.embeddings.token_embedding.weight.data[:token_weights.shape[0]] = token_weights 
+            model.cond_stage_model.transformer.text_model.embeddings.token_embedding.weight.data[:token_weights.shape[0]] = token_weights
         if opt.delta_ckpt is not None:
             st = torch.load(opt.delta_ckpt)
             embed = None

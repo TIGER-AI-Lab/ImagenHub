@@ -1,12 +1,12 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import DDIMScheduler, DDIMInverseScheduler, StableDiffusionImg2ImgPipeline
 
 class SDEdit():
     """
     A wrapper class for StableDiffusionImg2ImgPipeline for image-to-image transformations based on prompts.
-    
+
     Reference: https://huggingface.co/docs/diffusers/v0.18.2/en/api/pipelines/stable_diffusion/img2img
     """
 
@@ -28,10 +28,10 @@ class SDEdit():
         self.pipe.enable_model_cpu_offload()
         # self.pipe.enable_vae_slicing()
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, strength=0.8, guidance_scale=7.5, seed=42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, strength=0.8, guidance_scale=7.5, seed=42):
         """
         Transform a given source image based on a target prompt with specified parameters.
-        
+
         Args:
             src_image (PIL.Image.Image, optional): The source image in RGB format. Default is None.
             src_prompt (str, optional): The prompt for the source image. Default is None.
@@ -40,7 +40,7 @@ class SDEdit():
             strength (float, optional): Indicates how much to transform the reference image. Must be between 0 and 1. Default is 0.8.
             guidance_scale (float, optional): Encourages image generation closely linked to the text prompt, usually at the expense of lower image quality. Default is 7.5.
             seed (int, optional): The seed for random generator. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: The transformed image.
         """

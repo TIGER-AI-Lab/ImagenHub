@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from transformers import BlipForConditionalGeneration, BlipProcessor
 from diffusers import DDIMScheduler, DDIMInverseScheduler, StableDiffusionPix2PixZeroPipeline
@@ -37,7 +37,7 @@ class Pix2PixZero():
         self.pipe.to(device)
         self.pix2pixzeropipe = Pix2PixZeroPipeline()
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed=42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed=42):
         """
         Modify the source image based on provided prompts.
 

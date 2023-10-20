@@ -24,7 +24,7 @@ from transformers import CLIPFeatureExtractor, CLIPTextModel, CLIPTokenizer
 
 import os
 
-#@title Setup the prompt templates for training 
+#@title Setup the prompt templates for training
 imagenet_templates_small = [
     "a photo of a {}",
     "a rendering of a {}",
@@ -162,7 +162,7 @@ class TextualInversionDataset(Dataset):
 
         example["pixel_values"] = torch.from_numpy(image).permute(2, 0, 1)
         return example
-    
+
 class TextualInversionPipelineMulti():
     def __init__(self, what_to_teach, placeholder_token, initializer_token, device='cuda'):
         self.what_to_teach = what_to_teach
@@ -195,7 +195,7 @@ class TextualInversionPipelineMulti():
             self.pretrained_model_name_or_path, subfolder="unet"
         ).to(device)
 
-        
+
 
         #@title Load the tokenizer and add the placeholder token as a additional special token.
         self.tokenizer = CLIPTokenizer.from_pretrained(
@@ -219,7 +219,7 @@ class TextualInversionPipelineMulti():
             set="train",
         )
         return torch.utils.data.DataLoader(train_dataset, batch_size=train_batch_size, shuffle=True)
-        
+
     def save_progress(self, text_encoder, placeholder_token_id, accelerator, save_path):
         # logger.info("Saving embeddings")
         # #@title Training function
@@ -277,7 +277,7 @@ class TextualInversionPipelineMulti():
         # Keep unet in train mode to enable gradient checkpointing
         unet.train()
 
-        
+
         # We need to recalculate our total training steps as the size of the training dataloader may have changed.
         num_update_steps_per_epoch = math.ceil(len(train_dataloader) / gradient_accumulation_steps)
         num_train_epochs = math.ceil(max_train_steps / num_update_steps_per_epoch)
@@ -369,7 +369,7 @@ class TextualInversionPipelineMulti():
         # save_path = os.path.join(output_dir, f"learned_embeds.bin")
         # self.save_progress(text_encoder, self.placeholder_token_id, accelerator, save_path)
         return pipeline
-    
+
     def inference(self, prompt, num_inference_steps):
         return self.pipe(prompt, num_inference_steps).images[0]
 

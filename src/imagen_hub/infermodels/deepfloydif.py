@@ -1,19 +1,19 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import DiffusionPipeline
 from diffusers.utils import pt_to_pil
 class DeepFloydIF():
     """
     DeepFloydIF for generating images based on a text prompt through a multi-stage diffusion process.
-    
+
     The generation process is divided into three stages:
     - Stage 1: Initial encoding and generation using the "DeepFloyd/IF-I-XL-v1.0" model.
     - Stage 2: Refinement using the "DeepFloyd/IF-II-L-v1.0" model.
     - Stage 3: Upscaling (currently not functioning) using the "stabilityai/stable-diffusion-x4-upscaler" model.
-    
+
     Each stage enables CPU offload for the model to manage memory usage effectively.
-    
+
     Attributes:
         device (str): The device on which the model runs, default is "cuda".
         stage_1, stage_2, stage_3: Pipelines for each stage of the diffusion process.
@@ -22,20 +22,20 @@ class DeepFloydIF():
     def __init__(self, device="cuda"):
         self.device = device
         # stage 1
-        self.stage_1 = DiffusionPipeline.from_pretrained("DeepFloyd/IF-I-XL-v1.0", 
-                                                         variant="fp16", 
+        self.stage_1 = DiffusionPipeline.from_pretrained("DeepFloyd/IF-I-XL-v1.0",
+                                                         variant="fp16",
                                                          torch_dtype=torch.float16)
         self.stage_1.enable_model_cpu_offload()
 
         # stage 2
         self.stage_2 = DiffusionPipeline.from_pretrained(
-            "DeepFloyd/IF-II-L-v1.0", 
-            text_encoder=None, 
-            variant="fp16", 
+            "DeepFloyd/IF-II-L-v1.0",
+            text_encoder=None,
+            variant="fp16",
             torch_dtype=torch.float16
         )
         self.stage_2.enable_model_cpu_offload()
-        
+
         # stage 3
         self.safety_modules = {
             "feature_extractor": self.stage_1.feature_extractor,
@@ -51,11 +51,11 @@ class DeepFloydIF():
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
         Infer an image based on the given prompt and seed.
-        
+
         Args:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: The inferred image.
         """
@@ -74,11 +74,9 @@ class DeepFloydIF():
         ).images
 
         # somehow isn't working
-        #image = self.stage_3(prompt=prompt, 
-        #                     image=image, 
-        #                     noise_level=100, 
+        #image = self.stage_3(prompt=prompt,
+        #                     image=image,
+        #                     noise_level=100,
         #                     generator=generator).images
-        
+
         return pt_to_pil(image)[0]
-
-

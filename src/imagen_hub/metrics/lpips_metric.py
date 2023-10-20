@@ -30,8 +30,8 @@ def get_lpips_vgg_model():
 
 
 def evaluate_lpips_score(real_image, generated_image, lpips_model, device):
-    generated_image = generated_image.resize((512,512)) 
-    real_image = real_image.resize((512,512)) 
+    generated_image = generated_image.resize((512,512))
+    real_image = real_image.resize((512,512))
 
     transform = transforms.Compose([
         transforms.ToTensor(),

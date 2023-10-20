@@ -781,7 +781,7 @@ class LatentDiffusion(DDPM):
         # batch['jpg'] -> [4, 512, 512, 3]
         # batch['txt'] -> list of 4
         # batch['hint'] -> [4, 512, 512, 3]
-        
+
         x = super().get_input(batch, k)
         if bs is not None:
             x = x[:bs]
@@ -932,7 +932,7 @@ class LatentDiffusion(DDPM):
         loss_dict.update({f'{prefix}/loss_vlb': loss_vlb})
         loss += (self.original_elbo_weight * loss_vlb)
         loss_dict.update({f'{prefix}/loss': loss})
-        
+
         return loss, loss_dict
 
     def p_mean_variance(self, x, c, t, clip_denoised: bool, return_codebook_ids=False, quantize_denoised=False,

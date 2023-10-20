@@ -1,5 +1,5 @@
 from imagen_hub.miscmodels import LangSAM, CLIP, VITs16
-from imagen_hub.miscmodels.sam.lang_sam import draw_image
+from imagen_hub.depend.lang_sam.lang_sam import draw_image
 from imagen_hub.utils.configs import get_SD_conf
 from imagen_hub.utils.save_image_helper import get_concat_pil_images, get_mask_pil_image, save_pil_image
 from imagen_hub.metrics.dreambooth_metric import evaluate_dino_score_list, evaluate_clipi_score_list
@@ -34,7 +34,7 @@ class DreamEditPipeline():
         self.special_token=None
         self.src_prompt=None
         self.dst_prompt=None
-        
+
     def set_default_config(self, type="replace"):
         """
         loading default config from dreamedit and override it afterwards
@@ -43,12 +43,12 @@ class DreamEditPipeline():
         if type == "add":
             # Edit: copied from experiments/add_dog8_config_01.yaml
             self.config = OmegaConf.create({'base_path': '${oc.env:HOME}', 'experiment_name': 'add_dog8', 'class_obj_name': 'dog', 'class_folder_name': 'dog8', 'benchmark_folder_name': 'dog', 'token_of_class': 'wie', 'ckpt_base_folder': 'dog82023-04-17T00-58-03_dog8_april/', 'dream_edit_prompt': 'a grey and white border collie dog', 'config_name': 'add_${class_folder_name}_config_01', 'experiment_result_path': '/home/data/dream_edit_project/results/${experiment_name}/${config_name}/', 'data': {'src_img_data_folder_path': '/home/data/dream_edit_project/benchmark/background_images_refine/', 'class_name': '${class_obj_name}', 'bbox_file_name': 'bbox.json', 'src_img_file_name': 'found0.jpg', 'db_dataset_path': '/home/data/dream_edit_project/benchmark/cvpr_dataset/', 'db_folder_name': '${class_folder_name}', 'obj_img_file_name': '00.jpg'}, 'model': {'gligen': {'gligen_scheduled_sampling_beta': 1, 'num_inference_steps': 100}, 'lang_sam': {'segment_confidence': 0.1}, 'sd': {'conf_path': 'configs/stable-diffusion/v1-inference.yaml', 'ckpt_prefix': '/home/data/dream_edit_project/model_weights/', 'ckpt': '${ckpt_base_folder}', 'ckpt_suffix': 'checkpoints/last.ckpt', 'ckpt_path': '${model.sd.ckpt_prefix}${model.sd.ckpt}${model.sd.ckpt_suffix}'}, 'de': {'task_type': 'add', 'special_token': '${token_of_class}', 'bounding_box': 'bbox.json', 'inpaint_after_last_iteration': False, 'postprocessing_type': 'sd_inpaint', 'use_diffedit': False, 'addition_config': {'use_copy_paste': False, 'inpaint_type': 'gligen', 'automate_prompt': False, 'inpaint_prompt': 'photo of ${dream_edit_prompt}', 'inpaint_phrase': '${dream_edit_prompt}'}, 'mask_config': {'mask_dilate_kernel': 20, 'mask_type': 'dilation', 'use_bbox_mask_for_first_iteration': True, 'use_bbox_mask_for_all_iterations': False}, 'ddim': {'seed': 42, 'scale': 5.5, 'ddim_steps': 40, 'noise_step': 0, 'iteration_number': 7, 'encode_ratio_schedule': {'decay_type': 'manual', 'start_ratio': 0.8, 'end_ratio': 0.3, 'manual_ratio_list': [0.5, 0.4, 0.4, 0.4, 0.3, 0.3, 0.3]}}, 'background_correction_enabled': True, 'background_correction': {'iteration_number': 7, 'use_latents_record': False, 'use_background_from_original_image': True, 'use_obj_mask_from_first_iteration': False}}}})
-        elif type == "replace": 
+        elif type == "replace":
             # Add: copied from experiments/replace_dog8_config_01.yaml
             self.config = OmegaConf.create({'base_path': '${oc.env:HOME}', 'experiment_name': 'replace_dog8', 'class_obj_name': 'dog', 'class_folder_name': 'dog8', 'benchmark_folder_name': 'dog', 'token_of_class': 'wie', 'ckpt_base_folder': 'dog82023-04-17T00-58-03_dog8_april/', 'dream_edit_prompt': 'a grey and white border collie dog', 'config_name': 'replace_${class_folder_name}_config_01', 'experiment_result_path': '/home/data/dream_edit_project/results/${experiment_name}/${config_name}/', 'data': {'src_img_data_folder_path': '/home/data/dream_edit_project/benchmark/ref_images/', 'class_name': '${class_obj_name}', 'bbox_file_name': 'bbox.json', 'src_img_file_name': 'found0.jpg', 'db_dataset_path': '/home/data/dream_edit_project/benchmark/cvpr_dataset/', 'db_folder_name': '${class_folder_name}', 'obj_img_file_name': '00.jpg'}, 'model': {'gligen': {'gligen_scheduled_sampling_beta': 1, 'num_inference_steps': 100}, 'lang_sam': {'segment_confidence': 0.1}, 'sd': {'conf_path': 'configs/stable-diffusion/v1-inference.yaml', 'ckpt_prefix': '/home/data/dream_edit_project/model_weights/', 'ckpt': '${ckpt_base_folder}', 'ckpt_suffix': 'checkpoints/last.ckpt', 'ckpt_path': '${model.sd.ckpt_prefix}${model.sd.ckpt}${model.sd.ckpt_suffix}'}, 'de': {'task_type': 'replace', 'special_token': '${token_of_class}', 'bounding_box': 'bbox.json', 'inpaint_after_last_iteration': False, 'postprocessing_type': 'sd_inpaint', 'use_diffedit': False, 'addition_config': {'use_copy_paste': False, 'inpaint_type': 'gligen', 'automate_prompt': False, 'inpaint_prompt': 'photo of ${dream_edit_prompt}', 'inpaint_phrase': '${dream_edit_prompt}'}, 'mask_config': {'mask_dilate_kernel': 20, 'mask_type': 'dilation', 'use_bbox_mask_for_first_iteration': False, 'use_bbox_mask_for_all_iterations': False}, 'ddim': {'seed': 42, 'scale': 5.5, 'ddim_steps': 40, 'noise_step': 0, 'iteration_number': 5, 'encode_ratio_schedule': {'decay_type': 'linear', 'start_ratio': 0.6, 'end_ratio': 0.3, 'manual_ratio_list': [0.5, 0.4, 0.4, 0.4, 0.3]}}, 'background_correction_enabled': True, 'background_correction': {'iteration_number': 3, 'use_latents_record': False, 'use_background_from_original_image': True, 'use_obj_mask_from_first_iteration': True}}}})
         else:
             raise NotImplementedError
-    
+
     def set_seed(self, seed):
         """
         override seed value in config.
@@ -58,7 +58,7 @@ class DreamEditPipeline():
             ddim_config.seed = seed
         else:
             raise AttributeError("Use `set_default_config()` to init the config first")
-        
+
     def set_sd_model(self, ckpt_path):
         sd_ckpt_path = ckpt_path
         sd_conf = get_SD_conf()
@@ -80,7 +80,7 @@ class DreamEditPipeline():
         if not dino_only:
             clip_model = CLIP(self.device)
             self.clip_model = clip_model
-            
+
     def set_subject(self, class_name, special_token):
         """
         class_name : str the object class
@@ -106,7 +106,7 @@ class DreamEditPipeline():
             self.dst_prompt = "photo of a " + self.special_token + " " + self.class_name
         else:
             raise AttributeError("self.class_name and self.special_token should not be none")
-        
+
     def get_default_prompts(self):
         if self.class_name is not None and self.special_token is not None:
             src_prompt = "photo of a " + self.class_name
@@ -114,7 +114,7 @@ class DreamEditPipeline():
             return src_prompt, dst_prompt
         else:
             raise AttributeError("self.class_name and self.special_token should not be none")
-        
+
     def infer(
             self,
             src_image,
@@ -139,7 +139,7 @@ class DreamEditPipeline():
             dino_score_list_average = [round((dino_score_list_subject[x] + dino_score_list_background[x])/2, 3) for x in
                                     range(len(dino_score_list_subject))]
             max_dino_avg = max(dino_score_list_average)
-            
+
             max_index_dino_avg = dino_score_list_average.index(max_dino_avg)
             final_result = generated_image_list[max_index_dino_avg]
             return final_result
@@ -171,7 +171,7 @@ class DreamEditPipeline():
             src_image,
             labeled_box=None,
     ):
-        
+
         src_image = src_image.resize((512, 512))
         img_to_edit = src_image
 

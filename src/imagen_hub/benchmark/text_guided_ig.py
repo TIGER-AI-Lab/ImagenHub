@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 def infer_text_guided_ig_bench(model,
                     result_folder: str = 'results',
-                    experiment_name: str = "Exp_Text-Guided_IG", 
+                    experiment_name: str = "Exp_Text-Guided_IG",
                     overwrite_model_outputs: bool = False,
                     overwrite_inputs: bool = False,
                     limit_images_amount: Optional[int] = None):
@@ -16,25 +16,25 @@ def infer_text_guided_ig_bench(model,
     Performs inference on the ImagenHub dataset using the provided text-guided image generation model.
 
     Args:
-        model: Instance of a model that supports text-guided image generation. Expected to have 
+        model: Instance of a model that supports text-guided image generation. Expected to have
                a method 'infer_one_image' for inferencing.
-        result_folder (str, optional): Path to the root directory where the results should be saved. 
+        result_folder (str, optional): Path to the root directory where the results should be saved.
                Defaults to 'results'.
-        experiment_name (str, optional): Name of the folder inside 'result_folder' where results 
+        experiment_name (str, optional): Name of the folder inside 'result_folder' where results
                for this particular experiment will be stored. Defaults to "Exp_Text-Guided_IG".
-        overwrite_model_outputs (bool, optional): If set to True, will overwrite any pre-existing 
+        overwrite_model_outputs (bool, optional): If set to True, will overwrite any pre-existing
                model outputs. Useful for resuming runs. Defaults to False.
-        overwrite_inputs (bool, optional): If set to True, will overwrite any pre-existing input 
-               samples. Typically, should be set to False unless there's a need to update the inputs. 
+        overwrite_inputs (bool, optional): If set to True, will overwrite any pre-existing input
+               samples. Typically, should be set to False unless there's a need to update the inputs.
                Defaults to False.
-        limit_images_amount (int, optional): Limits the number of images to be processed. If set to 
-               None, all images in the dataset will be processed. 
+        limit_images_amount (int, optional): Limits the number of images to be processed. If set to
+               None, all images in the dataset will be processed.
 
     Returns:
         None. Results are saved in the specified directory.
 
     Notes:
-        The function processes each sample from the dataset, uses the model to infer an image based 
+        The function processes each sample from the dataset, uses the model to infer an image based
         on text prompts, and then saves the resulting images in the specified directories.
     """
     dataset, dataset_name = load_text_guided_ig_dataset(with_name_att=True)

@@ -1,12 +1,12 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
 
 class InstructPix2Pix():
     """
     A wrapper around the StableDiffusionInstructPix2PixPipeline for guided image transformation.
-    
+
     This class uses the Pix2Pix pipeline to transform an image based on an instruction prompt.
     Reference: https://huggingface.co/docs/diffusers/api/pipelines/pix2pix
     """
@@ -27,7 +27,7 @@ class InstructPix2Pix():
         self.pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
             self.pipe.scheduler.config)
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
         """
         Modifies the source image based on the provided instruction prompt.
 
@@ -35,7 +35,7 @@ class InstructPix2Pix():
             src_image (PIL.Image.Image): Source image in RGB format.
             instruct_prompt (str): Caption for editing the image.
             seed (int, optional): Seed for random generator. Defaults to 42.
-        
+
         Returns:
             PIL.Image.Image: The transformed image.
         """
@@ -61,6 +61,6 @@ class MagicBrush(InstructPix2Pix):
             weight (str, optional): The pretrained model weights for MagicBrush. Default is "vinesmsuic/magicbrush-jul7".
         """
         super().__init__(device=device, weight=weight)
-    
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
+
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
         return super().infer_one_image(src_image, src_prompt, target_prompt, instruct_prompt, seed)

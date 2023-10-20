@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from imagen_hub.utils.image_helper import rgba_to_01_mask
 
@@ -29,11 +29,11 @@ class SDXL():
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
         Infer an image based on the given prompt and seed.
-        
+
         Args:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
-            
+
         Returns:
             PIL.Image.Image: The inferred image.
         """
@@ -65,16 +65,16 @@ class SDXLInpaint():
             torch_dtype=torch.float16,
         ).to(device)
 
-    def infer_one_image(self, src_image: Image = None, local_mask_prompt: str = None, mask_image: Image = None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, local_mask_prompt: str = None, mask_image: PIL.Image.Image = None, seed: int = 42):
         """
         Inpaints an image based on the given source image, local mask prompt, mask image, and seed.
-        
+
         Args:
             src_image (PIL.Image.Image, optional): The source image in RGB format. Default is None.
             local_mask_prompt (str, optional): The caption for target image. Default is None.
             mask_image (PIL.Image.Image, optional): The mask image for inpainting. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
-        
+
         Returns:
             PIL.Image.Image: The inpainted image.
         """

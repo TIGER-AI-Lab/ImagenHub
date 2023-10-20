@@ -6,11 +6,11 @@ import os
 from PIL import Image
 from tqdm import tqdm
 
-def infer_mask_guided_ie_bench(model, 
-                        result_folder: str = 'results', 
-                        experiment_name: str = "Exp_Mask-Guided_IE", 
-                        overwrite_model_outputs: bool = False, 
-                        overwrite_inputs: bool = False, 
+def infer_mask_guided_ie_bench(model,
+                        result_folder: str = 'results',
+                        experiment_name: str = "Exp_Mask-Guided_IE",
+                        overwrite_model_outputs: bool = False,
+                        overwrite_inputs: bool = False,
                         limit_images_amount: Optional[int] = None):
     """
     Performs inference on the ImagenHub dataset using a Mask-Guided Image Editing model.
@@ -20,20 +20,20 @@ def infer_mask_guided_ie_bench(model,
                Expected to have a method 'infer_one_image' for inferencing.
         result_folder (str, optional): Root directory where the results will be saved.
                Defaults to 'results'.
-        experiment_name (str, optional): Name of the sub-directory inside 'result_folder' 
+        experiment_name (str, optional): Name of the sub-directory inside 'result_folder'
                where the results for this particular experiment will be saved. Defaults to "Exp_Mask-Guided_IE".
-        overwrite_model_outputs (bool, optional): If True, pre-existing model outputs will 
+        overwrite_model_outputs (bool, optional): If True, pre-existing model outputs will
                be overwritten. Useful for resuming interrupted runs. Defaults to False.
-        overwrite_inputs (bool, optional): If True, will overwrite any pre-existing input 
+        overwrite_inputs (bool, optional): If True, will overwrite any pre-existing input
                samples. Typically set to False unless there's a reason to update the inputs. Defaults to False.
-        limit_images_amount (int, optional): Specifies the maximum number of images to process 
+        limit_images_amount (int, optional): Specifies the maximum number of images to process
                from the dataset. If None, all images will be processed.
 
     Returns:
         None. The results, including input images, masks, and model outputs, are saved in the designated directory.
 
     Notes:
-        The function reads samples from the dataset, uses the provided model to infer image edits 
+        The function reads samples from the dataset, uses the provided model to infer image edits
         based on input images, masks, and captions, and then saves the results in the designated directories.
     """
     dataset, dataset_name = load_mask_guided_ie_dataset(with_name_att=True)
@@ -44,7 +44,7 @@ def infer_mask_guided_ie_bench(model,
         imd_id = sample['img_id']
         turn_index = sample['turn_index']
         return f"sample_{imd_id}_{turn_index}.jpg"
-    
+
     # Saving dataset info to a json file if first time or overwrite_inputs=True
     if overwrite_inputs or not os.path.exists(os.path.join(result_folder, experiment_name, 'dataset_lookup.json')):
         dump_dataset_info(data,
@@ -65,7 +65,7 @@ def infer_mask_guided_ie_bench(model,
             print("========> Inferencing", dest_file)
             sample_input = sample['source_img'].resize(
                 (512, 512), Image.LANCZOS)
-            
+
             sample_mask = sample['mask_img'].resize((512, 512), Image.LANCZOS)
             tgt_caption = sample['target_local_caption']
             output = model.infer_one_image(src_image=sample_input,
@@ -73,7 +73,7 @@ def infer_mask_guided_ie_bench(model,
                                             local_mask_prompt=tgt_caption)
             save_pil_image(rgba_to_01_mask(sample_mask, return_type="PIL"), os.path.join(
                 result_folder, experiment_name, "mask"), file_basename, overwrite=overwrite_inputs)
-                    
+
             output = output.resize((512, 512), Image.LANCZOS)
             save_pil_image(sample_input, os.path.join(
                 result_folder, experiment_name, "input"), file_basename, overwrite=overwrite_inputs)
@@ -83,4 +83,3 @@ def infer_mask_guided_ie_bench(model,
         index += 1
         if limit_images_amount is not None and (index >= limit_images_amount):
             break
-

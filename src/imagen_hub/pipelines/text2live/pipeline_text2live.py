@@ -78,7 +78,7 @@ class Text2LivePipeline():
                  epoch: int = 50,
                  ) -> Dict[str, PIL.Image.Image]:
 
-        """ Text2Live edits one image only with several prompts. 
+        """ Text2Live edits one image only with several prompts.
         Parameters:
             original_image: The original image to be edited. RGB format.
             screen_text: The text describing the edit layer.

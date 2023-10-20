@@ -1,15 +1,15 @@
 from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
 import torch
-from PIL import Image
+import PIL
 from diffusers import UniPCMultistepScheduler
 
 
 
 class ControlNet():
     """
-    ControlNet class for image processing. 
+    ControlNet class for image processing.
     Provides an interface for different tasks like control canny, control depth, and more.
-    
+
     By default, uses the weights provided by `lllyasviel` from Huggingface model hub.
     More details available at:
     - https://huggingface.co/lllyasviel/ControlNet/tree/main/models
@@ -52,7 +52,7 @@ class ControlNet():
             self.pipe_dict[task] = self.pipe
 
 
-    def infer_one_image(self, src_image: Image = None, prompt: str = None, task: str = "control_canny", seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, prompt: str = None, task: str = "control_canny", seed: int = 42):
         """
         Inference method for ControlNet tasks.
 

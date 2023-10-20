@@ -167,7 +167,7 @@ def highlight_masked_region(image_gen: Image.Image, mask: np.ndarray, dark_facto
     Returns:
         Image.Image: Image with the masked region highlighted.
     """
-    
+
     image_gen = np.array(image_gen, dtype=np.float32)  # Convert to float32
     highlighted_image = image_gen.copy()
     if reverse:

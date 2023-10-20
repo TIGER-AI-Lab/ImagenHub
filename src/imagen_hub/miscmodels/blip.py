@@ -5,9 +5,9 @@ from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 
 class BLIP_Model():
-    
+
     def __init__(self, device="cuda", weight = "Salesforce/blip-image-captioning-base"):
-        
+
         self.processor = BlipProcessor.from_pretrained(weight)
         self.model = BlipForConditionalGeneration.from_pretrained(weight)
         self.device = device
@@ -20,11 +20,11 @@ class BLIP_Model():
         return generated_text
 
 if __name__ == "__main__":
-    
+
     import requests
-    
+
     BLIP_Model = BLIP_Model()
-    
+
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
     image = Image.open(requests.get(url, stream=True).raw)
     generated_text = BLIP_Model.predict_one_image(image)

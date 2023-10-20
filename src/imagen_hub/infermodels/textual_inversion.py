@@ -9,29 +9,29 @@ class TextualInversion():
     """
     A class to handle textual inversion tasks, training, and image generation.
     """
-    def __init__(self, 
+    def __init__(self,
                  device="cuda",
-                 what_to_teach='object', 
-                 placeholder_token='sks', 
+                 what_to_teach='object',
+                 placeholder_token='sks',
                  initializer_token='dog',
-                 output_dir=None, 
+                 output_dir=None,
                  ):
         self.device = device
         self.what_to_teach = what_to_teach
         self.placeholder_token = placeholder_token
         self.initializer_token = initializer_token
         self.output_dir = output_dir
-        
+
         self.set_pipe(what_to_teach, placeholder_token, initializer_token, output_dir)
 
-    def set_pipe(self, 
-                 what_to_teach=None, 
-                 placeholder_token=None, 
-                 initializer_token=None, 
+    def set_pipe(self,
+                 what_to_teach=None,
+                 placeholder_token=None,
+                 initializer_token=None,
                  output_dir=None):
         """
         Override the pipeline for TextualInversion.
-        
+
         Args:
             what_to_teach (str, optional): Information about what the model should be trained on. Defaults to current value.
             placeholder_token (str, optional): Placeholder token for textual inversion. Defaults to current value.
@@ -43,11 +43,11 @@ class TextualInversion():
         self.placeholder_token = placeholder_token if placeholder_token is not None else self.placeholder_token
         self.initializer_token = initializer_token if initializer_token is not None else self.initializer_token
         self.output_dir = output_dir if output_dir is not None else self.output_dir
-        
+
         # Initialize the pipeline
-        self.pipe = TextualInversionPipeline(self.what_to_teach, 
-                                             self.placeholder_token, 
-                                             self.initializer_token, 
+        self.pipe = TextualInversionPipeline(self.what_to_teach,
+                                             self.placeholder_token,
+                                             self.initializer_token,
                                              self.output_dir)
 
     def train(self, image_path):
@@ -57,12 +57,12 @@ class TextualInversion():
     def infer_one_image(self, prompt, output_dir, seed=42):
         """
         Inference method for TextualInversion for generating a single image based on a textual prompt.
-        
+
         Args:
             prompt (str): Textual prompt for the inference.
             output_dir (str): Directory where the pre-trained models and configurations are saved.
             seed (int, optional): Seed for randomness. Defaults to 42.
-        
+
         Returns:
             Image: Generated image.
         """
@@ -76,24 +76,24 @@ class TextualInversion():
         ).to(self.device)
 
         num_samples = 1
-        image = pipe([prompt] * num_samples, 
-                    num_inference_steps=30, 
+        image = pipe([prompt] * num_samples,
+                    num_inference_steps=30,
                     guidance_scale=7.5,
                     generator=generator).images[0]
         return image
-    
+
 class TextualInversionMulti():
     """
     TODO Refractor this.
     """
-    def __init__(self, 
+    def __init__(self,
                  device="cuda",
                  weight="runwayml/stable-diffusion-v1-5",
                  ):
         self.device = device
         self.pipe = StableDiffusionPipeline.from_pretrained(weight, torch_dtype=torch.float16, use_safetensors=True).to(self.device)
 
-    def set_pipe(self, 
+    def set_pipe(self,
                  paths):
         """
         Load Textual Inversion.
@@ -103,16 +103,16 @@ class TextualInversionMulti():
     def infer_one_image(self, prompt, seed=42):
         """
         Inference method for TextualInversion for generating a single image based on a textual prompt.
-        
+
         Args:
             prompt (str): Textual prompt for the inference.
             seed (int, optional): Seed for randomness. Defaults to 42.
-        
+
         Returns:
             Image: Generated image.
         """
         generator = torch.manual_seed(seed)
-        image = self.pipe(prompt, 
-                        num_inference_steps=50, 
+        image = self.pipe(prompt,
+                        num_inference_steps=50,
                         generator=generator).images[0]
         return image

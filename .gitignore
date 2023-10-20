@@ -10,7 +10,7 @@ eval/metric_eval_results/models/
 
 # Logging
 *.out
-
+*.bak
 
 # OS generated files #
 ######################

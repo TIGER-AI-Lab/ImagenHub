@@ -11,7 +11,7 @@ import os
 from annotator.uniformer.mmdet.apis import init_detector, inference_detector, show_result_pyplot
 from annotator.uniformer.mmdet.core.evaluation import get_palette
 from annotator.util import annotator_ckpts_path
-    
+
 # checkpoint_file = "https://huggingface.co/lllyasviel/ControlNet/resolve/main/annotator/ckpts/upernet_global_small.pth"
 
 

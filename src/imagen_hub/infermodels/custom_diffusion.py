@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 import requests
 import os
 import datetime
@@ -10,20 +10,20 @@ class CustomDiffusion():
     """
     Custom Diffusion pipeline for training and inference.
     """
-    def __init__(self, 
-                 concept1, 
-                 concept2, 
-                 image_data_concept1, 
-                 image_data_concept2, 
-                 config=None, 
-                 model_folder='', 
+    def __init__(self,
+                 concept1,
+                 concept2,
+                 image_data_concept1,
+                 image_data_concept2,
+                 config=None,
+                 model_folder='',
                  pretrained_ckpt=None,
-                 gpus='0,1,2,3,', 
-                 batch_size=2, 
+                 gpus='0,1,2,3,',
+                 batch_size=2,
                  device="cuda"):
         """
         Initializes the CustomDiffusion instance.
-        
+
         Args:
             concept1 (str): First concept for training.
             concept2 (str): Second concept for training.
@@ -61,15 +61,15 @@ class CustomDiffusion():
         self.batch_size = batch_size
         self.device = device
 
-    def set_pipe(self, 
-                 concept1, 
-                 concept2, 
-                 image_data_concept1, 
-                 image_data_concept2, 
+    def set_pipe(self,
+                 concept1,
+                 concept2,
+                 image_data_concept1,
+                 image_data_concept2,
                  model_folder=''):
         """
         Set values to be used in the training pipeline.
-        
+
         Args:
             concept1 (str): First concept for training.
             concept2 (str): Second concept for training.
@@ -83,28 +83,28 @@ class CustomDiffusion():
         self.image_data_concept1 = image_data_concept1
         self.image_data_concept2 = image_data_concept2
         self.model_folder = model_folder
-    
+
     def train(self):
         """
         Trains the model based on the set pipeline.
         """
-        self.pipe = CustomDiffusionPipeline(self.now, self.concept1, self.concept2, self.image_data_concept1, self.image_data_concept2, self.config, 
+        self.pipe = CustomDiffusionPipeline(self.now, self.concept1, self.concept2, self.image_data_concept1, self.image_data_concept2, self.config,
                                             self.model_folder, self.pretrained_ckpt, self.gpus, self.batch_size, self.device)
         self.pipe.train()
-    
+
     def infer_one_image(self, instruct_prompt, delta_ckpt=None, pretrained_ckpt=None):
         """
         Infer a single image based on a given prompt.
-        
+
         Args:
             instruct_prompt (str): Instruction prompt for image generation.
             delta_ckpt (str, optional): Checkpoint for the delta model.
             pretrained_ckpt (str, optional): Checkpoint for the pretrained model.
-            
+
         Returns:
             PIL.Image: Generated image.
         """
-        self.pipe = CustomDiffusionPipeline(self.now, self.concept1, self.concept2, self.image_data_concept1, self.image_data_concept2, self.config, 
+        self.pipe = CustomDiffusionPipeline(self.now, self.concept1, self.concept2, self.image_data_concept1, self.image_data_concept2, self.config,
                         self.model_folder, self.pretrained_ckpt, self.gpus, self.batch_size, self.device)
         if not delta_ckpt:
             delta_ckpt = self.pipe.delta_ckpt
@@ -112,18 +112,18 @@ class CustomDiffusion():
             pretrained_ckpt = self.pipe.pretrained_ckpt
         images = self.pipe.sample(instruct_prompt, delta_ckpt, pretrained_ckpt)
         return images[0]
-    
-    
+
+
 if __name__ == "__main__":
     # example
     data_dir = '/shared/xingyu/projects/custom-diffusion/data'
     model_folder = 'temp_logs'
-    custom_diffusion = CustomDiffusion('cat', 'car', f'{data_dir}/cat', f'{data_dir}/car', 
-                                       model_folder=model_folder, 
+    custom_diffusion = CustomDiffusion('cat', 'car', f'{data_dir}/cat', f'{data_dir}/car',
+                                       model_folder=model_folder,
                                        pretrained_ckpt='/shared/xingyu/projects/cross-domain-compositing/models/ldm/stable-diffusion-v1/sd-v1-4.ckpt',
                                     gpus='0,1,2,3,')
     custom_diffusion.train()
 
-    # image = custom_diffusion.infer_one_image("<new1> cat sitting on a <new2> car", '/shared/xingyu/projects/DreamAquarium/temp/custom-diffusion-trained-models/_cat+car-sdv4/checkpoints/delta_epoch=000004.ckpt', 
+    # image = custom_diffusion.infer_one_image("<new1> cat sitting on a <new2> car", '/shared/xingyu/projects/DreamAquarium/temp/custom-diffusion-trained-models/_cat+car-sdv4/checkpoints/delta_epoch=000004.ckpt',
     #                                          '/shared/xingyu/projects/cross-domain-compositing/models/ldm/stable-diffusion-v1/sd-v1-4.ckpt')
     # image.save("<new1> cat sitting on a <new2> car.jpg")

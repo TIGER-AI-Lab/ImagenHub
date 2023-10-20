@@ -39,8 +39,8 @@ def modulated_conv2d(
     demodulate  = False, # Apply weight demodulation?
     padding     = 0,    # Padding: int or [padH, padW]
     input_gain  = None, # Optional scale factors for the input channels: [], [in_channels], or [batch_size, in_channels]
-    bias=None, 
-    stride=1, 
+    bias=None,
+    stride=1,
     dilation=1
 ):
     """
@@ -56,14 +56,14 @@ def modulated_conv2d(
     # Execute as one fused op using grouped convolution.
     x = x.reshape(1, -1, *x.shape[2:])
     w = w.reshape(-1, in_channels, kh, kw)
-    
+
     x = torch.nn.functional.conv2d(input=x, weight=w.to(x.dtype), bias=bias, stride=stride, padding=padding, dilation=dilation, groups=batch_size)
     x = x.reshape(batch_size, -1, *x.shape[2:])
-    
+
     return x
 
 
-    
+
 class ControlledUnetModel(UNetModel):
     def forward(self, x, timesteps=None, context=None, control=None, only_mid_control=False, **kwargs):
         hs = []
@@ -140,11 +140,11 @@ class ControlNet(nn.Module):
 
         if num_head_channels == -1:
             assert num_heads != -1, 'Either num_heads or num_head_channels has to be set'
-        
+
         self.all_tasks_num = all_tasks_num
         self.tasks_to_id = {"control_hed":0, "control_canny":1, "control_seg":2, "control_depth":3, "control_normal":4,"control_openpose":5, "control_img":6, "control_hedsketch":7, "control_bbox":8, "control_outpainting":9,  "control_grayscale":10,  "control_blur":11, "control_inpainting":12}
-        
-        
+
+
         self.dims = dims
         self.image_size = image_size
         self.in_channels = in_channels
@@ -184,7 +184,7 @@ class ControlNet(nn.Module):
             nn.SiLU(),
             linear(time_embed_dim, time_embed_dim),
         )
-        
+
         self.task_id_hypernet = nn.Sequential(
             linear(768, time_embed_dim), # model_channels or 768
             nn.SiLU(),
@@ -192,7 +192,7 @@ class ControlNet(nn.Module):
             nn.SiLU(),
         )
         self.task_id_layernet = []
-        
+
 
         self.input_blocks = nn.ModuleList(
             [
@@ -203,8 +203,8 @@ class ControlNet(nn.Module):
         )
         self.task_id_layernet.append(linear(time_embed_dim, model_channels))
         self.zero_convs = nn.ModuleList([self.make_zero_conv(model_channels)]) # ie, model_channels -> 320
-        
-        
+
+
         self.input_hint_block_list_moe = nn.ModuleList([TimestepEmbedSequential(
             conv_nd(dims, hint_channels, 16, 3, padding=1),
             nn.SiLU(),
@@ -213,7 +213,7 @@ class ControlNet(nn.Module):
             conv_nd(dims, 16, 32, 3, padding=1, stride=2),
             nn.SiLU()
         ) for _ in range( self.all_tasks_num)])
-        
+
         self.input_hint_block_zeroconv_0 = nn.ModuleList([zero_module(conv_nd(dims, 32, 32, 3, padding=1)),zero_module(conv_nd(dims, 32, 32, 3, padding=1))])
         self.task_id_layernet_zeroconv_0 = linear(time_embed_dim, 32)
         self.input_hint_block_share = TimestepEmbedSequential(
@@ -225,11 +225,11 @@ class ControlNet(nn.Module):
             nn.SiLU(),
             conv_nd(dims, 96, 256, 3, padding=1, stride=2),
             nn.SiLU(),
-        ) 
-        
-        self.input_hint_block_zeroconv_1 = nn.ModuleList([zero_module(conv_nd(dims, 256, model_channels, 3, padding=1)),zero_module(conv_nd(dims, 256, model_channels, 3, padding=1)) ])    
+        )
+
+        self.input_hint_block_zeroconv_1 = nn.ModuleList([zero_module(conv_nd(dims, 256, model_channels, 3, padding=1)),zero_module(conv_nd(dims, 256, model_channels, 3, padding=1)) ])
         self.task_id_layernet_zeroconv_1 = linear(time_embed_dim, 256)
-        
+
         self._feature_size = model_channels
         input_block_chans = [model_channels]
         ch = model_channels
@@ -277,10 +277,10 @@ class ControlNet(nn.Module):
                             )
                         )
                 self.input_blocks.append(TimestepEmbedSequential(*layers))
-                
+
                 self.task_id_layernet.append(linear(time_embed_dim, ch))
                 self.zero_convs.append(self.make_zero_conv(ch))
-                
+
                 self._feature_size += ch
                 input_block_chans.append(ch)
             if level != len(channel_mult) - 1:
@@ -305,12 +305,12 @@ class ControlNet(nn.Module):
                 )
                 ch = out_ch
                 input_block_chans.append(ch)
-                
+
                 self.task_id_layernet.append(linear(time_embed_dim, ch))
                 self.zero_convs.append(self.make_zero_conv(ch))
                 ds *= 2
                 self._feature_size += ch
-                
+
 
         if num_head_channels == -1:
             dim_head = ch // num_heads
@@ -357,7 +357,7 @@ class ControlNet(nn.Module):
         return TimestepEmbedSequential(zero_module(conv_nd(self.dims, channels, channels, 1, padding=0)))
 
     def forward(self, x, hint, timesteps, context, **kwargs):
-        
+
         '''
         x -> 4,4,64,64
         hint -> 4, 3, 512, 512
@@ -370,14 +370,14 @@ class ControlNet(nn.Module):
             task_id = self.tasks_to_id[task_name]
             task_feature = kwargs['task']['feature']
             task_id_emb = self.task_id_hypernet(task_feature.squeeze(0))
-            
+
         t_emb = timestep_embedding(timesteps, self.model_channels, repeat_only=False)
         emb = self.time_embed(t_emb)
         guided_hint = self.input_hint_block_list_moe[task_id](hint, emb, context)
 
         guided_hint = modulated_conv2d(guided_hint, self.input_hint_block_zeroconv_0[0].weight, self.task_id_layernet_zeroconv_0(task_id_emb).repeat(BS_Real, 1).detach(), padding=1)
         guided_hint += self.input_hint_block_zeroconv_0[0].bias.unsqueeze(0).unsqueeze(2).unsqueeze(3)
-        
+
         guided_hint = self.input_hint_block_share(guided_hint, emb, context)
 
         guided_hint = modulated_conv2d(guided_hint, self.input_hint_block_zeroconv_1[0].weight, self.task_id_layernet_zeroconv_1(task_id_emb).repeat(BS_Real, 1).detach(), padding=1)
@@ -395,9 +395,9 @@ class ControlNet(nn.Module):
                 guided_hint = None
             else:
                 h = module(h, emb, context)
-                
+
             outs.append(modulated_conv2d(h, zero_conv[0].weight, task_hyperlayer(task_id_emb).repeat(BS_Real, 1).detach()) + zero_conv[0].bias.unsqueeze(0).unsqueeze(2).unsqueeze(3))
-        
+
         h = self.middle_block(h, emb, context)
         outs.append(self.middle_block_out(h, emb, context))
 
@@ -412,15 +412,15 @@ class ControlLDM(LatentDiffusion):
         self.all_tasks_num = len(self.mapping_task)
 #         self.task_weight_all = nn.Parameter(torch.zeros(self.all_tasks_num,), requires_grad=True)
         self.task_loss_ema = torch.zeros(self.all_tasks_num,)
-        
+
         self.control_model = instantiate_from_config(control_stage_config) # -> ControlNet
         self.control_key = control_key
         self.only_mid_control = only_mid_control
         self.control_scales = [1.0] * 13
-        
+
     @torch.no_grad()
     def get_input(self, batch, k, bs=None, *args, **kwargs):
-        
+
         '''
         self -> ControlLDM(
         (model): DiffusionWrapper(
@@ -429,13 +429,13 @@ class ControlLDM(LatentDiffusion):
         (cond_stage_model): FrozenCLIPEmbedder(...)
         (control_model): ControlNet(...)
         batch - > dict('jpg', 'txt', 'hint', 'task')
-        
+
         '''
 
         task_name = batch['task'][0] # one task for one batch
         BS = len(batch['task'])
         batch['txt'] = batch['txt'] + [self.mapping_task[task_name]]
-        
+
         x, c_all = super().get_input(batch, self.first_stage_key, *args, **kwargs)
         c, c_task = c_all[:BS,:,:], c_all[BS:,:1,:]
         control = batch[self.control_key]
@@ -455,7 +455,7 @@ class ControlLDM(LatentDiffusion):
         diffusion_model = self.model.diffusion_model # -> ControlledUnetModel
 
         cond_txt = torch.cat(cond['c_crossattn'], 1)
-        
+
         if cond['c_concat'] is None:
             eps = diffusion_model(x=x_noisy, timesteps=t, context=cond_txt, control=None, only_mid_control=self.only_mid_control)
         else:
@@ -480,11 +480,11 @@ class ControlLDM(LatentDiffusion):
         log = dict()
 
         task_name = batch['task'][0] # one task for one batch
-        
+
         z, c = self.get_input(batch, self.first_stage_key, bs=N)
-                
+
         task_dic = c['task']
-        
+
         c_cat, c = c["c_concat"][0][:N], c["c_crossattn"][0][:N]
         N = min(z.shape[0], N)
         n_row = min(z.shape[0], n_row)
@@ -535,7 +535,7 @@ class ControlLDM(LatentDiffusion):
             log[f"samples_cfg_scale_{unconditional_guidance_scale:.2f}"] = x_samples_cfg
 
         return log
-    
+
     @torch.no_grad()
     def log_images_infer(self, batch, N=4, n_row=2, sample=False, ddim_steps=50, ddim_eta=0.0, return_keys=None,
                    quantize_denoised=True, inpaint=True, plot_denoise_rows=False, plot_progressive_rows=True,
@@ -547,11 +547,11 @@ class ControlLDM(LatentDiffusion):
         log = dict()
 
         task_name = batch['task'][0] # one task for one batch
-        
+
         z, c = self.get_input(batch, self.first_stage_key, bs=N)
-                
+
         task_dic = c['task']
-        
+
         c_cat, c = c["c_concat"][0][:N], c["c_crossattn"][0][:N]
         N = min(z.shape[0], N)
         n_row = min(z.shape[0], n_row)
@@ -559,7 +559,7 @@ class ControlLDM(LatentDiffusion):
 #         log["control"] = c_cat * 2.0 - 1.0
 #         log["conditioning"] = log_txt_as_img((512, 512), batch[self.cond_stage_key], size=16)
 
-        
+
 
         uc_cross = self.get_unconditional_conditioning(N)
         uc_cat = c_cat  # torch.zeros_like(c_cat)

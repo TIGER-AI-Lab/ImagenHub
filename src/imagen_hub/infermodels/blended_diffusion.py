@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from imagen_hub.pipelines.blended_diffusion import BlendedDiffusionPipeline
 
@@ -18,10 +18,10 @@ class BlendedDiffusion():
         """
         self.pipe = BlendedDiffusionPipeline(device=device)
 
-    def infer_one_image(self, src_image: Image = None, mask_image: Image = None, local_mask_prompt: str = None, seed=42, iterations_num=8, skip_timesteps=25):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, mask_image: PIL.Image.Image = None, local_mask_prompt: str = None, seed=42, iterations_num=8, skip_timesteps=25):
         """
         Inpaints an image based on the given source image, local mask prompt, mask image, and seed.
-        
+
         Args:
             src_image (PIL.Image.Image, optional): The source image in RGB format. Default is None.
             local_mask_prompt (str, optional): The caption for target image. Default is None.

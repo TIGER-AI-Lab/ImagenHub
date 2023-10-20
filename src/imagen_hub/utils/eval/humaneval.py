@@ -3,17 +3,17 @@ import pandas as pd
 import numpy as np
 import traceback
 import json
-import math 
+import math
 from functools import partial
 import krippendorff as kd
 
 def grab_dataframes(root_dir = '.'):
     """
     Grab dataframes from the subdirectories of a given root directory.
-    
+
     Args:
         root_dir (str): The root directory to start searching for .tsv files. Defaults to the current directory.
-        
+
     Returns:
         dict: A dictionary where keys are subdirectory names and values are lists of TSV dataframes.
     """
@@ -57,18 +57,18 @@ def grab_dataframes(root_dir = '.'):
 def process(one_df, mapping_dict=None):
     """
     Process a single dataframe to obtain various scores.
-    
+
     Args:
         one_df (DataFrame): The dataframe to process.
         mapping_dict (dict, optional): A dictionary for mapping cell values. Defaults to None.
-        
+
     Returns:
         dict: A dictionary containing various scores for the dataframe columns.
     """
     df = one_df.drop(one_df.columns[0],axis=1) # Dropping uid column
     #print(df.columns)
     result_dict = {}
-    
+
     def get_SC_from_cell(cell, return_cell_index=0, mapping = {0: 0, 0.5: 0.5, 1: 1, 2: 2}):
         #print(cell)
         if isinstance(cell, str):
@@ -76,7 +76,7 @@ def process(one_df, mapping_dict=None):
         if mapping is not None:
             cell = [mapping[value] for value in cell]
         assert len(cell) == 2
-            
+
         return cell[return_cell_index]
 
     get_PR_from_cell = partial(get_SC_from_cell, return_cell_index=1)
@@ -93,7 +93,7 @@ def process(one_df, mapping_dict=None):
         else:
             human_score = alpha*cell[0]+beta*cell[1]
         return human_score
-    
+
     for column in df.columns:
         SC_scores = [get_SC_from_cell(x) for x in df[column]]
         PR_scores = [get_PR_from_cell(x) for x in df[column]]
@@ -102,8 +102,8 @@ def process(one_df, mapping_dict=None):
         PR_mean = float(sum(PR_scores)) / len(PR_scores)
         SC_std = np.std(SC_scores)
         PR_std = np.std(PR_scores)
-        result_dict[column] = {'SC': SC_scores, 
-                               'PR': PR_scores, 
+        result_dict[column] = {'SC': SC_scores,
+                               'PR': PR_scores,
                                'SC_avg': SC_mean,
                                'PR_avg': PR_mean,
                                'SC_std': SC_std,
@@ -117,11 +117,11 @@ def process(one_df, mapping_dict=None):
 def combine_result_dicts(result_dicts_list, apply_average=False):
     """
     Combine multiple result dictionaries into one.
-    
+
     Args:
         result_dicts_list (list): List of dictionaries to be combined.
         apply_average (bool, optional): If set to True, averages will be applied on the results. Defaults to False.
-        
+
     Returns:
         dict: Combined result dictionary.
     """
@@ -131,8 +131,8 @@ def combine_result_dicts(result_dicts_list, apply_average=False):
     first_result_dict = result_dicts_list[0]
     result_dicts_list.pop(0) # remove first
     for column, value in first_result_dict.items():
-        report_dict[column] = {'SC': [ first_result_dict[column]['SC'] ], 
-                               'PR': [ first_result_dict[column]['PR'] ], 
+        report_dict[column] = {'SC': [ first_result_dict[column]['SC'] ],
+                               'PR': [ first_result_dict[column]['PR'] ],
                                'SC_avg': [ first_result_dict[column]['SC_avg'] ],
                                'PR_avg': [ first_result_dict[column]['PR_avg'] ],
                                'SC_std': [ first_result_dict[column]['SC_std'] ],
@@ -141,7 +141,7 @@ def combine_result_dicts(result_dicts_list, apply_average=False):
                                'HumanEvalSum': [ first_result_dict[column]['HumanEvalSum'] ],
                                'HumanEvalAvg': [ first_result_dict[column]['HumanEvalAvg'] ],
                               }
-    
+
     for result_dict in result_dicts_list:
         for column, value in result_dict.items():
             report_dict[column]['SC'].append(result_dict[column]['SC'])
@@ -173,11 +173,11 @@ def combine_result_dicts(result_dicts_list, apply_average=False):
 def get_final_dicts(unprocessed_dataframes, apply_average=False):
     """
     Get final dictionaries by processing raw dataframes.
-    
+
     Args:
         unprocessed_dataframes (list): List of unprocessed dataframes.
         apply_average (bool, optional): If set to True, averages will be applied on the results. Defaults to False.
-        
+
     Returns:
         dict: Dictionary containing final results.
     """
@@ -193,12 +193,12 @@ def get_final_dicts(unprocessed_dataframes, apply_average=False):
 def sigfig(number, sigfigs=2, digit_mode=True):
     """
     Convert a number to its significant figure representation.
-    
+
     Args:
         number (float/list): Number or list of numbers to convert.
         sigfigs (int, optional): Number of significant figures to keep. Defaults to 2.
         digit_mode (bool, optional): If set to True, will use the digit mode for formatting. Defaults to True.
-        
+
     Returns:
         float/list: Number(s) in their significant figure representation.
     """
@@ -218,7 +218,7 @@ def sigfig(number, sigfigs=2, digit_mode=True):
 def print_all_results(dataframes, apply_average=False):
     """
     Print all results for the given dataframes.
-    
+
     Args:
         dataframes (dict): Dictionary containing dataframes to print results for.
         apply_average (bool, optional): If set to True, averages will be applied on the results. Defaults to False.
@@ -246,11 +246,11 @@ def print_all_results(dataframes, apply_average=False):
 def get_one_model_dict(task_name, model_name):
     """
     Retrieve a specific model's dictionary for a given task.
-    
+
     Args:
         task_name (str): The name of the task.
         model_name (str): The name of the model.
-        
+
     Returns:
         dict: Dictionary containing the model's results for the task.
     """
@@ -259,11 +259,11 @@ def get_one_model_dict(task_name, model_name):
 def get_fleiss_kappa(np_scores, method="fleiss"):
     """
     Calculate Fleiss' Kappa for given scores. columns as raters.
-    
+
     Args:
         np_scores (array): Array of scores to calculate kappa for.
         method (str, optional): Method to use for kappa calculation. Defaults to "fleiss".
-        
+
     Returns:
         tuple: Tuple containing the aggregated raters and the kappa value.
     """
@@ -275,7 +275,7 @@ def get_fleiss_kappa(np_scores, method="fleiss"):
 def print_kappa_result(stats, method="fleiss"):
     """
     Print the kappa result for given stats.
-    
+
     Args:
         stats (array): Array of statistics to calculate and print kappa for.
         method (str, optional): Method to use for kappa calculation. Defaults to "fleiss".
@@ -288,7 +288,7 @@ def print_kappa_result(stats, method="fleiss"):
 def print_kd_result(stats):
     """
     Print the KD result for given stats.
-    
+
     Args:
         stats (array): Array of statistics to calculate and print KD for.
     """
@@ -299,7 +299,7 @@ def print_kd_result(stats):
 def print_all_kappa_results(dataframes, attr):
     """
     Print all kappa results for given dataframes.
-    
+
     Args:
         dataframes (dict): Dictionary containing dataframes to print kappa results for.
         attr (str): Attribute to use for kappa calculation.

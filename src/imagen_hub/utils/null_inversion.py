@@ -15,10 +15,10 @@ def register_attention_control(model, controller):
             to_out = self.to_out[0]
         else:
             to_out = self.to_out
-        
+
         def forward(hidden_states, encoder_hidden_states=None, attention_mask=None,temb=None,):
             is_cross = encoder_hidden_states is not None
-            
+
             residual = hidden_states
 
             if self.spatial_norm is not None:
@@ -104,7 +104,7 @@ def register_attention_control(model, controller):
 
     controller.num_att_layers = cross_att_count
 
-    
+
 def get_word_inds(text: str, word_place: int, tokenizer):
     split_text = text.split(" ")
     if type(word_place) is str:
@@ -143,7 +143,7 @@ def update_alpha_time_word(alpha, bounds: Union[float, Tuple[float, float]], pro
 def get_time_words_attention_alpha(prompts, num_steps,
                                    cross_replace_steps: Union[float, Dict[str, Tuple[float, float]]],
                                    tokenizer, max_num_words=77):
-    
+
     if type(cross_replace_steps) is not dict:
         cross_replace_steps = {"default_": cross_replace_steps}
     if "default_" not in cross_replace_steps:
@@ -154,13 +154,13 @@ def get_time_words_attention_alpha(prompts, num_steps,
                                                   i)
     for key, item in cross_replace_steps.items():
         if key != "default_":
-             inds = [get_word_inds(prompts[i], key, tokenizer) for i in range(1, len(prompts))]
-             for i, ind in enumerate(inds):
-                 if len(ind) > 0:
+            inds = [get_word_inds(prompts[i], key, tokenizer) for i in range(1, len(prompts))]
+            for i, ind in enumerate(inds):
+                if len(ind) > 0:
                     alpha_time_words = update_alpha_time_word(alpha_time_words, item, i, ind)
     alpha_time_words = alpha_time_words.reshape(num_steps + 1, len(prompts) - 1, 1, 1, max_num_words)
     return alpha_time_words
-    
+
 class NullInversion:
     def __init__(self, model, ddim_steps, guidance_scale):
         self.model = model
@@ -170,7 +170,7 @@ class NullInversion:
         self.context = None
         self.NUM_DDIM_STEPS = ddim_steps
         self.GUIDANCE_SCALE = guidance_scale
-        
+
     def prev_step(self, model_output: Union[torch.FloatTensor, np.ndarray], timestep: int, sample: Union[torch.FloatTensor, np.ndarray]):
         prev_timestep = timestep - self.scheduler.config.num_train_timesteps // self.scheduler.num_inference_steps
         alpha_prod_t = self.scheduler.alphas_cumprod[timestep]
@@ -180,7 +180,7 @@ class NullInversion:
         pred_sample_direction = (1 - alpha_prod_t_prev) ** 0.5 * model_output
         prev_sample = alpha_prod_t_prev ** 0.5 * pred_original_sample + pred_sample_direction
         return prev_sample
-    
+
     def next_step(self, model_output: Union[torch.FloatTensor, np.ndarray], timestep: int, sample: Union[torch.FloatTensor, np.ndarray]):
         timestep, next_timestep = min(timestep - self.scheduler.config.num_train_timesteps // self.scheduler.num_inference_steps, 999), timestep
         alpha_prod_t = self.scheduler.alphas_cumprod[timestep] if timestep >= 0 else self.scheduler.final_alpha_cumprod
@@ -190,7 +190,7 @@ class NullInversion:
         next_sample_direction = (1 - alpha_prod_t_next) ** 0.5 * model_output
         next_sample = alpha_prod_t_next ** 0.5 * next_original_sample + next_sample_direction
         return next_sample
-    
+
     def get_noise_pred_single(self, latents, t, context):
         noise_pred = self.model.unet(latents, t, encoder_hidden_states=context)["sample"]
         return noise_pred
@@ -307,7 +307,7 @@ class NullInversion:
                 latent_cur = self.get_noise_pred(latent_cur, t, False, context)
         bar.close()
         return uncond_embeddings_list
-    
+
     def invert(self, src_image: Image, prompt: str, num_inner_steps=10, early_stop_epsilon=1e-5):
         self.init_prompt(prompt)
         register_attention_control(self.model, None)
@@ -316,4 +316,3 @@ class NullInversion:
         image_rec, ddim_latents = self.ddim_inversion(image_gt)
         uncond_embeddings = self.null_optimization(ddim_latents, num_inner_steps, early_stop_epsilon)
         return ddim_latents[-1], uncond_embeddings
-    

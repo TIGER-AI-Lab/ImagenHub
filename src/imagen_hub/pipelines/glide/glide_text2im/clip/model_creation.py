@@ -7,7 +7,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import yaml
-from glide_text2im.tokenizer.simple_tokenizer import SimpleTokenizer
+from ..tokenizer.simple_tokenizer import SimpleTokenizer
 
 from .encoders import ImageEncoder, TextEncoder
 

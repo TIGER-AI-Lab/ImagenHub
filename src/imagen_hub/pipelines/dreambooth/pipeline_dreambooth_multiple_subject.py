@@ -254,4 +254,3 @@ class DreamBoothPipelineMulti:
         noise_scheduler = DDPMScheduler(num_train_timesteps=self.num_train_timesteps, beta_start=0.00085,
                                         beta_end=0.0120)
         self.train_loop(model, noise_scheduler, optimizer, train_dataloader)
-

@@ -13,14 +13,12 @@ import glob
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
-import torch 
-
-from imagen_hub.miscmodels.clip_vit import CLIP
-from imagen_hub.miscmodels.dino_vit import VITs16
-from imagen_hub.metrics.dreambooth_metric import evaluate_dino_score, evaluate_clipi_score, evaluate_clipi_score_list,evaluate_dino_score_list
+import torch
 
 from imagen_hub.miscmodels.blip import BLIP_Model
-from imagen_hub.miscmodels.sam.lang_sam import LangSAM, draw_image
+from imagen_hub.miscmodels import LangSAM, CLIP, VITs16
+from imagen_hub.depend.lang_sam.lang_sam import draw_image
+from imagen_hub.metrics.dreambooth_metric import evaluate_dino_score, evaluate_clipi_score, evaluate_clipi_score_list,evaluate_dino_score_list
 from imagen_hub.utils.save_image_helper import get_concat_pil_images, get_mask_pil_image, save_pil_image
 
 from .generate import load_model_from_config, diffedit
@@ -536,29 +534,29 @@ def dream_edit(
     dino_score_list_background = evaluate_dino_score_list(src_img, generated_image_list, device, dino_model)
     dino_score_list_average = [round((dino_score_list_subject[x] + dino_score_list_background[x])/2, 3) for x in
                                range(len(dino_score_list_subject))]
-    
+
     clipi_score_list_subject = evaluate_clipi_score_list(obj_img, generated_image_list, device, clip_model)
     clipi_score_list_background = evaluate_clipi_score_list(src_img, generated_image_list, device, clip_model)
     clipi_score_list_average = [round((clipi_score_list_subject[x] + clipi_score_list_background[x])/2, 3) for x in
                                range(len(clipi_score_list_subject))]
-    
-    
+
+
     max_dino_subject = max(dino_score_list_subject)
     max_dino_background = max(dino_score_list_background)
     max_dino_avg = max(dino_score_list_average)
-    
+
     max_clipi_subject = max(clipi_score_list_subject)
     max_clipi_background = max(clipi_score_list_background)
     max_clipi_avg = max(clipi_score_list_average)
-    
+
     max_index_dino_subject = dino_score_list_subject.index(max_dino_subject)
     max_index_dino_background = dino_score_list_background.index(max_dino_background)
     max_index_dino_avg = dino_score_list_average.index(max_dino_avg)
-    
+
     max_index_clipi_subject = clipi_score_list_subject.index(max_clipi_subject)
     max_index_clipi_background = clipi_score_list_background.index(max_clipi_background)
     max_index_clipi_avg = clipi_score_list_average.index(max_clipi_avg)
-    
+
     print("The best result of dino-subject is at {} th iteration with dino score {}".format(max_index_dino_subject + 1,
                                                                                             max_dino_subject))
     print("The best result of dino-background is at {} th iteration with dino score {}".format(max_index_dino_background + 1,
@@ -566,8 +564,8 @@ def dream_edit(
     print("The best result of dino-avg is at {} th iteration with dino score {}".format(
         max_index_dino_avg + 1,
         max_dino_avg))
-    
-    
+
+
     print("The best result of clipi-subject is at {} th iteration with clipi score {}".format(max_index_clipi_subject + 1,
                                                                                             max_clipi_subject))
     print("The best result of clipi-background is at {} th iteration with clipi score {}".format(max_index_clipi_background + 1,
@@ -575,7 +573,7 @@ def dream_edit(
     print("The best result of clipi-avg is at {} th iteration with clipi score {}".format(
         max_index_clipi_avg + 1,
         max_clipi_avg))
-    
+
     # ====== Max: Haven't saved clip-i score
     final_result = [src_img, generated_image_list[max_index_dino_avg]]
     final_result = get_concat_pil_images(final_result, direction="h")
@@ -625,9 +623,9 @@ def edit_all_images_from_class(config):
     final_score_background_clipi_list = []
 
     all_images_to_save = []
-    
+
     print("Found files: ", all_files)
-    
+
     for file_path in all_files:
         if file_path.endswith(".jpg"):
             print("Processing img:", file_path)

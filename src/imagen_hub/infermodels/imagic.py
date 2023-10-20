@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import DiffusionPipeline, DDIMScheduler
 
@@ -7,7 +7,7 @@ from diffusers import DiffusionPipeline, DDIMScheduler
 class Imagic():
     """
     A wrapper around the DiffusionPipeline for guided diffusion-based image transformation.
-    
+
     Imagic is designed to modify images based on a provided target caption.
     Reference: https://github.com/justinpinkney/stable-diffusion/blob/main/notebooks/imagic.ipynb
     """
@@ -33,7 +33,7 @@ class Imagic():
         self.cur_image = None
         self.cur_target_prompt = None
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, alpha: float = 1, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, alpha: float = 1, seed: int = 42):
         """
         Modify the source image based on the provided target caption.
 
@@ -42,7 +42,7 @@ class Imagic():
             target_prompt (str, optional): Caption for the target image. Defaults to None.
             alpha (float, optional): Strength of trained embedding. Values beyond 1 can result in stronger edits. Defaults to 1.
             seed (int, optional): Seed for random generator. Defaults to 42.
-        
+
         Returns:
             PIL.Image.Image: The transformed image.
         """

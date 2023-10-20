@@ -856,11 +856,11 @@ def main(args):
     else:
         if args.freeze_model == 'crossattn':
             params_to_optimize = (
-                itertools.chain([x[1] for x in unet.named_parameters() if 'attn2' in x[0]], text_encoder.parameters() if args.train_text_encoder else [] ) 
+                itertools.chain([x[1] for x in unet.named_parameters() if 'attn2' in x[0]], text_encoder.parameters() if args.train_text_encoder else [] )
             )
         else:
             params_to_optimize = (
-                itertools.chain([x[1] for x in unet.named_parameters() if ('attn2.to_k' in x[0] or 'attn2.to_v' in x[0])], text_encoder.parameters() if args.train_text_encoder else [] ) 
+                itertools.chain([x[1] for x in unet.named_parameters() if ('attn2.to_k' in x[0] or 'attn2.to_v' in x[0])], text_encoder.parameters() if args.train_text_encoder else [] )
             )
 
     optimizer = optimizer_class(
@@ -881,9 +881,9 @@ def main(args):
     )
 
     train_dataloader = torch.utils.data.DataLoader(
-        train_dataset, 
-        batch_size=args.train_batch_size, 
-        shuffle=True, 
+        train_dataset,
+        batch_size=args.train_batch_size,
+        shuffle=True,
         collate_fn=lambda examples: collate_fn(examples, args.with_prior_preservation),
         num_workers=args.dataloader_num_workers,
     )
@@ -1012,7 +1012,7 @@ def main(args):
                     params_to_clip = (
                         itertools.chain([x[1] for x in unet.named_parameters() if ('attn2' in x[0])], text_encoder.parameters())
                         if (args.train_text_encoder or args.modifier_token is not None)
-                        else itertools.chain([x[1] for x in unet.named_parameters() if ('attn2' in x[0])]) 
+                        else itertools.chain([x[1] for x in unet.named_parameters() if ('attn2' in x[0])])
                     )
                     accelerator.clip_grad_norm_(params_to_clip, args.max_grad_norm)
                 optimizer.step()

@@ -7,14 +7,14 @@ from PIL import Image
 from tqdm import tqdm
 import torch
 
-def infer_multi_concept_ic_bench(model, 
-                        result_folder: str = 'results', 
-                        experiment_name: str = "Exp_Multi-Concept_IC", 
-                        overwrite_model_outputs: bool = False, 
-                        overwrite_inputs: bool = False, 
+def infer_multi_concept_ic_bench(model,
+                        result_folder: str = 'results',
+                        experiment_name: str = "Exp_Multi-Concept_IC",
+                        overwrite_model_outputs: bool = False,
+                        overwrite_inputs: bool = False,
                         limit_images_amount: Optional[int] = None):
     """
-        Args: 
+        Args:
             model: The Multiple Subject Image Generation model.
             result_folder: result root folder
             experiment_name: folder name in the result root folder for storing experiment
@@ -26,11 +26,11 @@ def infer_multi_concept_ic_bench(model,
     # test only code for now, need to move train here
     dataset, dataset_name = load_multi_concept_ic_dataset(with_name_att=True)
     data = dataset['test']
-    
+
     def process_dataset_uid(sample):
         uid = sample['uid']
         return f"sample_{uid}.jpg"
-    
+
     # Saving dataset info to a json file if first time or overwrite_inputs=True
     if overwrite_inputs or not os.path.exists(os.path.join(result_folder, experiment_name, 'dataset_lookup.json')):
         dump_dataset_info(data,
@@ -61,7 +61,7 @@ def infer_multi_concept_ic_bench(model,
             save_pil_image(concept_images, input_folder, file_basename)
 
     print("========> Running Benchmark Dataset:", experiment_name, "| Model:", model.__class__.__name__)
-    
+
 
     tests = {}
     for sample in tqdm(dataset['test']):
@@ -83,18 +83,18 @@ def infer_multi_concept_ic_bench(model,
             # Setup Model
             data_dir = 'temp_data' # not relevent atm
             trained_model_dir = os.path.join("checkpoints", "ImagenHub_Multi-Concept_IC", "dreambooth", f"{c1_clean}+{c2_clean}")
-            model.set_pipe([c1, c2], 
-                            ["<new1>", "<new2>"], 
-                            data_dir, 
+            model.set_pipe([c1, c2],
+                            ["<new1>", "<new2>"],
+                            data_dir,
                             output_dir=trained_model_dir)
-        if isinstance(model, infermodels.CustomDiffusion): 
+        if isinstance(model, infermodels.CustomDiffusion):
             # Setup Model
             data_dir = os.path.join('temp_data', 'instance', 'data') # not relevent atm
             model_folder = os.path.join("checkpoints", "ImagenHub_Multi-Concept_IC", "custom-diffusion")
             model.set_pipe(c1,
-                            c2, 
-                            os.path.join(data_dir, c1), 
-                            os.path.join(data_dir, c2), 
+                            c2,
+                            os.path.join(data_dir, c1),
+                            os.path.join(data_dir, c2),
                             model_folder=model_folder)
             ckpt_name = c1_clean + '+' + c2_clean + '-sdv4'
             all_ckpt_names = os.listdir(model_folder)
@@ -111,7 +111,7 @@ def infer_multi_concept_ic_bench(model,
         index = 0
         for prompt, file_basename in test:
             output_dir = os.path.join('results', model.__class__.__name__)
-            
+
             if overwrite_model_outputs or not os.path.exists(os.path.join(output_dir, file_basename)):
                 if isinstance(model, infermodels.DreamBoothMulti):
                     # Infer
@@ -124,8 +124,8 @@ def infer_multi_concept_ic_bench(model,
                     prompt = prompt.replace(c1, f'<new1> {c1}').replace(c2, f'<new2> {c2}')
                     delta_ckpt = os.path.join(model_folder, ckpt_name, 'checkpoints', 'delta_epoch=000004.ckpt')
                     sd_ckpt = os.path.join(model_folder, 'sd-v1-4.ckpt')
-                    image = model.infer_one_image(prompt, 
-                                                  delta_ckpt=delta_ckpt, 
+                    image = model.infer_one_image(prompt,
+                                                  delta_ckpt=delta_ckpt,
                                                   pretrained_ckpt=sd_ckpt)
 
                 if isinstance(model, infermodels.TextualInversionMulti):

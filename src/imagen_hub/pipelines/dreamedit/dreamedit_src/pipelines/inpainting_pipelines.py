@@ -26,7 +26,7 @@ def select_inpainting_pipeline(name: str, device="cuda"):
                     safety_checker=None,
                 ).to(device)
     elif name == "gligen_inpaint":
-        try: 
+        try:
             # requires GLIGEN fork of diffusers
             from diffusers import StableDiffusionGLIGENPipeline
             inpainting_pipe = StableDiffusionGLIGENPipeline.from_pretrained(

@@ -10,9 +10,9 @@
  * Apache-2.0 license
 '''
 _base_ = [
-    '../../configs/_base_/models/upernet_uniformer.py', 
+    '../../configs/_base_/models/upernet_uniformer.py',
     '../../configs/_base_/datasets/ade20k.py',
-    '../../configs/_base_/default_runtime.py', 
+    '../../configs/_base_/default_runtime.py',
     '../../configs/_base_/schedules/schedule_160k.py'
 ]
 model = dict(

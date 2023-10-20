@@ -1,5 +1,5 @@
 import torch
-from PIL import Image
+import PIL
 
 from diffusers import StableDiffusionPipeline, DDIMScheduler
 
@@ -38,7 +38,7 @@ class Prompt2prompt():
         self.src_subject_word = src_subject_word
         self.target_subject_word = target_subject_word
 
-    def infer_one_image(self, src_image: Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, is_replace_controller: bool = False, replace_steps=[0.3, 0.3], eq_params=None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, is_replace_controller: bool = False, replace_steps=[0.3, 0.3], eq_params=None, seed: int = 42):
         """
         Perform inference on a source image based on provided prompts.
 
@@ -49,7 +49,7 @@ class Prompt2prompt():
             instruct_prompt (str, optional): Instruction prompt. Not utilized in this implementation.
             is_replace_controller (bool, optional): Indicator whether it's a replacement. True for replacement (one word swap only), False for refinement (lengths of source and target prompts can be different). Defaults to False.
             replace_steps (list of float, optional): A list of [cross_replace_steps, self_replace_steps]. Defaults to [0.3, 0.3].
-            eq_params (dict, optional): Parameters to amplify attention to specific words. For example, eq_params={"words": ("____",), "values": (k,)} amplifies attention to the word "____" by *k. Defaults to None.
+            eq_params (dict, optional): Parameters to amplify attention to specific words. For example, eq_params={"words": ("XXXXX",), "values": (k,)} amplifies attention to the word "XXXXX" by times k. Defaults to None.
             seed (int, optional): Random seed for reproducibility. Defaults to 42.
 
         Returns:
