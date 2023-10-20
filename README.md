@@ -23,7 +23,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 </div>
 
 ## 📰 News
-* 2023 Oct 19: Code Released. Docs (incomplete) available on [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) !
+* 2023 Oct 19: Code Released. Docs (under construction) available on [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) !
 * 2023 Oct 13: We released [Imagen Museum](https://chromaica.github.io/#imagen-museum), a visualization page for all models from ImagenHub!
 * 2023 Oct 4: Our paper is featured on [Huggingface Daily Papers](https://huggingface.co/papers?date=2023-10-04)!
 * 2023 Oct 2: Paper available on [Arxiv](https://arxiv.org/abs/2310.01596). Code coming Soon!
