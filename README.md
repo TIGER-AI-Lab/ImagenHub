@@ -55,6 +55,8 @@ conda activate imagen
 pip install -e .
 ```
 
+For models like Dall-E, DreamEdit, and BLIPDiffusion, please see [Extra Setup](https://imagenhub.readthedocs.io/en/latest/Guidelines/install.html#environment-management)
+
 ## 👨‍🏫 Get Started [🔝](#-table-of-contents)
 
 ### Infering one model
