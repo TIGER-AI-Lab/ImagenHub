@@ -88,6 +88,40 @@ to produce a `index.html` file for visualization.
 ## 📘 Documentation [🔝](#-table-of-contents)
 [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html)
 
+### Implemented Models
+
+|        Method     	         |   Venue  	    |            Type           	|
+|:---------------------------:|:-------------:|:-------------------------:	|
+|       Stable Diffusion   	        |  - 	   | Text-To-Image Generation 	|
+|       Stable Diffusion XL   	        |  - 	   | Text-To-Image Generation 	|
+|       DeepFloyd-IF   	        |  - 	   | Text-To-Image Generation 	|
+|       OpenJourney   	        |  - 	   | Text-To-Image Generation 	|
+|       Dall-E   	        |  - 	   | Text-To-Image Generation 	|
+|       MagicBrush   	        |  arXiv'23 	   | Text-guided Image Editing 	|
+|      InstructPix2Pix 	      |   CVPR'23 	   | Text-guided Image Editing 	|
+|        DiffEdit    	        |  arXiv'22 	   | Text-guided Image Editing 	|
+|         Imagic    	         |   arXiv'22	   | Text-guided Image Editing 	|
+|     CycleDiffusion    	     |  arXiv'22 	   | Text-guided Image Editing 	|
+|         SDEdit    	         |   ICLR'22 	   | Text-guided Image Editing 	|
+|    Prompt-to-Prompt    	    |   ICLR'23 	   | Text-guided Image Editing 	|
+|          Text2Live          |   ECCV'22 	   | Text-guided Image Editing 	|
+|        Pix2PixZero 	        | SIGGRAPH'23 	 | Text-guided Image Editing 	|
+|         GLIDE    	          |   ICML'22 	   | Mask-guided Image Editing 	|
+|      Blended Diffusion      |   CVPR'22 	   | Mask-guided Image Editing 	|
+| Stable Diffusion Inpainting |      - 	      | Mask-guided Image Editing 	|
+| Stable Diffusion XL Inpainting |      - 	      | Mask-guided Image Editing 	|
+|     TextualInversion        | ICLR'23  | Subject-driven Image Generation|
+|       BLIP-Diffusion (Gen)      |   arXiv'23    | Subject-Driven Image Generation|
+|         DreamBooth(+ LoRA)          |    CVPR'23    | Subject-Driven Image Generation|
+|       Photoswap    	        |  arXiv'23 	   | Subject-Driven Image Editing 	|
+|       DreamEdit    	        |  arXiv'23 	   | Subject-Driven Image Editing 	|
+|       BLIP-Diffusion (Edit)       |   arXiv'23    | Subject-Driven Image Editing|
+|      Custom Diffusion       |    CVPR'23    | Multi-Subject-Driven Generation|
+|         ControlNet          |   arXiv'23    | Control-guided Image Generation|
+|         UniControl          |   arXiv'23    | Control-guided Image Generation|
+
+
+
 ## 🙌 Contributing [🔝](#-table-of-contents)
 
 _**Community contributions are encouraged!**_
