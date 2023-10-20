@@ -1,0 +1,68 @@
+base_path: "${oc.env:HOME}"
+experiment_name: "default"
+config_name: "edit_backpack_default"
+experiment_result_path: "${base_path}/DreamEdit/experiments-results-analysis/${experiment_name}/results/${config_name}/"
+
+data:
+    src_img_data_folder_path: "${base_path}/DreamEdit/data/ref_images/"
+    class_name: "backpack"
+    bbox_file_name: "bbox.json"
+    src_img_file_name: "found0.jpg"
+
+    db_dataset_path: "${base_path}/dream_booth2.0/cvpr_dataset/"
+    db_folder_name: "backpack"
+    obj_img_file_name: "00.jpg"
+
+model:
+    gligen: # GLIGEN: Open-Set Grounded Text-to-Image Generation
+        gligen_scheduled_sampling_beta: 1 # TODO: What is this?
+        num_inference_steps: 150
+
+    lang_sam: # Segment Anything
+        segment_confidence: 0.3 # segmentation confidence in segment-anything
+
+    sd: # Stable Diffusion
+        conf_path: "configs/stable-diffusion/v1-inference.yaml"
+        ckpt_prefix: "${base_path}/Dreambooth-Stable-Diffusion_org/logs/"
+        ckpt: "backpack2023-04-17T01-18-19_backpack_april/"
+        ckpt_suffix: "checkpoints/last.ckpt"
+        ckpt_path: "${model.sd.ckpt_prefix}${model.sd.ckpt}${model.sd.ckpt_suffix}"
+
+    de: # DreamEdit
+        task_type: "replace"
+        special_token: "wcj"
+        bounding_box: "bbox.json"
+        inpaint_after_last_iteration: False # whether to inpaint after the last iteration
+        postprocessing_type: "sd_inpaint"
+
+        addition_config:
+            use_copy_paste: False
+            inpaint_type: "gligen"
+            automate_prompt: False # whether to generate prompt from BLIP image caption model
+            inpaint_prompt: ""
+            inpaint_phrase: ""
+
+        mask_config:
+            mask_dilate_kernel: 5
+            mask_type: "dilation"
+            use_bbox_mask_for_first_iteration: False # whether to use bbox as the mask for the first iteration
+            use_bbox_mask_for_all_iterations: False # whether to use bbox as the mask for all iterations
+
+        ddim:
+            seed: 42  # the seed (for reproducible sampling)
+            scale: 7.5
+            ddim_steps: 40
+            noise_step: 0
+            iteration_number: 15
+            encode_ratio_schedule:
+                decay_type: "exponential"  # "linear" or "exponential" or "constant" or "manual"
+                start_ratio: 0.8
+                end_ratio: 0.3
+                manual_ratio_list: [0.8, 0.7, 0.6, 0.5, 0.4, 0.3]  # only used when decay_type is "manual"
+
+        background_correction_enabled: True
+        background_correction:
+            iteration_number: 4  # how many iterations to correct the background
+            use_latents_record: False # reuse the latents from the first iteration
+            use_background_from_original_image: True
+            use_obj_mask_from_first_iteration: False  # whether always use the object mask from the first iteration

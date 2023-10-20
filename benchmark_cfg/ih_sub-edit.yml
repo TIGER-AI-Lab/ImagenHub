@@ -1,0 +1,22 @@
+# task_id :
+# 0 for Text-Guided Image Editing
+# 1 for Mask-Guided Image Editing
+# 2 for Control-Guided Image Generation
+# 3 for Subject-Driven Image Editing
+# 4 for Multi-Concept Image Composition
+# 5 for Subject-Driven Image Generation
+# 6 for Text-Guided Image Generation
+
+info:
+  task_id: 3 # id to determine which benchmark to run for now
+  running_models: [
+      "PhotoSwap",
+      "DreamEdit",
+      "BLIPDiffusion_Edit",
+    ] # Determine which model to run
+params:
+  limit_images_amount: null # Run only certain amount of images. null means running all of them
+  save_to_folder: "results"
+  experiment_basename: "ImagenHub_Subject-Driven_IE" # outputs will be saved to <save_to_folder>/<experiment_basename>/
+visualize:
+  prioritize_folders: ["input", "token"] # The folder that you want to put in front. Support list.

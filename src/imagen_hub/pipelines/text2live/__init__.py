@@ -1,0 +1,1 @@
+from .pipeline_text2live import Text2LivePipeline

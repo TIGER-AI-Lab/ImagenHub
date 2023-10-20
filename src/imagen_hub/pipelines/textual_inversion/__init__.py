@@ -1,0 +1,1 @@
+from .pipeline_textual_inversion import TextualInversionPipeline
