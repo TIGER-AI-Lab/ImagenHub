@@ -19,7 +19,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 * We provide code for visualization, autometrics and Amazon mechanical turk templates.
 
 <div align="center">
- 🔥 🔥 🔥 Check out our <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[Project Page]</a> for more results and analysis!
+ 🔥 🔥 🔥 Check out our <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[Project Page]</a> and <a href = "https://imagenhub.readthedocs.io/en/latest/index.html">[Documentation]</a> for more results and analysis!
 </div>
 
 ## 📰 News
