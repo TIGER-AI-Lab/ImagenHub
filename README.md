@@ -47,13 +47,19 @@ By streamlining research and collaboration, ImageHub plays a pivotal role in pro
 * Open Collaboration: Our platform fosters the exchange and cooperation of related technologies, bringing together minds and innovations.
 
 ## 🛠️ Installation [🔝](#-table-of-contents)
-Coming Soon
+```python
+git clone https://github.com/TIGER-AI-Lab/ImagenHub.git
+cd ImagenHub
+conda env create -f env_cfg/imagen_environment.yml
+conda activate imagen
+pip install -e .
+```
 
 ## 👨‍🏫 Get Started [🔝](#-table-of-contents)
 Coming Soon
 
 ## 📘 Documentation [🔝](#-table-of-contents)
-Coming Soon
+[ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html)
 
 ## 🙌 Contributing [🔝](#-table-of-contents)
 
