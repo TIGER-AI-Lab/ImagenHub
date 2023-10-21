@@ -59,17 +59,6 @@ For models like Dall-E, DreamEdit, and BLIPDiffusion, please see [Extra Setup](h
 
 ## 👨‍🏫 Get Started [🔝](#-table-of-contents)
 
-### Infering one model
-```python
-import imagen_hub
-
-print(imagen_hub.__version__)
-model = imagen_hub.load("SDXL")
-image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
-image
-```
-<img src="https://i.imgur.com/ruU0BJ0.jpg" width="256" />
-
 ### Benchmarking
 To reproduce our experiment reported in the paper:
 
@@ -83,25 +72,63 @@ python3 visualize.py --cfg benchmark_cfg/ih_t2i.yml
 ```
 to produce a `index.html` file for visualization.
 
+The file would look like something like this. We hosted our experiment results on [Imagen Museum](https://chromaica.github.io/#imagen-museum).
+<img src="https://i.imgur.com/0uOMhtT.png" width="512" />
+
+
+### Infering one model
+```python
+import imagen_hub
+
+model = imagen_hub.load("SDXL")
+image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
+image
+```
+<img src="https://i.imgur.com/ruU0BJ0.jpg" width="256" />
+
+### Running Metrics
+```python
+from imagen_hub.metrics import MetricLPIPS
+from imagen_hub.utils import load_image, save_pil_image, get_concat_pil_images
+
+def evaluate_one(model, real_image, generated_image):
+  score = model.evaluate(real_image, generated_image)
+  print("====> Score : ", score)
+
+image_I = load_image("https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/input/sample_102724_1.jpg")
+image_O = load_image("https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/DiffEdit/sample_102724_1.jpg")
+show_image = get_concat_pil_images([image_I, image_O], 'h')
+
+model = MetricLPIPS()
+evaluate_one(model, image_I, image_O) # ====> Score :  0.11225218325853348
+
+show_image
+```
+<img src="https://i.imgur.com/af8CB4c.jpg" width="512" />
+
+
 
 
 ## 📘 Documentation [🔝](#-table-of-contents)
 [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html)
+
+* [Write your own benchmark](https://imagenhub.readthedocs.io/en/latest/Guidelines/custombenchmark.html)
 
 ### Implemented Models
 
 |        Method     	         |   Venue  	    |            Type           	|
 |:---------------------------:|:-------------:|:-------------------------:	|
 |       Stable Diffusion   	        |  - 	   | Text-To-Image Generation 	|
-|       Stable Diffusion XL   	        |  - 	   | Text-To-Image Generation 	|
+|       Stable Diffusion XL   	        |  arXiv'23 	   | Text-To-Image Generation 	|
 |       DeepFloyd-IF   	        |  - 	   | Text-To-Image Generation 	|
 |       OpenJourney   	        |  - 	   | Text-To-Image Generation 	|
 |       Dall-E   	        |  - 	   | Text-To-Image Generation 	|
+|       Kandinsky  	        |  - 	   | Text-To-Image Generation 	|
 |       MagicBrush   	        |  arXiv'23 	   | Text-guided Image Editing 	|
 |      InstructPix2Pix 	      |   CVPR'23 	   | Text-guided Image Editing 	|
-|        DiffEdit    	        |  arXiv'22 	   | Text-guided Image Editing 	|
-|         Imagic    	         |   arXiv'22	   | Text-guided Image Editing 	|
-|     CycleDiffusion    	     |  arXiv'22 	   | Text-guided Image Editing 	|
+|        DiffEdit    	        |  ICLR'23 	   | Text-guided Image Editing 	|
+|         Imagic    	         |   CVPR'23	   | Text-guided Image Editing 	|
+|     CycleDiffusion    	     |  ICCV'23 	   | Text-guided Image Editing 	|
 |         SDEdit    	         |   ICLR'22 	   | Text-guided Image Editing 	|
 |    Prompt-to-Prompt    	    |   ICLR'23 	   | Text-guided Image Editing 	|
 |          Text2Live          |   ECCV'22 	   | Text-guided Image Editing 	|
@@ -111,11 +138,10 @@ to produce a `index.html` file for visualization.
 | Stable Diffusion Inpainting |      - 	      | Mask-guided Image Editing 	|
 | Stable Diffusion XL Inpainting |      - 	      | Mask-guided Image Editing 	|
 |     TextualInversion        | ICLR'23  | Subject-driven Image Generation|
-|       BLIP-Diffusion (Gen)      |   arXiv'23    | Subject-Driven Image Generation|
+|       BLIP-Diffusion     |   arXiv'23    | Subject-Driven Image Generation|
 |         DreamBooth(+ LoRA)          |    CVPR'23    | Subject-Driven Image Generation|
 |       Photoswap    	        |  arXiv'23 	   | Subject-Driven Image Editing 	|
 |       DreamEdit    	        |  arXiv'23 	   | Subject-Driven Image Editing 	|
-|       BLIP-Diffusion (Edit)       |   arXiv'23    | Subject-Driven Image Editing|
 |      Custom Diffusion       |    CVPR'23    | Multi-Subject-Driven Generation|
 |         ControlNet          |   arXiv'23    | Control-guided Image Generation|
 |         UniControl          |   arXiv'23    | Control-guided Image Generation|

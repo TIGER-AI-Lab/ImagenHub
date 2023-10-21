@@ -1,15 +1,5 @@
 # Quickstart
 
-## Running single model
-```python
-import imagen_hub
-
-model = imagen_hub.load("SDXL")
-image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
-image
-```
-<img src="https://i.imgur.com/ruU0BJ0.jpg" width="256" />
-
 ## Benchmarking
 To reproduce our experiment reported in the paper:
 
@@ -114,3 +104,39 @@ python3 visualize.py --cfg benchmark_cfg/ih_t2i.yml
 python3 benchmarking.py -cfg benchmark_cfg/ih_control-guided.yml
 python3 visualize.py --cfg benchmark_cfg/ih_control-guided.yml
 ```
+
+## Running Metrics
+```python
+from imagen_hub.metrics import MetricLPIPS
+from imagen_hub.utils import load_image, save_pil_image, get_concat_pil_images
+
+def evaluate_one(model, real_image, generated_image):
+  score = model.evaluate(real_image, generated_image)
+  print("====> Score : ", score)
+
+image_I = load_image("https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/input/sample_102724_1.jpg")
+image_O = load_image("https://chromaica.github.io/Museum/ImagenHub_Text-Guided_IE/DiffEdit/sample_102724_1.jpg")
+show_image = get_concat_pil_images([image_I, image_O], 'h')
+
+model = MetricLPIPS()
+evaluate_one(model, image_I, image_O) # ====> Score :  0.11225218325853348
+
+# You can perform multiple images in the similar manner
+def evaluate_all(model, list_real_images, list_generated_images):
+  score = [model.evaluate(x, y) for (x,y) in zip(list_real_images, list_generated_images)]
+  print("====> Avg Score: ", sum(score) / len(score))
+
+show_image
+```
+<img src="https://i.imgur.com/af8CB4c.jpg" width="512" />
+
+
+## Running single model
+```python
+import imagen_hub
+
+model = imagen_hub.load("SDXL")
+image = model.infer_one_image(prompt="people reading pictures in a museum, watercolor", seed=1)
+image
+```
+<img src="https://i.imgur.com/ruU0BJ0.jpg" width="256" />

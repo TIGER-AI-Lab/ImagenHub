@@ -1,14 +1,29 @@
 import torch
 from torchvision import transforms
-from PIL import Image
+import PIL
 
 class VITs16():
+    """
+    A class to represent the Vision Transformer Small 16 (ViT-S16) model.
+    """
     def __init__(self, device="cuda"):
+        """
+        Initialize a VITs16 object with the specified device.
+        
+        Args:
+            device (str, optional): The device on which the model will run. Defaults to "cuda".
+        """
         self.model = torch.hub.load('facebookresearch/dino:main', 'dino_vits16').to(device)
         self.model.eval()
         self.device = device
 
     def get_transform(self):
+        """
+        Returns the preprocessing transforms for the images.
+        
+        Returns:
+            torchvision.transforms.Compose: Preprocessing transforms.
+        """
         val_transform = transforms.Compose([
             transforms.Resize(256, interpolation=3),
             transforms.CenterCrop(224),
@@ -18,12 +33,29 @@ class VITs16():
         return val_transform
 
     def get_embeddings(self, tensor_image):
+        """
+        Get the final embeddings of the image using the ViT-S16 model.
+        
+        Args:
+            tensor_image (torch.Tensor): Image tensor of shape [B, 3, H, W].
+            
+        Returns:
+            torch.Tensor: Final embeddings tensor.
+        """
         output = self.model(tensor_image.to(self.device))
         return output
 
     def get_embeddings_intermediate(self, tensor_image, n_last_block=4):
         """
-        We use `n_last_block=4` when evaluating ViT-Small
+        Get the intermediate embeddings of the image using the ViT-S16 model.
+        
+        Args:
+            tensor_image (torch.Tensor): Image tensor of shape [B, 3, H, W].
+            n_last_block (int, optional): Number of last blocks to consider for intermediate embeddings. 
+                                          Defaults to 4.
+            
+        Returns:
+            torch.Tensor: Intermediate embeddings tensor.
         """
         intermediate_output = self.model.get_intermediate_layers(tensor_image, n=n_last_block)
         output = torch.cat([x[:, 0] for x in intermediate_output], dim=-1)
@@ -33,7 +65,7 @@ if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
     import requests
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-    image = Image.open(requests.get(url, stream=True).raw).convert('RGB')
+    image = PIL.Image.open(requests.get(url, stream=True).raw).convert('RGB')
     image = image.resize((512, 512))
     fidelity = VITs16(device)
     preprocess = fidelity.get_transform()
