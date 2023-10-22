@@ -3,13 +3,12 @@
 [![Docs](https://img.shields.io/badge/docs-latest-blue)](https://imagenhub.readthedocs.io/en/latest/)
 [![contributors](https://img.shields.io/github/contributors/TIGER-AI-Lab/ImagenHub)](https://github.com/TIGER-AI-Lab/ImagenHub/graphs/contributors)
 [![open issues](https://isitmaintained.com/badge/open/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/issues)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/TIGER-AI-Lab/ImagenHub.svg)](http://isitmaintained.com/project/TIGER-AI-Lab/ImagenHub "Average time to resolve an issue")
 [![pull requests](https://img.shields.io/github/issues-pr/TIGER-AI-Lab/ImagenHub?color=0088ff)](https://github.com/TIGER-AI-Lab/ImagenHub/pulls)
 [![license](https://img.shields.io/github/license/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/blob/main/LICENSE)
 
 <div align="center">
-<img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="75%">
- </div>
+<img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="40%">
+</div>
 
 
 ImagenHub is a one-stop library to standardize the inference and evaluation of all the conditional image generation models.
@@ -38,13 +37,6 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 - [🖊️ Citation](#%EF%B8%8F-citation-)
 - [🎫 License](#-license-)
 - [🤝 Acknowledgement](#-acknowledgement-)
-
-## 🧠 Philosophy [🔝](#-philosophy-)
-By streamlining research and collaboration, ImageHub plays a pivotal role in propelling the field of Image Generation and Editing.
-
-* Purity of Evaluation: We ensure a fair and consistent evaluation for all models, eliminating biases.
-* Research Roadmap: By defining tasks and curating datasets, we provide clear direction for researchers. 
-* Open Collaboration: Our platform fosters the exchange and cooperation of related technologies, bringing together minds and innovations.
 
 ## 🛠️ Installation [🔝](#-table-of-contents)
 ```python
@@ -110,9 +102,16 @@ show_image
 
 
 ## 📘 Documentation [🔝](#-table-of-contents)
-[ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html)
+The tutorials and API documentation are hosted on [imagenhub.readthedocs.io](https://imagenhub.readthedocs.io/en/latest/index.html).
 
 * [Write your own benchmark](https://imagenhub.readthedocs.io/en/latest/Guidelines/custombenchmark.html)
+
+## 🧠 Philosophy [🔝](#-philosophy-)
+By streamlining research and collaboration, ImageHub plays a pivotal role in propelling the field of Image Generation and Editing.
+
+* Purity of Evaluation: We ensure a fair and consistent evaluation for all models, eliminating biases.
+* Research Roadmap: By defining tasks and curating datasets, we provide clear direction for researchers. 
+* Open Collaboration: Our platform fosters the exchange and cooperation of related technologies, bringing together minds and innovations.
 
 ### Implemented Models
 
@@ -146,15 +145,24 @@ show_image
 |         ControlNet          |   arXiv'23    | Control-guided Image Generation|
 |         UniControl          |   arXiv'23    | Control-guided Image Generation|
 
+### Comprehensive Functionality
+* [X] Common Metrics for GenAI
+* [X] Visualization tool
+* [ ] Amazon Mechanical Turk Templates (TBA)
 
+### High quality software engineering standard.
+
+* [X] Documentation
+* [X] Type Hints
+* [ ] Code Coverage (TBA)
 
 ## 🙌 Contributing [🔝](#-table-of-contents)
 
 _**Community contributions are encouraged!**_
 
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+ImagenHub is still under development. More models and features are going to be added and we always welcome contributions to help make ImagenHub better. If you would like to contribute, please check out [CONTRIBUTING.md](CONTRIBUTING.md). 
 
-Feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+Please also feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
 
 ## 🖊️ Citation [🔝](#-table-of-contents)
 
