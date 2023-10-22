@@ -29,14 +29,14 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 
 ## 📄 Table of Contents
 
-- [🧠 Philosophy](#-philosophy-)
 - [🛠️ Installation](#%EF%B8%8F-installation-)
 - [👨‍🏫 Get Started](#-get-started-)
 - [📘 Documentation](#-documentation-)
+- [🧠 Philosophy](#-philosophy-)
 - [🙌 Contributing](#-contributing-)
 - [🖊️ Citation](#%EF%B8%8F-citation-)
-- [🎫 License](#-license-)
 - [🤝 Acknowledgement](#-acknowledgement-)
+- [🎫 License](#-license-)
 
 ## 🛠️ Installation [🔝](#-table-of-contents)
 ```python
@@ -177,17 +177,16 @@ Please kindly cite our paper if you use our code, data, models or results:
 }
 ```
 
-## 🎫 License [🔝](#-table-of-contents)
-
-This project is released under the [License](LICENSE).
-
 ## 🤝 Acknowledgement [🔝](#-table-of-contents)
 
 Please refer to [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md)
 
+## 🎫 License [🔝](#-table-of-contents)
+
+This project is released under the [License](LICENSE).
 
 
-## ⭐ Star History
+## ⭐ Star History [🔝](#-table-of-contents)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=TIGER-AI-Lab/ImagenHub&type=Date)](https://star-history.com/#TIGER-AI-Lab/ImagenHub&Date)
 
