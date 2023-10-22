@@ -148,13 +148,13 @@ By streamlining research and collaboration, ImageHub plays a pivotal role in pro
 ### Comprehensive Functionality
 * [X] Common Metrics for GenAI
 * [X] Visualization tool
-* [ ] Amazon Mechanical Turk Templates (TBA)
+* [ ] Amazon Mechanical Turk Templates (Coming Soon)
 
 ### High quality software engineering standard.
 
 * [X] Documentation
 * [X] Type Hints
-* [ ] Code Coverage (TBA)
+* [ ] Code Coverage (Coming Soon)
 
 ## 🙌 Contributing [🔝](#-table-of-contents)
 

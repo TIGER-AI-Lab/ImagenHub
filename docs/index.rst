@@ -29,7 +29,9 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
    :hidden:
    :caption: Contributing
 
+   Contributing/basics
    Contributing/coding
+   Contributing/docs
 
 .. toctree::
    :maxdepth: 2
