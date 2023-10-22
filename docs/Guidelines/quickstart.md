@@ -60,7 +60,8 @@ optional arguments:
   -width IMG_WIDTH, --img_width IMG_WIDTH
                         Each image width.
 ```
-
+The file would look like something like this. We hosted our experiment results on [Imagen Museum](https://chromaica.github.io/#imagen-museum).
+<img src="https://i.imgur.com/0uOMhtT.png" width="512" />
 We have provided a few yml config for different tasks.
 
 ### Text-guided Image Generation
