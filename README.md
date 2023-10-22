@@ -162,7 +162,14 @@ _**Community contributions are encouraged!**_
 
 ImagenHub is still under development. More models and features are going to be added and we always welcome contributions to help make ImagenHub better. If you would like to contribute, please check out [CONTRIBUTING.md](CONTRIBUTING.md). 
 
-Please also feel free to open a PR if you think something is missing here. Always welcome feedback and suggestions. Just open an issue!
+We believe that everyone can contribute and make a difference. Whether it's writing code 💻, fixing bugs 🐛, or simply sharing feedback 💬, your contributions are definitely welcome and appreciated 🙌
+
+> And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
+> - Star the project
+> - Tweet about it
+> - Refer this project in your project's readme
+> - Mention the project at local meetups and tell your friends/colleagues
+
 
 ## 🖊️ Citation [🔝](#-table-of-contents)
 
