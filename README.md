@@ -18,11 +18,12 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 * We provide code for visualization, autometrics and Amazon mechanical turk templates.
 
 <div align="center">
- 🔥 🔥 🔥 Check out our <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[Project Page]</a> and <a href = "https://imagenhub.readthedocs.io/en/latest/index.html">[Documentation]</a> for more results and analysis!
+ <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[Project Page]</a> <a href = "https://imagenhub.readthedocs.io/en/latest/index.html">[Documentation]</a> <a href = "https://arxiv.org/abs/2310.01596">[Arxiv]</a> <a href = "https://huggingface.co/ImagenHub">[Datasets]</a> <a href = "https://chromaica.github.io/#imagen-museum">[ImagenMuseum]</a>
 </div>
 
 ## 📰 News
-* 2023 Oct 19: Code Released. Docs (under construction) available on [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) !
+* 2023 Oct 23: Version 0.1.0 released! [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) now available!
+* 2023 Oct 19: Code Released. Docs under construction.
 * 2023 Oct 13: We released [Imagen Museum](https://chromaica.github.io/#imagen-museum), a visualization page for all models from ImagenHub!
 * 2023 Oct 4: Our paper is featured on [Huggingface Daily Papers](https://huggingface.co/papers?date=2023-10-04)!
 * 2023 Oct 2: Paper available on [Arxiv](https://arxiv.org/abs/2310.01596). Code coming Soon!
