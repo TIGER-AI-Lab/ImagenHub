@@ -58,6 +58,20 @@ Example for text-guided image generation:
 ```shell
 python3 benchmarking.py -cfg benchmark_cfg/ih_t2i.yml
 ```
+
+Note that the expected output structure would be:
+```shell
+result_root_folder
+└── experiment_basename_folder
+    ├── input (If applicable)
+    │   └── image_1.jpg ...
+    ├── model1
+    │   └── image_1.jpg ...
+    ├── model2
+    │   └── image_1.jpg ...
+    ├── ...
+```
+
 Then after running the experiment, you can run
 ```shell
 python3 visualize.py --cfg benchmark_cfg/ih_t2i.yml
@@ -103,8 +117,6 @@ show_image
 
 ## 📘 Documentation [🔝](#-table-of-contents)
 The tutorials and API documentation are hosted on [imagenhub.readthedocs.io](https://imagenhub.readthedocs.io/en/latest/index.html).
-
-* [Write your own benchmark](https://imagenhub.readthedocs.io/en/latest/Guidelines/custombenchmark.html)
 
 ## 🧠 Philosophy [🔝](#-philosophy-)
 By streamlining research and collaboration, ImageHub plays a pivotal role in propelling the field of Image Generation and Editing.

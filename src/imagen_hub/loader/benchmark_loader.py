@@ -10,7 +10,7 @@ def dump_dataset_info(your_dataset,
                       required_attributes: List,
                       uid_preprocess_fn: Callable,
                       save_folder_path: Union[str, os.PathLike],
-                      filename_wo_ext: Union[str, os.PathLike],
+                      filename_wo_ext: Union[str, os.PathLike]="dataset_lookup",
                       verbose=True):
     """
     Dump dataset text info according to specified attributes.

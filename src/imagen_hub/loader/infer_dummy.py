@@ -1,6 +1,5 @@
 from datasets import load_dataset
 from functools import partial
-from imagen_hub.utils.image_helper import load_image
 
 def load_data(hf_ds, split, streaming=True, seed=42, buffer_size=10, get_one_data=True):
     """

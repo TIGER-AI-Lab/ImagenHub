@@ -46,8 +46,21 @@ visualize:
 ```
 You can freely pick the models that you want to run.
 
+Note that the expected output structure would be:
+```shell
+result_root_folder
+└── experiment_basename_folder
+    ├── input (If applicable)
+    │   └── image_1.jpg ...
+    ├── model1
+    │   └── image_1.jpg ...
+    ├── model2
+    │   └── image_1.jpg ...
+    ├── ...
+```
 
 * Then after running the experiment, you can run `visualize.py` to produce a `index.html` file for visualization.
+
 ```shell
 python3 visualize.py --help
 usage: visualize.py [-h] -cfg CFG [-width IMG_WIDTH]
@@ -121,12 +134,6 @@ show_image = get_concat_pil_images([image_I, image_O], 'h')
 
 model = MetricLPIPS()
 evaluate_one(model, image_I, image_O) # ====> Score :  0.11225218325853348
-
-# You can perform multiple images in the similar manner
-def evaluate_all(model, list_real_images, list_generated_images):
-  score = [model.evaluate(x, y) for (x,y) in zip(list_real_images, list_generated_images)]
-  print("====> Avg Score: ", sum(score) / len(score))
-
 show_image
 ```
 <img src="https://i.imgur.com/af8CB4c.jpg" width="512" />

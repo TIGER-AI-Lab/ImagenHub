@@ -23,6 +23,7 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
    Guidelines/install
    Guidelines/quickstart
    Guidelines/custombenchmark
+   Guidelines/deepdive
 
 .. toctree::
    :maxdepth: 2

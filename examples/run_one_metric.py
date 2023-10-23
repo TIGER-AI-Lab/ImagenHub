@@ -12,4 +12,9 @@ show_image = get_concat_pil_images([image_I, image_O], 'h')
 model = MetricLPIPS()
 evaluate_one(model, image_I, image_O)
 
-save_pil_image(show_image, ".", "test2.jpg")
+# You can perform multiple images in the similar manner
+def evaluate_all(model, list_real_images, list_generated_images):
+  score = [model.evaluate(x, y) for (x,y) in zip(list_real_images, list_generated_images)]
+  print("====> Avg Score: ", sum(score) / len(score))
+
+save_pil_image(show_image, ".", "output2.jpg")
