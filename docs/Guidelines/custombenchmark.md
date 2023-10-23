@@ -1,4 +1,4 @@
-# Writing Your Own Benchmark Using the Provided script
+# Modify default benchmark
 
 In the given script `benchmarking.py`, we have a structure that allows for easy benchmarking of various machine learning models on different tasks. Here's a step-by-step guide on how to use this framework to write your own benchmark:
 

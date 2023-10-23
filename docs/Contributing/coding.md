@@ -74,14 +74,6 @@ class Person:
         self.age: int = age
 ```
 
-### Tips: Using Type Checkers
-
-Once you've added type hints, tools like `mypy` can be used to statically check your code:
-```bash
-pip install mypy
-mypy your_script.py
-```
-
 ## Docstrings
 
 Docstrings, or documentation strings, are an essential aspect of Python programming. They provide concise descriptions of how a module, class, method, or function works. The PEP-8 style guide suggests a specific format for these descriptions. We'll walk through the process of adding PEP-8 style docstrings to your Python code. This style is commonly associated with Google's Python style guide.

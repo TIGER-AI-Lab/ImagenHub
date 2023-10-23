@@ -89,11 +89,11 @@ show_image
 
 Beside LPIPS, we also support different common metrics for Gen AI.
 
-# Running custom experiment using the ImagenHub library
+## Running custom benchmark using the ImagenHub library
 
 Now you know the basic functionalities of ImagenHub. But it seems you want more customization. In fact, it is easy to set up your own experiment.
 
-## You want to test the different built-in models with custom dataset
+What if you want to test the different built-in models with a custom dataset?
 
 ### Understand the Core Functions
 
