@@ -8,11 +8,17 @@ Welcome to ImagenHub's documentation!
 
 ImagenHub is a centralized framework to standardize the evaluation of conditional image generation models by curating unified datasets, building an inference library and a benchmark from customer perspective.
 
-Project Page: https://tiger-ai-lab.github.io/ImagenHub/
-Arxiv Paper: https://arxiv.org/abs/2310.01596
-HuggingFace Datasets: https://huggingface.co/ImagenHub
-GitHub Code: https://github.com/TIGER-AI-Lab/ImagenHub
-Imagen Museum: https://chromaica.github.io/#imagen-museum
+.. _Project Page: https://tiger-ai-lab.github.io/ImagenHub/
+.. _Arxiv Paper: https://arxiv.org/abs/2310.01596
+.. _HuggingFace Datasets: https://huggingface.co/ImagenHub
+.. _GitHub Code: https://github.com/TIGER-AI-Lab/ImagenHub
+.. _Imagen Museum: https://chromaica.github.io/#imagen-museum
+
+* `Project Page`_
+* `Arxiv Paper`_
+* `HuggingFace Datasets`_
+* `GitHub Code`_
+* `Imagen Museum`_
 
 .. toctree::
    :maxdepth: 2
