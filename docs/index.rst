@@ -6,7 +6,7 @@
 Welcome to ImagenHub's documentation!
 =====================================
 
-ImagenHub is a centralized framework to standardize the evaluation of conditional image generation models by curating unified datasets, building an inference library and a benchmark from customer perspective.
+ImagenHub is a centralized framework to standardize the evaluation of conditional image generation models by curating unified datasets, building an inference library and a benchmark that align with real life applications.
 
 .. _Project Page: https://tiger-ai-lab.github.io/ImagenHub/
 .. _Arxiv Paper: https://arxiv.org/abs/2310.01596
@@ -27,6 +27,7 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
    Overview/philosophy
    Overview/models
    Overview/datasets
+   Overview/metrics
 
 .. toctree::
    :maxdepth: 2
