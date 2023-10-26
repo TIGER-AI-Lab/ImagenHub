@@ -24,6 +24,7 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
    :maxdepth: 2
    :caption: Overview
 
+   Overview/intro
    Overview/philosophy
    Overview/models
    Overview/datasets
