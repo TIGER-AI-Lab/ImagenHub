@@ -4,7 +4,7 @@
 from .sd import SD, OpenJourney
 from .sdxl import SDXL
 from .deepfloydif import DeepFloydIF
-from .dalle import DALLE, StableUnCLIP
+from .dalle import DALLE2, DALLE3, StableUnCLIP
 from .unidiffuser import UniDiffuser
 from .kandinsky import Kandinsky
 

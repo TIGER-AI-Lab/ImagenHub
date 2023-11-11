@@ -4,6 +4,8 @@ import torch
 import PIL
 from imagen_hub.utils.image_helper import load_image
 from imagen_hub.utils.file_helper import get_file_path, read_key_from_file
+import time
+
 class DALLE():
     """
     Class for generating images using the OpenAI DALL-E model.
@@ -17,6 +19,11 @@ class DALLE():
         except:
             openai.api_key = os.getenv("OPENAI_API_KEY")
             print("Read key from OPENAI_API_KEY")
+ 
+
+class DALLE2(DALLE):
+    def __init__(self):
+        super().__init__()
 
     def infer_one_image(self, prompt: str, seed: int = 42):
         """
@@ -32,6 +39,7 @@ class DALLE():
 
         try:
             response = openai.Image.create(
+                model="dall-e-2",
                 prompt=prompt,
                 n=1,
                 size="512x512",
@@ -44,7 +52,43 @@ class DALLE():
 
             # If the image or prompt was rejected, throw a blank (black) image
             if e.error["code"] == "content_policy_violation":
-                image = Image.new(mode="RGB", size=(512,512))
+                image = PIL.Image.new(mode="RGB", size=(512,512))
+
+        return image
+    
+class DALLE3(DALLE):
+    def __init__(self):
+        super().__init__()
+
+    def infer_one_image(self, prompt: str, seed: int = 42):
+        """
+        Infer an image based on the given prompt.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. (Not supported in openai's API)
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+        try:
+            response = openai.Image.create(
+                model="dall-e-3",
+                prompt=prompt,
+                size="1024x1024",
+                quality="standard",
+                n=1,
+            )
+            image_url = response.data[0].url
+            image = load_image(image_url)
+            time.sleep(2) # The default rate limit for the DALL·E API is 50 images per minute. 
+        except openai.error.OpenAIError as e:
+            print(e.http_status)
+            print(e.error)
+
+            # If the image or prompt was rejected, throw a blank (black) image
+            if e.error["code"] == "content_policy_violation":
+                image = PIL.Image.new(mode="RGB", size=(1024,1024))
 
         return image
 
