@@ -16,7 +16,9 @@ info:
       "DeepFloydIF",
       "DALLE2",
       "DALLE3",
-      "Kandinsky"
+      "Kandinsky",
+      "PixArtAlpha",
+      "SDXLTurbo"
     ] # Determine which model to run
 params:
   limit_images_amount: null # Run only certain amount of images. null means running all of them

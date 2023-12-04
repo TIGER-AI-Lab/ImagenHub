@@ -2,11 +2,12 @@
 # ==========================================================
 # Text-to-Image Generation
 from .sd import SD, OpenJourney, LCM
-from .sdxl import SDXL
+from .sdxl import SDXL, SDXLTurbo
 from .deepfloydif import DeepFloydIF
 from .dalle import DALLE2, DALLE3, StableUnCLIP
 from .unidiffuser import UniDiffuser
 from .kandinsky import Kandinsky
+from .pixart_alpha import PixArtAlpha
 
 # ==========================================================
 # Text-guided Image Editing

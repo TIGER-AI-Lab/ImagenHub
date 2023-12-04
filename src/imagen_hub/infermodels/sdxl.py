@@ -92,3 +92,47 @@ class SDXLInpaint():
             generator=generator,
         ).images[0]
         return image
+
+class SDXLTurbo():
+    """
+    Stable Diffusion XL Turbo for T2I tasks. Require diffusers >= 0.24.0
+    Reference: https://huggingface.co/stabilityai/sdxl-turbo
+    """
+    def __init__(self, device="cuda", weight="stabilityai/sdxl-turbo"):
+        """
+        Attributes:
+            pipe (AutoPipelineForText2Image): The underlying image generation pipeline object.
+
+        Args:
+            device (str, optional): The device on which the pipeline should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for image generation. Default is "https://huggingface.co/stabilityai/sdxl-turbo".
+        """
+        from diffusers import AutoPipelineForText2Image
+
+        self.pipe = AutoPipelineForText2Image.from_pretrained(
+            weight,
+            torch_dtype=torch.float16,
+            variant="fp16",
+        ).to(device)
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed. 1 step is enough to generate high quality images. 4 steps are claimed to be better but 1 step is the selling point.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+
+        generator = torch.manual_seed(seed)
+        image = self.pipe(
+            prompt=prompt,
+            num_inference_steps=1, 
+            guidance_scale=0.0,
+            generator=generator,
+        ).images[0]
+        return image
+    
