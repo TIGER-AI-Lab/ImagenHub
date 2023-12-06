@@ -135,4 +135,18 @@ class SDXLTurbo():
             generator=generator,
         ).images[0]
         return image
-    
+
+class SSD(SDXL):
+    def __init__(self, device="cuda", weight="segmind/SSD-1B"):
+        """
+        A class for the Segmind Stable Diffusion image generation model.
+        Reference: https://huggingface.co/segmind/SSD-1B
+
+        Args:
+            device (str, optional): The device on which the model should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for SSD. Default is "segmind/SSD-1B".
+        """
+        super().__init__(device=device, weight=weight)
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        return super().infer_one_image(prompt, seed)
