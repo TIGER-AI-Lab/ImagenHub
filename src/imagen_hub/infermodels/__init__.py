@@ -2,7 +2,7 @@
 # ==========================================================
 # Text-to-Image Generation
 from .sd import SD, OpenJourney, LCM
-from .sdxl import SDXL, SDXLTurbo
+from .sdxl import SDXL, SDXLTurbo, SSD
 from .deepfloydif import DeepFloydIF
 from .dalle import DALLE2, DALLE3, StableUnCLIP
 from .unidiffuser import UniDiffuser
