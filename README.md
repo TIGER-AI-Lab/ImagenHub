@@ -127,6 +127,9 @@ By streamlining research and collaboration, ImageHub plays a pivotal role in pro
 * Open Collaboration: Our platform fosters the exchange and cooperation of related technologies, bringing together minds and innovations.
 
 ### Implemented Models
+We included more than 30 Models in image synthesis. See the full list here:
+* Supported Models: https://github.com/TIGER-AI-Lab/ImagenHub/issues/1
+* Supported Metrics: https://github.com/TIGER-AI-Lab/ImagenHub/issues/6
 
 |        Method     	         |   Venue  	    |            Type           	|
 |:---------------------------:|:-------------:|:-------------------------:	|
@@ -171,6 +174,7 @@ By streamlining research and collaboration, ImageHub plays a pivotal role in pro
 
 ## 🙌 Contributing [🔝](#-table-of-contents)
 
+### For the Community
 _**Community contributions are encouraged!**_
 
 ImagenHub is still under development. More models and features are going to be added and we always welcome contributions to help make ImagenHub better. If you would like to contribute, please check out [CONTRIBUTING.md](CONTRIBUTING.md). 
@@ -182,6 +186,11 @@ We believe that everyone can contribute and make a difference. Whether it's writ
 > - Tweet about it
 > - Refer this project in your project's readme
 > - Mention the project at local meetups and tell your friends/colleagues
+
+### For the Researchers:
+
+* Q: How can I add my method to ImagenHub?
+* A: Please Refer to [https://imagenhub.readthedocs.io/en/latest/Guidelines/custommodel.html](https://imagenhub.readthedocs.io/en/latest/Guidelines/custommodel.html)
 
 
 ## 🖊️ Citation [🔝](#-table-of-contents)
