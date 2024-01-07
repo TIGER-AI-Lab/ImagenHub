@@ -132,6 +132,14 @@ imagen\_hub.infermodels.pix2pixzero module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.infermodels.pixart\_alpha module
+--------------------------------------------
+
+.. automodule:: imagen_hub.infermodels.pixart_alpha
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.infermodels.prompt2prompt module
 --------------------------------------------
 

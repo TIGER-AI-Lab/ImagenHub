@@ -2,6 +2,11 @@
 
 See image output visualization on [Imagen Museum](https://chromaica.github.io/).
 
+We included more than 30 Models in image synthesis. See the most updated full list here:
+
+Supported Models: [https://github.com/TIGER-AI-Lab/ImagenHub/issues/1](https://github.com/TIGER-AI-Lab/ImagenHub/issues/1)
+Supported Metrics: [https://github.com/TIGER-AI-Lab/ImagenHub/issues/6](https://github.com/TIGER-AI-Lab/ImagenHub/issues/6)
+
 ## Text-guided Image Generation Model
 
 * [DeepFloydIF](https://www.deepfloyd.ai/deepfloyd-if)

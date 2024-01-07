@@ -28,7 +28,6 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
    Overview/philosophy
    Overview/models
    Overview/datasets
-   Overview/metrics
 
 .. toctree::
    :maxdepth: 2
@@ -42,10 +41,11 @@ ImagenHub is a centralized framework to standardize the evaluation of conditiona
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Advanced Guidelines
+   :caption: Researcher Guidelines
 
    Guidelines/custommodel
    Guidelines/humaneval
+   Guidelines/imagenmuseum
 
 .. toctree::
    :maxdepth: 2

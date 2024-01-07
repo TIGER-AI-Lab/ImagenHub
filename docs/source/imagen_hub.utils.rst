@@ -20,6 +20,22 @@ imagen\_hub.utils.configs module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.utils.eval\_human module
+------------------------------------
+
+.. automodule:: imagen_hub.utils.eval_human
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.utils.eval\_metric module
+-------------------------------------
+
+.. automodule:: imagen_hub.utils.eval_metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.utils.file\_helper module
 -------------------------------------
 
@@ -48,6 +64,14 @@ imagen\_hub.utils.latent\_helper module
 ---------------------------------------
 
 .. automodule:: imagen_hub.utils.latent_helper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.utils.math\_helper module
+-------------------------------------
+
+.. automodule:: imagen_hub.utils.math_helper
    :members:
    :undoc-members:
    :show-inheritance:

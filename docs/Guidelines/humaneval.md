@@ -80,6 +80,175 @@ In the `results` folder, there should be a `dataset_lookup.csv` file to edit.
 | sample_3.jpg      | [1, 0.5]       |
 | ...      | ...      |
 
+## Task-specific Guidelines
+
+Some predefined conditions:
+* Condition A: Is the Image generation following the prompt?
+* Condition B: Is the Image editing following the instruction?
+* Condition C: Is the Image performing minimal edit without changing the background? 
+* Condition D_i: Is the Object_i in the Image following the token subject?
+* Condition E: Is the Image following the control guidance?
+
+### Text-guided Image Generation (known as Text-to-Image)
+
+* Condition A: Is the Image generation following the prompt?
+
+SC Table:
+| Condition A           | SC rating |
+|-----------------------|-----------|
+| no following at all   | 0         |
+| following some part   | 0.5       |
+| following most part   | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+
+### Mask-guided Image Editing 
+
+* Condition B: Is the Image editing following the instruction?
+* Condition C: Is the Image performing minimal edit without changing the background? 
+
+SC Table:
+| Condition B           | Condition C   | SC rating |
+|-----------------------|------------------------------|-----------|
+| no following at all   | Any                          | 0         |
+| Any                   | background completely changed          | 0         |
+| following some part   | with a few overedit or mostly minimal  | 0.5       |
+| following some or most part | with a few overedit | 0.5       |
+| following most part   | mostly minimal          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+
+### Text-guided Image Editing
+
+
+* Condition B: Is the Image editing following the instruction?
+* Condition C: Is the Image performing minimal edit without changing the background? 
+
+SC Table:
+| Condition B           | Condition C   | SC rating |
+|-----------------------|------------------------------|-----------|
+| no following at all   | Any                          | 0         |
+| Any                   | background completely changed          | 0         |
+| following some part   | with a few overedit or mostly minimal  | 0.5       |
+| following some or most part | with a few overedit | 0.5       |
+| following most part   | mostly minimal          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+### Subject-driven Image Generation
+
+
+* Condition A: Is the Image generation following the prompt?
+* Condition D: Is the Object in the Image following the token subject?
+
+SC Table:
+| Condition A           | Condition D   | SC rating |
+|-----------------------|------------------------------|-----------|
+| no following at all   | Any                          | 0         |
+| Any                   | no following at all          | 0         |
+| following some part   | following some or most part  | 0.5       |
+| following some or most part | following some part | 0.5       |
+| following most part   | following most part          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+### Subject-driven Image Editing
+
+* Condition C: Is the Image performing minimal edit without changing the background? 
+* Condition D: Is the Object in the Image following the token subject?
+
+SC Table:
+| Condition C           | Condition D   | SC rating |
+|-----------------------|------------------------------|-----------|
+| no following at all   | Any                          | 0         |
+| Any                   | no following at all          | 0         |
+| following some part   | following some or most part  | 0.5       |
+| following some or most part | following some part | 0.5       |
+| following most part   | following most part          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+
+### Multi-concept Image Composition 
+
+* Condition A: Is the Image generation following the prompt?
+* Condition D_i: Is the Object_i in the Image following the token subject?
+
+SC Table:
+| Condition A           | Condition D_1   | Condition D_2   | SC rating |
+|-----------------------|------------------------------|------------------------------|-----------|
+| no following at all   | Any                          | Any                          | 0         |
+| Any                   | no following at all          | Any                          | 0         |
+| Any                   | Any                          | no following at all          | 0         |
+| following some part   | following some or most part  | following some or most part  | 0.5       |
+| following some or most part | following some part         | following some or most part  | 0.5       |
+| following some part or more | following some or most part | following some part         | 0.5       |
+| following most part   | following most part          | following most part          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+
+### Control-guided Image Generation 
+
+* Condition A: Is the Image generation following the prompt?
+* Condition E: Is the Image following the control guidance?
+
+SC Table:
+| Condition A           | Condition E   | SC rating |
+|-----------------------|------------------------------|-----------|
+| no following at all   | Any                          | 0         |
+| Any                   | no following at all          | 0         |
+| following some part   | following some or most part  | 0.5       |
+| following some or most part | following some part | 0.5       |
+| following most part   | following most part          | 1         |
+
+PQ Table:
+| Objects in image  | Artifacts | Unusual sense   | PQ rating |
+|-------------------|-----------|-----------------|-----------|
+| Unrecognizable    | serious   | Any             | 0         |
+| Recognizable      | some      | Any             | 0.5       |
+| Recognizable      | Any       | some            | 0.5       |
+| Recognizable      | none      | little or None  | 1         |
+
+
 ## Statistical Tools for Human Evaluation Data
 
 (Under Construction)

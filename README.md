@@ -22,6 +22,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 </div>
 
 ## 📰 News
+* 2024 Jan 7: We updated [Human Evaluation Guideline](https://imagenhub.readthedocs.io/en/latest/Guidelines/humaneval.html), [ImagenMuseum Submission](https://imagenhub.readthedocs.io/en/latest/Guidelines/imagenmuseum.html)! Now we welcome researchers to submit their method on ImagenMuseum with minimal effort.
 * 2023 Oct 23: Version 0.1.0 released! [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) now available!
 * 2023 Oct 19: Code Released. Docs under construction.
 * 2023 Oct 13: We released [Imagen Museum](https://chromaica.github.io/#imagen-museum), a visualization page for all models from ImagenHub!
@@ -189,8 +190,14 @@ We believe that everyone can contribute and make a difference. Whether it's writ
 
 ### For the Researchers:
 
-* Q: How can I add my method to ImagenHub?
+* Q: How can I use your evaluation method for my method?
+* A: Please Refer to [https://imagenhub.readthedocs.io/en/latest/Guidelines/humaneval.html](https://imagenhub.readthedocs.io/en/latest/Guidelines/humaneval.html)
+
+* Q: How can I add my method to ImagenHub codebase?
 * A: Please Refer to [https://imagenhub.readthedocs.io/en/latest/Guidelines/custommodel.html](https://imagenhub.readthedocs.io/en/latest/Guidelines/custommodel.html)
+
+* Q: I want to feature my method on [ImagenMuseum](https://chromaica.github.io/#imagen-museum)!
+* A: Please Refer to [https://imagenhub.readthedocs.io/en/latest/Guidelines/imagenmuseum.html](https://imagenhub.readthedocs.io/en/latest/Guidelines/imagenmuseum.html)
 
 
 ## 🖊️ Citation [🔝](#-table-of-contents)
