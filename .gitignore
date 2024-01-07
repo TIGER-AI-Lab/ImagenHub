@@ -9,7 +9,7 @@ checkpoints/*
 keys/*
 
 # models from metrics
-eval/metric_eval_results/models/ 
+eval/models/ 
 
 
 # Logging

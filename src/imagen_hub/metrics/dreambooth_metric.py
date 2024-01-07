@@ -46,7 +46,7 @@ class MetricCLIP_I():
         """
         return distance
         """
-        return evaluate_clipi_score(real_image, generated_image, self.model, self.device)
+        return float(evaluate_clipi_score(real_image, generated_image, self.model, self.device))
 
 class MetricCLIP_T():
     """
@@ -68,7 +68,7 @@ class MetricCLIP_T():
         """
         return distance
         """
-        return evaluate_clipt_score(generated_image, text, self.model, self.device)
+        return float(evaluate_clipt_score(generated_image, text, self.model, self.device))
 
 def compute_cosine_distance(image_features, image_features2):
     """

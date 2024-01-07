@@ -25,4 +25,4 @@ params:
   save_to_folder: "results"
   experiment_basename: "ImagenHub_Text-Guided_IE" # outputs will be saved to <save_to_folder>/<experiment_basename>/
 visualize:
-  prioritize_folders: "input" # The folder that you want to put in front. Support list.
+  prioritize_folders: ["input", "GroundTruth"] # The folder that you want to put in front. Support list.

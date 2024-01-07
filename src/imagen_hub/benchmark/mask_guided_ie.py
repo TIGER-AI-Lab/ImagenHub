@@ -59,13 +59,16 @@ def infer_mask_guided_ie_bench(model,
     index = 0
     for sample in tqdm(data):
         file_basename = process_dataset_uid(sample)
+        gt_folder = os.path.join(result_folder, experiment_name, "GroundTruth")
+        input_folder = os.path.join(result_folder, experiment_name, "input")
         dest_folder = os.path.join(result_folder, experiment_name, model.__class__.__name__)
         dest_file = os.path.join(dest_folder, file_basename)
         if overwrite_model_outputs or not os.path.exists(dest_file):
             print("========> Inferencing", dest_file)
             sample_input = sample['source_img'].resize(
                 (512, 512), Image.LANCZOS)
-
+            sample_gt = sample['target_img'].resize(
+                (512, 512), Image.LANCZOS)
             sample_mask = sample['mask_img'].resize((512, 512), Image.LANCZOS)
             tgt_caption = sample['target_local_caption']
             output = model.infer_one_image(src_image=sample_input,
@@ -75,8 +78,8 @@ def infer_mask_guided_ie_bench(model,
                 result_folder, experiment_name, "mask"), file_basename, overwrite=overwrite_inputs)
 
             output = output.resize((512, 512), Image.LANCZOS)
-            save_pil_image(sample_input, os.path.join(
-                result_folder, experiment_name, "input"), file_basename, overwrite=overwrite_inputs)
+            save_pil_image(sample_input, input_folder, file_basename, overwrite=overwrite_inputs)
+            save_pil_image(sample_gt, gt_folder, file_basename, overwrite=overwrite_inputs)
             save_pil_image(output, dest_folder, file_basename)
         else:
             print("========> Skipping", dest_file, ", it already exists")

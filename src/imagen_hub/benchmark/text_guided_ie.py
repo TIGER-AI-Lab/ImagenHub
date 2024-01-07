@@ -61,6 +61,8 @@ def infer_text_guided_ie_bench(model,
     index = 0
     for sample in tqdm(data):
         file_basename = process_dataset_uid(sample)
+        gt_folder = os.path.join(result_folder, experiment_name, "GroundTruth")
+        input_folder = os.path.join(result_folder, experiment_name, "input")
         dest_folder = os.path.join(result_folder, experiment_name, model.__class__.__name__)
         dest_file = os.path.join(dest_folder, file_basename)
 
@@ -68,7 +70,8 @@ def infer_text_guided_ie_bench(model,
             print("========> Inferencing", dest_file)
             sample_input = sample['source_img'].resize(
                 (512, 512), Image.LANCZOS)
-
+            sample_gt = sample['target_img'].resize(
+                (512, 512), Image.LANCZOS)
             instruction = sample['instruction']
             src_caption = sample['source_global_caption']
             tgt_caption = sample['target_global_caption']
@@ -78,8 +81,8 @@ def infer_text_guided_ie_bench(model,
                                             instruct_prompt=instruction)
 
             output = output.resize((512, 512), Image.LANCZOS)
-            save_pil_image(sample_input, os.path.join(
-                result_folder, experiment_name, "input"), file_basename, overwrite=overwrite_inputs)
+            save_pil_image(sample_input, input_folder, file_basename, overwrite=overwrite_inputs)
+            save_pil_image(sample_gt, gt_folder, file_basename, overwrite=overwrite_inputs)
             save_pil_image(output, dest_folder, file_basename)
         else:
             print("========> Skipping", dest_file, ", it already exists")
