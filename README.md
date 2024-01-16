@@ -6,6 +6,10 @@
 [![pull requests](https://img.shields.io/github/issues-pr/TIGER-AI-Lab/ImagenHub?color=0088ff)](https://github.com/TIGER-AI-Lab/ImagenHub/pulls)
 [![license](https://img.shields.io/github/license/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/blob/main/LICENSE)
 
+ImagenHub: Standardizing the evaluation of conditional image generation models 
+<br>
+ICLR 2024
+
 <div align="center">
 <img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="40%">
 </div>
@@ -22,6 +26,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 </div>
 
 ## 📰 News
+* 2024 Jan 15: Paper accepted to ICLR 2024! See you in Vienna! 
 * 2024 Jan 7: We updated [Human Evaluation Guideline](https://imagenhub.readthedocs.io/en/latest/Guidelines/humaneval.html), [ImagenMuseum Submission](https://imagenhub.readthedocs.io/en/latest/Guidelines/imagenmuseum.html)! Now we welcome researchers to submit their method on ImagenMuseum with minimal effort.
 * 2023 Oct 23: Version 0.1.0 released! [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) now available!
 * 2023 Oct 19: Code Released. Docs under construction.
