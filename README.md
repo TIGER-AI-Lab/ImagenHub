@@ -6,6 +6,10 @@
 [![pull requests](https://img.shields.io/github/issues-pr/TIGER-AI-Lab/ImagenHub?color=0088ff)](https://github.com/TIGER-AI-Lab/ImagenHub/pulls)
 [![license](https://img.shields.io/github/license/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/blob/main/LICENSE)
 
+ImagenHub: Standardizing the evaluation of conditional image generation models 
+<br>
+ICLR 2024
+
 <div align="center">
 <img src="https://github.com/TIGER-AI-Lab/ImagenHub/blob/gh-pages/static/images/banner.png" width="40%">
 </div>
