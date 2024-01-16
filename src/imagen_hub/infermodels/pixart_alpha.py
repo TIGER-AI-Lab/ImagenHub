@@ -20,7 +20,6 @@ class PixArtAlpha():
             weight,
             torch_dtype=torch.float16,
         ).to(device)
-        self.pipe.enable_model_cpu_offload()
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
