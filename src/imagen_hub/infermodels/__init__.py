@@ -19,6 +19,7 @@ from .text2live import Text2Live
 from .sdedit import SDEdit
 from .cyclediffusion import CycleDiffusion
 from .pix2pixzero import Pix2PixZero
+from .pnp import PNP
 
 # ==========================================================
 # Mask-guided Image Editing
