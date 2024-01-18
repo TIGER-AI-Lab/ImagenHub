@@ -142,3 +142,33 @@ class LCM():
                             output_type="pil").images
         return images[0]
 
+class PlayGroundV2(SD):
+    def __init__(self, device="cuda", weight="playgroundai/playground-v2-1024px-aesthetic"):
+        """
+        A class for the PlayGroundAI image generation model.
+
+        Args:
+            device (str, optional): The device on which the model should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for PlayGroundV2. Default is "playgroundai/playground-v2-1024px-aesthetic".
+        """
+        super().__init__(device=device, weight=weight)
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed. It is recommend to use guidance_scale=3.0.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+
+        generator = torch.manual_seed(seed)
+        image = self.pipe(
+            prompt=prompt,
+            generator=generator, 
+            guidance_scale=3.0,
+        ).images[0]
+        return image
