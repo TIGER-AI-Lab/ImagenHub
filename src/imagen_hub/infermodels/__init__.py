@@ -1,7 +1,7 @@
 
 # ==========================================================
 # Text-to-Image Generation
-from .sd import SD, OpenJourney, LCM
+from .sd import SD, OpenJourney, LCM, PlayGroundV2
 from .sdxl import SDXL, SDXLTurbo, SSD
 from .deepfloydif import DeepFloydIF
 from .dalle import DALLE2, DALLE3, StableUnCLIP
