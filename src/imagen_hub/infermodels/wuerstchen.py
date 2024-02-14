@@ -5,7 +5,7 @@ import accelerate
 import peft
 
 
-class WuerstchenModel():
+class Wuerstchen():
     """
     A wrapper class for Wuerstchen Model,
 
@@ -20,6 +20,7 @@ class WuerstchenModel():
 
         Args:
             device (str): The device for running the pipeline ("cuda" or "cpu"). Default is "cuda".
+            dtype (torch.dtype): type that we use after loading the pretrained model.
         """
         self.prior_pipeline = WuerstchenPriorPipeline.from_pretrained("warp-ai/wuerstchen-prior",
                                                                       torch_dtype=dtype,
