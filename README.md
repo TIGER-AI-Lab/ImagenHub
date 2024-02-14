@@ -26,6 +26,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 </div>
 
 ## 📰 News
+* 2024 Feb 14: Checkout [⚔️ GenAI-Arena ⚔️ : Benchmarking Visual Generative Models in the Wild](https://huggingface.co/spaces/TIGER-Lab/GenAI-Arena)! 
 * 2024 Jan 15: Paper accepted to ICLR 2024! See you in Vienna! 
 * 2024 Jan 7: We updated [Human Evaluation Guideline](https://imagenhub.readthedocs.io/en/latest/Guidelines/humaneval.html), [ImagenMuseum Submission](https://imagenhub.readthedocs.io/en/latest/Guidelines/imagenmuseum.html)! Now we welcome researchers to submit their method on ImagenMuseum with minimal effort.
 * 2023 Oct 23: Version 0.1.0 released! [ImagenHub’s documentation](https://imagenhub.readthedocs.io/en/latest/index.html) now available!
