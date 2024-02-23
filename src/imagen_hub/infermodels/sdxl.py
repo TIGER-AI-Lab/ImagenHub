@@ -45,6 +45,47 @@ class SDXL():
         ).images[0]
         return image
 
+class SDXLLightning():
+    """
+    SDXL-Lightning.
+    Reference: https://huggingface.co/ByteDance/SDXL-Lightning
+    """
+    def __init__(self, device="cuda", weight="ByteDance/SDXL-Lightning"):
+        """
+        Attributes:
+            pipe (StableDiffusionXLPipeline): The underlying image generation pipeline object.
+
+        Args:
+            device (str, optional): The device on which the pipeline should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for image generation. Default is "ByteDance/SDXL-Lightning".
+        """
+        from diffusers import StableDiffusionXLPipeline, UNet2DConditionModel, EulerDiscreteScheduler
+        from huggingface_hub import hf_hub_download
+        base = "stabilityai/stable-diffusion-xl-base-1.0"
+        ckpt = "sdxl_lightning_4step_unet.pth"
+        unet = UNet2DConditionModel.from_config(base, subfolder="unet").to("cuda", torch.float16)
+        unet.load_state_dict(load_file(hf_hub_download(weight, ckpt), device="cuda"))
+        self.pipe = StableDiffusionXLPipeline.from_pretrained(
+            base, unet=unet, torch_dtype=torch.float16, variant="fp16"
+        ).to(device)
+        self.pipe.scheduler = EulerDiscreteScheduler.from_config(self.pipe.scheduler.config, timestep_spacing="trailing")
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+
+        generator = torch.manual_seed(seed)
+        image = self.pipe(prompt, num_inference_steps=4, guidance_scale=0, generator=generator).images[0]
+        return image
+
 class SDXLInpaint():
     """
     Stable Diffusion XL for image inpainting tasks.
