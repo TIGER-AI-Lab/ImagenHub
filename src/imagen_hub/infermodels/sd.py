@@ -172,3 +172,50 @@ class PlayGroundV2(SD):
             guidance_scale=3.0,
         ).images[0]
         return image
+
+class StableCascade(SD):
+    def __init__(self, device="cuda", weight="stabilityai/stable-cascade"):
+        """
+        A class for the stable cascade image generation model.
+
+        Args:
+            device (str, optional): The device on which the model should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for stable-cascade. Default is "stabilityai/stable-cascade".
+        """
+        from diffusers import StableCascadeDecoderPipeline, StableCascadePriorPipeline
+        self.prior = StableCascadePriorPipeline.from_pretrained("stabilityai/stable-cascade-prior",
+                                                                torch_dtype=torch.bfloat16).to(device)
+        self.pipe = StableCascadeDecoderPipeline.from_pretrained(weight,
+                                                                 torch_dtype=torch.float16).to(device)
+
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed. It is recommend to use guidance_scale=3.0.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+
+        prior_output = self.prior(
+            prompt=prompt,
+            height=1024,
+            width=1024,
+            negative_prompt='',
+            guidance_scale=4.0,
+            num_images_per_prompt=1,
+            num_inference_steps=20
+        )
+        image = self.pipe(
+            image_embeddings=prior_output.image_embeddings.to(torch.float16),
+            prompt=prompt,
+            negative_prompt='',
+            guidance_scale=0.0,
+            output_type="pil",
+            num_inference_steps=10
+        ).images[0]
+        return image
