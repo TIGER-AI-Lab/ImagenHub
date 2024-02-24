@@ -22,7 +22,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 * We provide code for visualization, autometrics and Amazon mechanical turk templates.
 
 <div align="center">
- <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[🌐 Project Page]</a> <a href = "https://imagenhub.readthedocs.io/en/latest/index.html">[📘 Documentation]</a> <a href = "https://arxiv.org/abs/2310.01596">[📄 Arxiv]</a> <a href = "https://huggingface.co/ImagenHub">[💾 Datasets]</a> <a href = "https://chromaica.github.io/#imagen-museum">[🏛️ ImagenMuseum]</a>
+ <a href = "https://tiger-ai-lab.github.io/ImagenHub/">[🌐 Project Page]</a> <a href = "https://imagenhub.readthedocs.io/en/latest/index.html">[📘 Documentation]</a> <a href = "https://arxiv.org/abs/2310.01596">[📄 Arxiv]</a> <a href = "https://huggingface.co/ImagenHub">[💾 Datasets]</a> <a href = "https://chromaica.github.io/#imagen-museum">[🏛️ ImagenMuseum]</a> <a href = "https://huggingface.co/spaces/TIGER-Lab/GenAI-Arena">[⚔️ GenAI-Arena]</a>
 </div>
 
 ## 📰 News
