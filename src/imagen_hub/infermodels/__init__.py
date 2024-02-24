@@ -8,6 +8,7 @@ from .dalle import DALLE2, DALLE3, StableUnCLIP
 from .unidiffuser import UniDiffuser
 from .kandinsky import Kandinsky
 from .pixart_alpha import PixArtAlpha
+from .wuerstchen import Wuerstchen
 
 # ==========================================================
 # Text-guided Image Editing
