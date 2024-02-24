@@ -1,6 +1,4 @@
 import torch
-from diffusers import WuerstchenPriorPipeline, WuerstchenDecoderPipeline
-from diffusers.pipelines.wuerstchen import DEFAULT_STAGE_C_TIMESTEPS
 import accelerate
 import peft
 
@@ -22,6 +20,9 @@ class Wuerstchen():
             device (str): The device for running the pipeline ("cuda" or "cpu"). Default is "cuda".
             dtype (torch.dtype): type that we use after loading the pretrained model.
         """
+        from diffusers import WuerstchenPriorPipeline, WuerstchenDecoderPipeline
+        from diffusers.pipelines.wuerstchen import DEFAULT_STAGE_C_TIMESTEPS
+        self.stage_c_timesteps = DEFAULT_STAGE_C_TIMESTEPS
         self.prior_pipeline = WuerstchenPriorPipeline.from_pretrained("warp-ai/wuerstchen-prior",
                                                                       torch_dtype=dtype,
                                                                       low_cpu_mem_usage=True).to(device)
@@ -43,7 +44,7 @@ class Wuerstchen():
         negative_caption = None
         torch.manual_seed(seed)
         prior_output = self.prior_pipeline(prompt=prompt,
-                                           timesteps=DEFAULT_STAGE_C_TIMESTEPS,
+                                           timesteps=self.stage_c_timesteps,
                                            negative_caption=negative_caption,
                                            guidance_scale=4.0,
                                            num_images_per_prompt=1)
