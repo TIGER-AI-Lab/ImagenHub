@@ -21,7 +21,9 @@ info:
       "SDXLTurbo",
       "UniDiffuser",
       "SSD",
-      "PlayGroundV2"
+      "PlayGroundV2",
+      "StableCascade",
+      "SDXLLightning",
       "Wuerstchen"
     ] # Determine which model to run
 params:
