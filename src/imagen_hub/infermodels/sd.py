@@ -177,6 +177,8 @@ class StableCascade(SD):
     def __init__(self, device="cuda", weight="stabilityai/stable-cascade"):
         """
         A class for the stable cascade image generation model.
+        Require a special version of diffusers 
+        pip install git+https://github.com/kashif/diffusers.git@a3dc21385b7386beb3dab3a9845962ede6765887 --force
 
         Args:
             device (str, optional): The device on which the model should run. Default is "cuda".
