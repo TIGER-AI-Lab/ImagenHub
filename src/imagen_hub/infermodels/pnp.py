@@ -35,5 +35,14 @@ class PNP():
         Returns:
             PIL.Image: Transformed image based on the provided prompts.
         """
+        # Generate the transformed image as a tensor.
         tensor_image = self.pipe.generate(PIL_image=src_image, prompt=target_prompt, seed=seed)
-        return tensor_to_pil(tensor_image)
+        
+        # Convert the tensor image back to PIL.Image.
+        transformed_image = tensor_to_pil(tensor_image)
+        
+        # Resize the transformed image to match the source image size.
+        src_size = src_image.size  # Get the size of the source image.
+        resized_transformed_image = transformed_image.resize(src_size, Image.LANCZOS)
+        
+        return resized_transformed_image
