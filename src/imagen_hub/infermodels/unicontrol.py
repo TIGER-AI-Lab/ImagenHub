@@ -8,6 +8,8 @@ from numpy import asarray
 import cv2
 import os
 
+from imagen_hub.pipelines.unicontrol import cldm_v15_unicontrol_yaml
+
 class UniControl():
     """
     UniControl pipeline for controlling the image generation process with a specific task.
@@ -29,7 +31,6 @@ class UniControl():
         from imagen_hub.pipelines.unicontrol.utils import check_safety
         from imagen_hub.pipelines.unicontrol.cldm.model import create_model, load_state_dict
         from imagen_hub.pipelines.unicontrol.cldm.ddim_unicontrol_hacked import DDIMSampler
-        from imagen_hub.pipelines.unicontrol import cldm_v15_unicontrol_yaml
         from imagen_hub.utils.file_helper import get_file_path, download_weights_to_directory
 
         # Configs
