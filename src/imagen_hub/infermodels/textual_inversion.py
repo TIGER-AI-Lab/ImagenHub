@@ -1,8 +1,4 @@
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
-
-from imagen_hub.pipelines.textual_inversion.pipeline_textual_inversion import TextualInversionPipeline
-from imagen_hub.pipelines.textual_inversion.pipeline_textual_inversion_multiple_subject import TextualInversionPipelineMulti
-
 import torch
 
 class TextualInversion():
@@ -16,6 +12,10 @@ class TextualInversion():
                  initializer_token='dog',
                  output_dir=None,
                  ):
+                
+        from imagen_hub.pipelines.textual_inversion.pipeline_textual_inversion import TextualInversionPipeline
+        from imagen_hub.pipelines.textual_inversion.pipeline_textual_inversion_multiple_subject import TextualInversionPipelineMulti
+
         self.device = device
         self.what_to_teach = what_to_teach
         self.placeholder_token = placeholder_token

@@ -1,8 +1,6 @@
 import torch
 import PIL
 
-from imagen_hub.pipelines.blended_diffusion import BlendedDiffusionPipeline
-
 
 class BlendedDiffusion():
     """
@@ -16,6 +14,7 @@ class BlendedDiffusion():
         Args:
             device (str): The device for running the pipeline ("cuda" or "cpu"). Default is "cuda".
         """
+        from imagen_hub.pipelines.blended_diffusion import BlendedDiffusionPipeline
         self.pipe = BlendedDiffusionPipeline(device=device)
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, mask_image: PIL.Image.Image = None, local_mask_prompt: str = None, seed=42, iterations_num=8, skip_timesteps=25):

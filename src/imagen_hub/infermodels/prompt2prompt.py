@@ -3,9 +3,6 @@ import PIL
 
 from diffusers import StableDiffusionPipeline, DDIMScheduler
 
-from imagen_hub.pipelines.prompt2prompt.pipeline_ptp import Prompt2promptPipeline
-
-
 class Prompt2prompt():
     """
     A class for Prompt-to-Prompt.
@@ -23,6 +20,8 @@ class Prompt2prompt():
             src_subject_word (str, optional): Source subject word. Defaults to None.
             target_subject_word (str, optional): Target subject word. Defaults to None.
         """
+        from imagen_hub.pipelines.prompt2prompt.pipeline_ptp import Prompt2promptPipeline
+
         self.device = device
         self.pipe = StableDiffusionPipeline.from_pretrained(weight,
                                                             safety_checker=None).to(self.device)

@@ -4,8 +4,6 @@ import requests
 import os
 import datetime
 
-from imagen_hub.pipelines.custom_diffusion import CustomDiffusionPipeline
-
 class CustomDiffusion():
     """
     Custom Diffusion pipeline for training and inference.
@@ -36,6 +34,9 @@ class CustomDiffusion():
             batch_size (int, optional): Batch size for training. Defaults to 2.
             device (str, optional): Device to use for training. Defaults to "cuda".
         """
+
+        from imagen_hub.pipelines.custom_diffusion import CustomDiffusionPipeline
+
         if not pretrained_ckpt:
             # TODO rewrite this
             pretrained_ckpt = 'temp/sd-v1-4.ckpt'
