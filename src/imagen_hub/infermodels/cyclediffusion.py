@@ -1,8 +1,6 @@
 import torch
 import PIL
 
-from diffusers import CycleDiffusionPipeline, DDIMScheduler
-
 class CycleDiffusion():
     """
     CycleDiffusion class to transform images based on text prompts using a diffusion model.
@@ -17,6 +15,8 @@ class CycleDiffusion():
             device (str): Device to load the model. Default is "cuda".
             weight (str): Pre-trained model weight. Default is "CompVis/stable-diffusion-v1-4".
         """
+        from diffusers import CycleDiffusionPipeline, DDIMScheduler
+
         self.pipe = CycleDiffusionPipeline.from_pretrained(
             weight,
             torch_dtype=torch.float16,
