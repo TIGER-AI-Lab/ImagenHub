@@ -1,4 +1,3 @@
-from torchmetrics.multimodal.clip_score import CLIPScore
 import torch
 from PIL import Image
 import numpy as np
@@ -16,6 +15,7 @@ class MetricCLIPScore():
         Args:
             device (str, optional): The device on which the model will run. Defaults to "cuda".
         """
+        from torchmetrics.multimodal.clip_score import CLIPScore
         self.model = get_clipscore_model().to(device)
         self.device = device
 

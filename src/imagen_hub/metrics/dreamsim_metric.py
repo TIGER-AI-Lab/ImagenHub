@@ -1,4 +1,3 @@
-from dreamsim import dreamsim
 from torchvision import transforms
 from PIL import Image
 
@@ -44,6 +43,7 @@ def get_dreamsim_model():
     Returns:
         tuple: A tuple containing the DreamSim model and its preprocessing function.
     """
+    from dreamsim import dreamsim
     model, preprocess = dreamsim(pretrained=True)
     return model, preprocess
 
