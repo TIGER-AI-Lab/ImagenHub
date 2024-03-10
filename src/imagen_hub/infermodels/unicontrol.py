@@ -99,5 +99,5 @@ class UniControl():
         x_checked_image_torch = torch.from_numpy(x_checked_image).permute(0, 3, 1, 2)
         for x_sample in x_checked_image_torch:
             x_sample = 255. * einops.rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
-            img = Image.fromarray(x_sample.astype(np.uint8))
+            img = PIL.Image.fromarray(x_sample.astype(np.uint8))
         return img
