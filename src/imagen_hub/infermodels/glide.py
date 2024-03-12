@@ -1,9 +1,6 @@
 import torch
 import PIL
 
-from imagen_hub.pipelines.glide import GlidePipeline
-
-
 class Glide():
     """
     A wrapper around the GlidePipeline for image inpainting.
@@ -21,6 +18,7 @@ class Glide():
         Args:
             device (str, optional): The device on which the pipeline should be loaded. Defaults to "cuda".
         """
+        from imagen_hub.pipelines.glide import GlidePipeline
         self.pipe = GlidePipeline(device=device)
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, mask_image: PIL.Image.Image = None, local_mask_prompt: str = None, seed=42):

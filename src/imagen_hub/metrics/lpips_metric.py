@@ -1,4 +1,3 @@
-import lpips
 from torchvision import transforms
 from PIL import Image
 
@@ -18,6 +17,7 @@ class MetricLPIPS():
             device (str, optional): Device for the model. Defaults to 'cuda'.
             net_type (str, optional): The architecture type for LPIPS (either 'alex' or 'vgg'). Defaults to 'alex'.
         """
+        import lpips
         self.device = device
         self.model = lpips.LPIPS(net=net_type).to(self.device)
 
@@ -42,6 +42,7 @@ def get_lpips_alex_model():
     Returns:
         lpips.LPIPS: The LPIPS model with AlexNet backbone.
     """
+    import lpips
     return lpips.LPIPS(net='alex')  # best forward scores
 
 
@@ -53,6 +54,7 @@ def get_lpips_vgg_model():
         lpips.LPIPS: The LPIPS model with VGG backbone.
     """
     # closer to "traditional" perceptual loss, when used for optimization
+    import lpips
     return lpips.LPIPS(net='vgg')
 
 

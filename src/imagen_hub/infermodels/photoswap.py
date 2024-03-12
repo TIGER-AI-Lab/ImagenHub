@@ -3,8 +3,6 @@ import PIL
 
 from diffusers import StableDiffusionPipeline, DDIMScheduler
 
-from imagen_hub.pipelines.photoswap.pipeline_photoswap import PhotoswapPipeline
-
 
 class PhotoSwap():
     """
@@ -22,6 +20,8 @@ class PhotoSwap():
             src_subject_word (str, optional): Source subject word. Defaults to None.
             target_subject_word (str, optional): Target subject word (the special token e.g. sks). Defaults to None.
         """
+        from imagen_hub.pipelines.photoswap.pipeline_photoswap import PhotoswapPipeline
+
         self.device = device
         self.pipe = StableDiffusionPipeline.from_pretrained(weight,
                                                             safety_checker=None).to(self.device)

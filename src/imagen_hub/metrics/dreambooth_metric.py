@@ -2,8 +2,6 @@ import numpy as np
 import torch
 from PIL import Image
 
-from imagen_hub.miscmodels.dino_vit import VITs16
-from imagen_hub.miscmodels.clip_vit import CLIP
 
 """
 DreamBooth metrics
@@ -17,6 +15,7 @@ class MetricDINO():
     A metric class for evaluating images using the DINO algorithm.
     """
     def __init__(self, device="cuda") -> None:
+        from imagen_hub.miscmodels.dino_vit import VITs16
         self.model = VITs16(device)
         self.device = device
 
@@ -39,6 +38,7 @@ class MetricCLIP_I():
             Computes the CLIP-I score between a real and a generated image.
     """
     def __init__(self, device="cuda") -> None:
+        from imagen_hub.miscmodels.clip_vit import CLIP
         self.model = CLIP(device)
         self.device = device
 
@@ -61,6 +61,7 @@ class MetricCLIP_T():
             Computes the CLIP-T score between a generated image and its associated text.
     """
     def __init__(self, device="cuda") -> None:
+        from imagen_hub.miscmodels.clip_vit import CLIP
         self.model = CLIP(device)
         self.device = device
 

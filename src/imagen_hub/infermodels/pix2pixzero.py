@@ -4,9 +4,6 @@ import PIL
 from transformers import BlipForConditionalGeneration, BlipProcessor
 from diffusers import DDIMScheduler, DDIMInverseScheduler, StableDiffusionPix2PixZeroPipeline
 
-from imagen_hub.pipelines.pix2pix_zero.pipeline_pix2pixzero import Pix2PixZeroPipeline
-
-
 class Pix2PixZero():
     def __init__(self, device="cuda", weight="CompVis/stable-diffusion-v1-4"):
         """
@@ -16,6 +13,9 @@ class Pix2PixZero():
             device (str, optional): The device to run the model on. Defaults to "cuda".
             weight (str, optional): Model weights to load. Defaults to "CompVis/stable-diffusion-v1-4".
         """
+
+        from imagen_hub.pipelines.pix2pix_zero.pipeline_pix2pixzero import Pix2PixZeroPipeline
+
         captioner_id = "Salesforce/blip-image-captioning-base"
         processor = BlipProcessor.from_pretrained(captioner_id)
         model = BlipForConditionalGeneration.from_pretrained(
