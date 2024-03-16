@@ -164,30 +164,47 @@ class freecontrol():
         self.model_ckpt = model_ckpt
         self.pca_basis = pca_basis
 
-    def generate_images(self, input_image,
-                        prompt="A photo of a lion, in the desert, best quality, extremely detailed",
-                        inversion_prompt="A photo of a dog",
-                        paired_objects="(dog; lion)",
-                        negative_prompt="longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
-                        scale=7.5,
-                        ddim_steps=200,
-                        img_size=512,
-                        condition='Normal',
-                        seed=42,
-                        pca_guidance_steps=0.6,
-                        pca_guidance_components=64,
-                        pca_guidance_weight=600,
-                        pca_guidance_normalized=True,
-                        pca_masked_tr=0.3,
-                        pca_guidance_penalty_factor=10,
-                        pca_warm_up_step=0.05,
-                        pca_texture_reg_tr=0.5,
-                        pca_texture_reg_factor=0.1):
-        ips = [input_image, prompt, scale, ddim_steps, self.sd_version,
+    def infer_one_image(self, src_image: PIL.Image.Image = None,
+                        prompt: str = None,
+                        inversion_prompt: str = None,
+                        paired_objects: str = None,
+                        task: str = 'Canny',
+                        seed: int = 42):
+        """
+        Infer one image using FreeControl.
+
+        Args:
+            src_image (PIL.Image.Image, optional): Source image in RGB format, pre-processed for guidance. Default is None.
+            prompt (str, optional): prompt of the generating image. Default is None.
+            inversion_prompt (str, optional): prompt of the provided image.
+            paired_objects (str, optional): pair the object in inversion_prompt with the object in prompt that we want to correspond
+            in form of "(obj from inversion prompt; obj from generation prompt)". Default is None.
+            task (str, optional): Task type for FreeControl among
+            ["None", "Scribble", "Depth", "Hed", "Seg", "Canny", "Normal", "Openpose"]. Defaults to "Canny".
+            seed (int, optional): Seed for randomness. Default is 42.
+
+        Returns:
+            PIL.Image.Image: Processed image.
+        """
+        assert task in ["None", "Scribble", "Depth", "Hed", "Seg", "Canny", "Normal", "Openpose"]
+        scale = 7.5
+        ddim_steps = 200
+        img_size = 512
+        negative_prompt = None
+        pca_guidance_steps = 0.6
+        pca_guidance_components = 64
+        pca_guidance_weight = 600
+        pca_guidance_normalized = True
+        pca_masked_tr = 0.3
+        pca_guidance_penalty_factor = 10
+        pca_warm_up_step = 0.05
+        pca_texture_reg_tr = 0.5
+        pca_texture_reg_factor = 0.1
+        ips = [src_image, prompt, scale, ddim_steps, self.sd_version,
                self.model_ckpt, pca_guidance_steps, pca_guidance_components, pca_guidance_weight,
                pca_guidance_normalized,
                pca_masked_tr, pca_guidance_penalty_factor, pca_warm_up_step, pca_texture_reg_tr, pca_texture_reg_factor,
                negative_prompt, seed, paired_objects,
-               self.pca_basis, inversion_prompt, condition, img_size]
+               self.pca_basis, inversion_prompt, task, img_size]
         img = freecontrol_generate(*ips)  # ips as arguments
         return img
