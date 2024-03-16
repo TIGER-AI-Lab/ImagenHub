@@ -61,8 +61,9 @@ class SDXLLightning():
         """
         from diffusers import StableDiffusionXLPipeline, UNet2DConditionModel, EulerDiscreteScheduler
         from huggingface_hub import hf_hub_download
+        from safetensors.torch import load_file
         base = "stabilityai/stable-diffusion-xl-base-1.0"
-        ckpt = "sdxl_lightning_4step_unet.pth"
+        ckpt = "sdxl_lightning_4step_unet.safetensors"
         unet = UNet2DConditionModel.from_config(base, subfolder="unet").to("cuda", torch.float16)
         unet.load_state_dict(load_file(hf_hub_download(weight, ckpt), device="cuda"))
         self.pipe = StableDiffusionXLPipeline.from_pretrained(

@@ -8,12 +8,7 @@ from numpy import asarray
 import cv2
 import os
 
-from imagen_hub.pipelines.unicontrol.utils import check_safety
-from imagen_hub.pipelines.unicontrol.cldm.model import create_model, load_state_dict
-from imagen_hub.pipelines.unicontrol.cldm.ddim_unicontrol_hacked import DDIMSampler
 from imagen_hub.pipelines.unicontrol import cldm_v15_unicontrol_yaml
-from imagen_hub.utils.file_helper import get_file_path, download_weights_to_directory
-
 
 class UniControl():
     """
@@ -31,6 +26,13 @@ class UniControl():
             weight (str, optional): Path to model weights. If None, will download from the default URL.
             config (dict): Configuration for creating the model.
         """
+
+
+        from imagen_hub.pipelines.unicontrol.utils import check_safety
+        from imagen_hub.pipelines.unicontrol.cldm.model import create_model, load_state_dict
+        from imagen_hub.pipelines.unicontrol.cldm.ddim_unicontrol_hacked import DDIMSampler
+        from imagen_hub.utils.file_helper import get_file_path, download_weights_to_directory
+
         # Configs
         if weight is None:
             weight = download_weights_to_directory(url="https://storage.googleapis.com/sfr-unicontrol-data-research/unicontrol.ckpt",
@@ -97,5 +99,5 @@ class UniControl():
         x_checked_image_torch = torch.from_numpy(x_checked_image).permute(0, 3, 1, 2)
         for x_sample in x_checked_image_torch:
             x_sample = 255. * einops.rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
-            img = Image.fromarray(x_sample.astype(np.uint8))
+            img = PIL.Image.fromarray(x_sample.astype(np.uint8))
         return img

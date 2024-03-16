@@ -1,7 +1,4 @@
 import torch
-import accelerate
-import peft
-
 
 class Wuerstchen():
     """
@@ -20,6 +17,8 @@ class Wuerstchen():
             device (str): The device for running the pipeline ("cuda" or "cpu"). Default is "cuda".
             dtype (torch.dtype): type that we use after loading the pretrained model.
         """
+        import accelerate
+        import peft
         from diffusers import WuerstchenPriorPipeline, WuerstchenDecoderPipeline
         from diffusers.pipelines.wuerstchen import DEFAULT_STAGE_C_TIMESTEPS
         self.stage_c_timesteps = DEFAULT_STAGE_C_TIMESTEPS

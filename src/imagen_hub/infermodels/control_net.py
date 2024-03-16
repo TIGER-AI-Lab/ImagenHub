@@ -1,8 +1,5 @@
-from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
 import torch
 import PIL
-from diffusers import UniPCMultistepScheduler
-
 
 
 class ControlNet():
@@ -23,6 +20,9 @@ class ControlNet():
             device (str): Device to load the model. Default is "cuda".
             use_nightly_weights (bool): If true, uses the nightly weights. Default is True.
         """
+        from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
+        from diffusers import UniPCMultistepScheduler
+
         controlnet_weights = {
             "control_canny": "lllyasviel/sd-controlnet-canny",
             "control_depth": "lllyasviel/sd-controlnet-depth",

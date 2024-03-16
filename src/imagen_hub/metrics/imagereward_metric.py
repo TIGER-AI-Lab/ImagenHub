@@ -1,5 +1,4 @@
-#https://github.com/THUDM/ImageReward
-import ImageReward as RM
+
 from PIL import Image
 from typing import List, Union
 import os
@@ -41,6 +40,8 @@ def get_imagereward_model():
     Returns:
         Any: The ImageReward model.
     """
+    #https://github.com/THUDM/ImageReward
+    import ImageReward as RM
     model = RM.load("ImageReward-v1.0")
     return model
 
