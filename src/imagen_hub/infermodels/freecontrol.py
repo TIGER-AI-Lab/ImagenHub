@@ -148,7 +148,7 @@ def freecontrol_generate(condition_image, prompt, scale, ddim_steps, sd_version,
     # Display the result：
     # if the control type is not none, then we display output_image_with_control
     # if the control type is none, then we display output_image
-    return img_list[-1]
+    return img_list[0]
 
 
 class freecontrol():
