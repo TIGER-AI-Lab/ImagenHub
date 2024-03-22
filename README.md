@@ -211,6 +211,17 @@ We believe that everyone can contribute and make a difference. Whether it's writ
 Please kindly cite our paper if you use our code, data, models or results:
 
 ```bibtex
+@inproceedings{
+ku2024imagenhub,
+title={ImagenHub: Standardizing the evaluation of conditional image generation models},
+author={Max Ku and Tianle Li and Kai Zhang and Yujie Lu and Xingyu Fu and Wenwen Zhuang and Wenhu Chen},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+url={https://openreview.net/forum?id=OuV9ZrkQlc}
+}
+```
+
+```bibtex
 @article{ku2023imagenhub,
   title={ImagenHub: Standardizing the evaluation of conditional image generation models},
   author={Max Ku and Tianle Li and Kai Zhang and Yujie Lu and Xingyu Fu and Wenwen Zhuang and Wenhu Chen},
