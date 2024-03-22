@@ -168,24 +168,30 @@ palette = np.asarray([
     [92, 0, 255],
 ])
 
-
 processor = {}
+
+
 def register_processor(name):
     def decorator(fn):
         processor[name] = fn
         return fn
+
     return decorator
+
 
 def make_processor(name):
     return processor[name]()
+
 
 class Processor(ABC):
     @abstractmethod
     def __call__(self, img_path):
         pass
+
     @abstractmethod
     def get_controlnet_id(self):
         pass
+
 
 @register_processor("openpose")
 class Openposedetector(Processor):
@@ -219,9 +225,9 @@ class DepthMapDetector(Processor):
         condition_image = copy.deepcopy(image)
         return condition_image
 
+
 @register_processor("hed")
 class HEDDetector(Processor):
-
 
     def get_controlnet_id(self):
         return "lllyasviel/sd-controlnet-hed"
@@ -232,6 +238,7 @@ class HEDDetector(Processor):
         image = hed(image)
         condition_image = image
         return condition_image
+
 
 @register_processor("mlsd")
 class MLSDDetector(Processor):
@@ -246,13 +253,14 @@ class MLSDDetector(Processor):
         condition_image = image
         return condition_image
 
+
 @register_processor("canny")
 class CannyEdgeDetector(Processor):
 
     def get_controlnet_id(self):
         return "lllyasviel/sd-controlnet-canny"
 
-    def __call__(self,img_path):
+    def __call__(self, img_path):
         image = load_image(img_path)
         image = np.array(image)
 
@@ -266,6 +274,7 @@ class CannyEdgeDetector(Processor):
 
         condition_image = copy.deepcopy(image)
         return condition_image
+
 
 @register_processor("normal")
 class NormalMapDetector(Processor):
@@ -302,11 +311,12 @@ class NormalMapDetector(Processor):
         condition_image = copy.deepcopy(image)
         return condition_image
 
+
 @register_processor("scribble")
 class ScribbleDetector(Processor):
 
     def get_controlnet_id(self):
-        return  "lllyasviel/sd-controlnet-scribble"
+        return "lllyasviel/sd-controlnet-scribble"
 
     def __call__(self, img_path):
         hed = HEDdetector.from_pretrained('lllyasviel/ControlNet')
@@ -315,6 +325,7 @@ class ScribbleDetector(Processor):
         fliped_image = Image.fromarray(255 - np.array(image))
         condition_image = copy.deepcopy(image)
         return condition_image
+
 
 @register_processor("seg")
 class SegMapDetector(Processor):
@@ -347,4 +358,3 @@ class SegMapDetector(Processor):
         image = Image.fromarray(color_seg)
         condition_image = copy.deepcopy(image)
         return condition_image
-

@@ -56,6 +56,7 @@ class FreeControlSDPipeline(StableDiffusionPipeline):
 
     def __call__(
             self,
+            use_pca: bool = True,
             prompt: Union[str, List[str]] = None,
             height: Optional[int] = None,
             width: Optional[int] = None,
@@ -100,35 +101,36 @@ class FreeControlSDPipeline(StableDiffusionPipeline):
 
         # Compute the mapping token relation
         # inversion prompt need to be a list of prompt
+        if use_pca:
+            inversion_prompt = self.input_config.data.inversion.prompt
+            obj_pairs = self.input_config.sd_config.obj_pairs
+            generate_prompt = prompt
 
-        inversion_prompt = self.input_config.data.inversion.prompt
-        obj_pairs = self.input_config.sd_config.obj_pairs
-        generate_prompt = prompt
+            obj_pairs = extract_data(obj_pairs)
+            temp_pairs = list()
+            for i in range(len(obj_pairs)):
+                pair = obj_pairs[i]
+                ref = pair['ref']
+                gen = pair['gen']
+                try:
+                    ref_id, _ = compute_token_merge_indices(self.tokenizer, inversion_prompt, ref)
+                except:
+                    ref_id = None
+                    print(f"Cannot find the token id for \"{ref}\" in the inversion prompt \"{inversion_prompt}\"")
 
-        obj_pairs = extract_data(obj_pairs)
-        temp_pairs = list()
-        for i in range(len(obj_pairs)):
-            pair = obj_pairs[i]
-            ref = pair['ref']
-            gen = pair['gen']
-            try:
-                ref_id, _ = compute_token_merge_indices(self.tokenizer, inversion_prompt, ref)
-            except:
-                ref_id = None
-                print(f"Cannot find the token id for \"{ref}\" in the inversion prompt \"{inversion_prompt}\"")
+                try:
+                    gen_id, _ = compute_token_merge_indices(self.tokenizer, generate_prompt, gen)
+                except:
+                    gen_id = None
+                    print(f"Cannot find the token id for \"{gen}\" in the generate prompt \"{generate_prompt}\"")
 
-            try:
-                gen_id, _ = compute_token_merge_indices(self.tokenizer, generate_prompt, gen)
-            except:
-                gen_id = None
-                print(f"Cannot find the token id for \"{gen}\" in the generate prompt \"{generate_prompt}\"")
+                if ref_id is not None and gen_id is not None:
+                    temp_pairs.append({'ref': ref_id, 'gen': gen_id})
 
-            if ref_id is not None and gen_id is not None:
-                temp_pairs.append({'ref': ref_id, 'gen': gen_id})
+            if len(temp_pairs) == 0:
+                raise ValueError("Cannot find any token id for the given obj pairs")
+            self.record_obj_pairs = temp_pairs
 
-        if len(temp_pairs) == 0:
-            raise ValueError("Cannot find any token id for the given obj pairs")
-        self.record_obj_pairs = temp_pairs
         self.cross_attn_probs: Dict = {'channels': 0, 'probs': None}
 
         # 2. Define call parameters
@@ -303,7 +305,7 @@ class FreeControlSDPipeline(StableDiffusionPipeline):
                     # Compute the Cross-Attention loss and update the cross attention mask, Please don't delete this
                     self.compute_cross_attn_mask(cond_control_ids, cond_example_ids, cond_appearance_ids)
 
-                if _in_step(self.guidance_config.pca_guidance, i):
+                if _in_step(self.guidance_config.pca_guidance, i) and use_pca:
                     # Compute the PCA structure and appearance guidance
                     # Set the select feature to key by default
                     try:
@@ -674,7 +676,7 @@ class FreeControlSDPipeline(StableDiffusionPipeline):
                 else:
                     updated_probs = (self.cross_attn_probs['probs'] * self.cross_attn_probs[
                         'channels'] + reshaped_attention_probs * channel_num) / (
-                                                self.cross_attn_probs['channels'] + channel_num)
+                                            self.cross_attn_probs['channels'] + channel_num)
                 self.cross_attn_probs['probs'] = updated_probs.detach()
                 self.cross_attn_probs['channels'] += channel_num
 

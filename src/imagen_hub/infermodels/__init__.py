@@ -50,7 +50,7 @@ from .textual_inversion import TextualInversionMulti
 # Control-Guided Image Generation / Custom Condition Guided Image Generation
 from .control_net import ControlNet
 from .unicontrol import UniControl
-from .freecontrol import freecontrol
+from .freecontrol import FreeControl
 
 # ==========================================================
 # Misc

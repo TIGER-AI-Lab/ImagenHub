@@ -11,6 +11,7 @@ import torch
 from PIL import Image
 from typing import Callable, Union
 
+
 def set_nested_item(dataDict, mapList, value):
     """Set item in nested dictionary"""
     """
@@ -132,6 +133,7 @@ def PILtoTensor(data: Image.Image) -> torch.Tensor:
 def TensorToPIL(data: torch.Tensor) -> Image.Image:
     return Image.fromarray(data.squeeze().permute(1, 2, 0).numpy().astype(np.uint8))
 
+
 # Adapt from https://github.com/huggingface/diffusers/blob/v0.26.3/src/diffusers/utils/loading_utils.py#L9
 def load_image(
         image: Union[str, PIL.Image.Image], convert_method: Callable[[PIL.Image.Image], PIL.Image.Image] = None
@@ -174,3 +176,39 @@ def load_image(
         image = image.convert("RGB")
 
     return image
+
+
+def load_ckpt_pca_list(config_path):
+    """
+    Load the checkpoint and pca basis list from the config file
+    :return:
+    models : Dict: The dictionary of the model checkpoints
+    pca_basis_dict : List : The list of the pca basis
+    """
+    if not os.path.isfile(config_path):
+        raise FileNotFoundError(f"Config file {config_path} does not exist")
+
+    # load from config
+    with open(config_path, 'r') as f:
+        gradio_config = yaml.safe_load(f)
+
+    models: Dict = gradio_config['checkpoints']
+    pca_basis_dict: Dict = dict()
+    # remove non-exist model
+    for model_version in list(models.keys()):
+        for model_name in list(models[model_version].keys()):
+            if "naive" not in model_name and not os.path.isfile(models[model_version][model_name]["path"]):
+                models[model_version].pop(model_name)
+            else:
+                # Add the path of PCA basis to the pca_basis dict
+                basis_dict = models[model_version][model_name]["pca_basis"]
+                for key in list(basis_dict.keys()):
+                    if not os.path.isfile(basis_dict[key]):
+                        basis_dict.pop(key)
+                if model_version not in pca_basis_dict.keys():
+                    pca_basis_dict[model_version]: Dict = dict()
+                if model_name not in pca_basis_dict[model_version].keys():
+                    pca_basis_dict[model_version][model_name]: Dict = dict()
+                pca_basis_dict[model_version][model_name].update(basis_dict)
+
+    return models, pca_basis_dict
