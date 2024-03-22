@@ -153,7 +153,8 @@ class FreeControl():
         g = torch.Generator()
         g.manual_seed(config.sd_config.seed)
 
-        img_list = pipeline(prompt=config.sd_config.prompt,
+        img_list = pipeline(use_pca=False,
+                            prompt=config.sd_config.prompt,
                             negative_prompt=config.sd_config.negative_prompt,
                             num_inference_steps=config.sd_config.steps,
                             generator=g,
