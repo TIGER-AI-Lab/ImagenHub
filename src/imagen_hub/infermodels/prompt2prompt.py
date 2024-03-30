@@ -37,7 +37,7 @@ class Prompt2prompt():
         self.src_subject_word = src_subject_word
         self.target_subject_word = target_subject_word
 
-    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, is_replace_controller: bool = False, replace_steps=[0.3, 0.3], eq_params=None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, is_replace_controller: bool = False, replace_steps=[0.3, 0.3], eq_params=None, seed: int = 42, num_inner_steps=10):
         """
         Perform inference on a source image based on provided prompts.
 
@@ -57,7 +57,7 @@ class Prompt2prompt():
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.Generator(self.device).manual_seed(seed)
         x_t, uncond_embeddings = self.ptp_pipe.null_text_inverion(
-            src_image, src_prompt)
+            src_image, src_prompt, num_inner_steps=num_inner_steps)
         prompts = [src_prompt, target_prompt]
         controller = self.ptp_pipe.get_controller(prompts,
                                                   self.src_subject_word,
