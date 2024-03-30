@@ -51,7 +51,7 @@ class PNPPipeline(nn.Module):
         self.scheduler = DDIMScheduler.from_pretrained(self.model_key, subfolder="scheduler")
         self.scheduler.set_timesteps(self.steps, device=self.device)
 
-    def generate(self, PIL_image, prompt, negative_prompt="", pnp_f_t=0.8, pnp_attn_t=0.5, seed=42, pt_path=os.path.join("temp", "pnp", f"latents")):
+    def generate(self, PIL_image, prompt, negative_prompt="", pnp_f_t=0.8, pnp_attn_t=0.5, seed=42, pt_path=os.path.join("temp", "pnp", f"latents"), num_inversion_steps=1000):
         seed_everything(seed)
         self.pt_path = pt_path
         
@@ -59,7 +59,7 @@ class PNPPipeline(nn.Module):
         for f in glob.glob(os.path.join(pt_path, "noisy_latents_*.pt")):
             os.remove(f)
         
-        self.image, self.eps = self.set_image(PIL_image, pt_path)
+        self.image, self.eps = self.set_image(PIL_image, pt_path, num_inversion_steps=num_inversion_steps)
 
         self.text_embeds = self.get_text_embeds(prompt, negative_prompt)
         self.pnp_guidance_embeds = self.get_text_embeds("", "").chunk(2)[0]
@@ -74,19 +74,19 @@ class PNPPipeline(nn.Module):
         edited_img = self.sample_loop(self.eps)
         return edited_img
 
-    def set_image(self, PIL_image, pt_path):
+    def set_image(self, PIL_image, pt_path, num_inversion_steps=1000):
         os.makedirs(pt_path, exist_ok=True)
         # do inversion
         toy_scheduler = DDIMScheduler.from_pretrained(self.model_key, subfolder="scheduler")
-        toy_scheduler.set_timesteps(1000)
+        toy_scheduler.set_timesteps(num_inversion_steps)
         timesteps_to_save, num_inference_steps = get_timesteps(toy_scheduler, 
-                                                                num_inference_steps=1000,
+                                                                num_inference_steps=num_inversion_steps,
                                                                 strength=1.0,
                                                                 device=self.device)
         del toy_scheduler
         prep_model = Preprocess(self.device, sd_version=self.sd_version, hf_key=None)
         recon_image = prep_model.extract_latents(image_pil=PIL_image,
-                                            num_steps=999,
+                                            num_steps=num_inversion_steps-1,
                                             save_path=pt_path,
                                             timesteps_to_save=timesteps_to_save,
                                             inversion_prompt="",
