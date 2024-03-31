@@ -37,7 +37,7 @@ class PNPPipeline(nn.Module):
             raise ValueError(f'Stable-diffusion version {sd_version} not supported.')
 
         # Create SD models
-        pipe = StableDiffusionPipeline.from_pretrained(self.model_key, torch_dtype=torch.float16).to("cuda")
+        pipe = StableDiffusionPipeline.from_pretrained(self.model_key, torch_dtype=torch.float16).to(self.device)
         if LOW_MEMORY:
             pipe.enable_xformers_memory_efficient_attention()
 
