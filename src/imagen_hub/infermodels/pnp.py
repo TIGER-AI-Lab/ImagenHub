@@ -42,6 +42,6 @@ class PNP():
         
         # Resize the transformed image to match the source image size.
         src_size = src_image.size  # Get the size of the source image.
-        resized_transformed_image = transformed_image.resize(src_size, Image.LANCZOS)
+        resized_transformed_image = transformed_image.resize(src_size, PIL.Image.LANCZOS)
         
         return resized_transformed_image
