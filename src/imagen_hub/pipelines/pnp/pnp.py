@@ -78,9 +78,9 @@ class PNPPipeline(nn.Module):
         os.makedirs(pt_path, exist_ok=True)
         # do inversion
         toy_scheduler = DDIMScheduler.from_pretrained(self.model_key, subfolder="scheduler")
-        toy_scheduler.set_timesteps(num_inversion_steps)
+        toy_scheduler.set_timesteps(1000)
         timesteps_to_save, num_inference_steps = get_timesteps(toy_scheduler, 
-                                                                num_inference_steps=num_inversion_steps,
+                                                                num_inference_steps=1000,
                                                                 strength=1.0,
                                                                 device=self.device)
         del toy_scheduler
