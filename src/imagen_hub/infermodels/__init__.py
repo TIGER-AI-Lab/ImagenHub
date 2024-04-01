@@ -1,4 +1,3 @@
-
 # ==========================================================
 # Text-to-Image Generation
 from .sd import SD, OpenJourney, LCM, PlayGroundV2, StableCascade
@@ -51,15 +50,17 @@ from .textual_inversion import TextualInversionMulti
 # Control-Guided Image Generation / Custom Condition Guided Image Generation
 from .control_net import ControlNet
 from .unicontrol import UniControl
+from .freecontrol import FreeControl
 
 # ==========================================================
 # Misc
 # ==========================================================
-#from .crossdomain_composition import CrossDomainComposition
-#from .styledrop import StyleDrop
+# from .crossdomain_composition import CrossDomainComposition
+# from .styledrop import StyleDrop
 
 import sys
 from functools import partial
+
 
 def get_model(model_name: str = None, init_with_default_params: bool = True):
     """
@@ -88,6 +89,7 @@ def get_model(model_name: str = None, init_with_default_params: bool = True):
         model_instance = model_class()
         return model_instance
     return model_class
+
 
 load_model = partial(get_model, init_with_default_params=True)
 load = partial(get_model)
