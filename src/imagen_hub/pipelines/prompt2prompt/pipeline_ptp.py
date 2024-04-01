@@ -58,7 +58,7 @@ class Prompt2promptPipeline():
                                      blend_words=blend_word, equilizer_params=eq_params)
         return controller
     
-    def null_text_inverion(self, src_image, src_prompt):
+    def null_text_inverion(self, src_image, src_prompt, num_inner_steps=10):
         """
         Inverts a real image to its latent representation using the provided prompt.
 
@@ -70,7 +70,7 @@ class Prompt2promptPipeline():
             Tuple: Tuple containing latent representation and embeddings.
         """
         null_inversion = NullInversion(self.pipe, ddim_steps=self.steps, guidance_scale=self.guidance_scale)
-        x_t, uncond_embeddings = null_inversion.invert(src_image, src_prompt)
+        x_t, uncond_embeddings = null_inversion.invert(src_image, src_prompt, num_inner_steps=num_inner_steps)
         return x_t, uncond_embeddings
 
     def generate_image(self, prompts, controller, generator, x_t, uncond_embeddings):
