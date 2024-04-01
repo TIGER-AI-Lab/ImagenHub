@@ -35,6 +35,11 @@ class FreeControl():
         from imagen_hub.pipelines.freecontrol import make_pipeline
         from imagen_hub.pipelines.freecontrol.module.scheduler import CustomDDIMScheduler
         from imagen_hub.pipelines.freecontrol.controlnet_processor import make_processor
+        self.merge_sweep_config = merge_sweep_config
+        self.make_pipeline = make_pipeline
+        self.CustomDDIMScheduler = CustomDDIMScheduler
+        self.make_processor = make_processor
+        
         self.device = device
 
         # Load checkpoint and pca basis list
@@ -117,7 +122,7 @@ class FreeControl():
         control_type = task
 
         if not control_type == "control_none":
-            processor = make_processor(self.tasks[control_type])
+            processor = self.make_processor(self.tasks[control_type])
         else:
             processor = lambda x: Image.open(x).convert("RGB") if type(x) == str else x
 
@@ -125,16 +130,16 @@ class FreeControl():
         self.input_config['sd_config--seed'] = seed
 
         # Update the Default config by gradio config
-        config = merge_sweep_config(base_config=self.base_config, update=self.input_config)
+        config = self.merge_sweep_config(base_config=self.base_config, update=self.input_config)
         config = OmegaConf.create(config)
 
         # set the correct pipeline
         pipeline_name = "SDPipeline"
 
-        pipeline = make_pipeline(pipeline_name,
+        pipeline = self.make_pipeline(pipeline_name,
                                  self.model_path,
                                  torch_dtype=torch.float16).to(self.device)
-        pipeline.scheduler = CustomDDIMScheduler.from_pretrained(self.model_path, subfolder="scheduler")
+        pipeline.scheduler = self.CustomDDIMScheduler.from_pretrained(self.model_path, subfolder="scheduler")
 
         # create a inversion config
         inversion_config = config.data.inversion
