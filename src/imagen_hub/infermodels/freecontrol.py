@@ -7,12 +7,6 @@ import yaml
 from PIL import Image
 from omegaconf import OmegaConf
 
-from imagen_hub.pipelines.freecontrol.utils import merge_sweep_config
-from imagen_hub.pipelines.freecontrol.utils import load_ckpt_pca_list
-from imagen_hub.pipelines.freecontrol import make_pipeline
-from imagen_hub.pipelines.freecontrol.module.scheduler import CustomDDIMScheduler
-from imagen_hub.pipelines.freecontrol.controlnet_processor import make_processor
-
 
 class FreeControl():
     """
@@ -36,6 +30,11 @@ class FreeControl():
                  pca_warm_up_step=0.05,
                  pca_texture_reg_tr=0.5,
                  pca_texture_reg_factor=0.1):
+        from imagen_hub.pipelines.freecontrol.utils import merge_sweep_config
+        from imagen_hub.pipelines.freecontrol.utils import load_ckpt_pca_list
+        from imagen_hub.pipelines.freecontrol import make_pipeline
+        from imagen_hub.pipelines.freecontrol.module.scheduler import CustomDDIMScheduler
+        from imagen_hub.pipelines.freecontrol.controlnet_processor import make_processor
         self.device = device
 
         # Load checkpoint and pca basis list
