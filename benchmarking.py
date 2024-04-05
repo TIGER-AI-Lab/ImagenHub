@@ -12,7 +12,8 @@ from imagen_hub.benchmark import benchmark_infer, \
                                     infer_text_guided_ie_bench, \
                                     infer_mask_guided_ie_bench, \
                                     infer_subject_driven_ig_bench, \
-                                    infer_subject_driven_ie_bench
+                                    infer_subject_driven_ie_bench, \
+                                    infer_multi_concept_ic_bench
 
 def parser():
     parser = argparse.ArgumentParser(
@@ -75,7 +76,7 @@ def main():
                         model_list = model_list,
                         limit_images_amount = limit_images_amount,
                         result_folder = result_folder,
-                        infer_dataset_fn=infer_subject_driven_ig_bench)
+                        infer_dataset_fn=infer_multi_concept_ic_bench)
     elif task_id == 5:
         benchmark_infer(experiment_basename, 
                         model_list = model_list,
