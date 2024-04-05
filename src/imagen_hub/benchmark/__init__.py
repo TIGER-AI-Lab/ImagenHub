@@ -8,6 +8,7 @@ from .text_guided_ie import infer_text_guided_ie_bench
 from .text_guided_ig import infer_text_guided_ig_bench
 from .subject_driven_ie import infer_subject_driven_ie_bench
 from .subject_driven_ig import infer_subject_driven_ig_bench
+from .multi_concept_ic import infer_multi_concept_ic_bench
 
 def benchmark_infer(experiment_basename: str,
                     infer_dataset_fn: Callable,
