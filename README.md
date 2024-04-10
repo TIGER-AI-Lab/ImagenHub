@@ -1,10 +1,11 @@
 # 🖼️ ImagenHub 
 [![arXiv](https://img.shields.io/badge/arXiv-2310.01596-b31b1b.svg)](https://arxiv.org/abs/2310.01596)
+
 [![Docs](https://img.shields.io/badge/docs-latest-blue)](https://imagenhub.readthedocs.io/en/latest/)
+
 [![contributors](https://img.shields.io/github/contributors/TIGER-AI-Lab/ImagenHub)](https://github.com/TIGER-AI-Lab/ImagenHub/graphs/contributors)
-[![open issues](https://isitmaintained.com/badge/open/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/issues)
-[![pull requests](https://img.shields.io/github/issues-pr/TIGER-AI-Lab/ImagenHub?color=0088ff)](https://github.com/TIGER-AI-Lab/ImagenHub/pulls)
 [![license](https://img.shields.io/github/license/TIGER-AI-Lab/ImagenHub.svg)](https://github.com/TIGER-AI-Lab/ImagenHub/blob/main/LICENSE)
+[![GitHub](https://img.shields.io/github/stars/TIGER-AI-Lab/ImagenHub?style=social)](https://github.com/TIGER-AI-Lab/ImagenHub)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTIGER-AI-Lab%2FImagenHub&count_bg=%23C83DB9&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ImagenHub: Standardizing the evaluation of conditional image generation models 
