@@ -4,6 +4,7 @@ from typing import Dict, List
 import numpy as np
 import torch
 import yaml
+import PIL
 from PIL import Image
 from omegaconf import OmegaConf
 
