@@ -51,6 +51,7 @@ class Prompt2promptPipeline():
             object: Attention controller based on prompts.
         """
         blend_word = (((source_subject_word,), (target_subject_word,))) if target_subject_word!=None else None
+        print(blend_word)
         controller = make_controller(self.device, prompts=prompts, tokenizer=self.pipe.tokenizer,
                                      num_steps=self.steps, is_replace_controller=is_replace_controller,
                                      cross_replace_steps=cross_replace_steps,

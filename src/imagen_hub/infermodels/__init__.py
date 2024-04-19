@@ -20,6 +20,7 @@ from .sdedit import SDEdit
 from .cyclediffusion import CycleDiffusion
 from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
+from .infedit import InfEdit
 
 # ==========================================================
 # Mask-guided Image Editing
