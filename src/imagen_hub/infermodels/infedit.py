@@ -5,9 +5,9 @@ from diffusers import StableDiffusionPipeline, LCMScheduler
 
 class InfEdit():
     """
-    A class for Prompt-to-Prompt.
+    A class for InfEdit.
     
-    References: https://github.com/google/prompt-to-prompt/blob/main/null_text_w_ptp.ipynb
+    References: https://github.com/sled-group/InfEdit
     """
 
     def __init__(self, device="cuda", weight="SimianLuo/LCM_Dreamshaper_v7", src_subject_word=None, target_subject_word=None):
