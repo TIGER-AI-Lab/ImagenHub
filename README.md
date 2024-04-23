@@ -60,6 +60,11 @@ pip install -e .
 
 For models like Dall-E, DreamEdit, and BLIPDiffusion, please see [Extra Setup](https://imagenhub.readthedocs.io/en/latest/Guidelines/install.html#environment-management)
 
+For some models (Stable Diffusion, SDXL, CosXL, etc.), you need to login through `huggingface-cli`.
+```shell
+huggingface-cli login
+```
+
 ## 👨‍🏫 Get Started [🔝](#-table-of-contents)
 
 ### Benchmarking
