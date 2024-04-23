@@ -8,6 +8,7 @@ from .unidiffuser import UniDiffuser
 from .kandinsky import Kandinsky
 from .pixart_alpha import PixArtAlpha
 from .wuerstchen import Wuerstchen
+from .cosxl import CosXL
 
 # ==========================================================
 # Text-guided Image Editing
@@ -21,6 +22,7 @@ from .cyclediffusion import CycleDiffusion
 from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
+from .cosxl import CosXLEdit
 
 # ==========================================================
 # Mask-guided Image Editing

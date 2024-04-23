@@ -7,13 +7,13 @@ class InstructPix2Pix():
     """
     A wrapper around the StableDiffusionInstructPix2PixPipeline for guided image transformation.
 
-    This class uses the Pix2Pix pipeline to transform an image based on an instruction prompt.
+    This class uses the InstructPix2Pix pipeline to transform an image based on an instruction prompt.
     Reference: https://huggingface.co/docs/diffusers/api/pipelines/pix2pix
     """
     def __init__(self, device="cuda", weight="timbrooks/instruct-pix2pix"):
         """
         Attributes:
-            pipe (StableDiffusionInstructPix2PixPipeline): The Pix2Pix pipeline for image transformation.
+            pipe (StableDiffusionInstructPix2PixPipeline): The InstructPix2Pix pipeline for image transformation.
 
         Args:
             device (str, optional): Device on which the pipeline runs. Defaults to "cuda".
