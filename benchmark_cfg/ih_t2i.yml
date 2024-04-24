@@ -24,7 +24,8 @@ info:
       "PlayGroundV2",
       "StableCascade",
       "SDXLLightning",
-      "Wuerstchen"
+      "Wuerstchen",
+      "CosXL"
     ] # Determine which model to run
 params:
   limit_images_amount: null # Run only certain amount of images. null means running all of them
