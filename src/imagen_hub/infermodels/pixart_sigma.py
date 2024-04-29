@@ -3,8 +3,8 @@ import torch
 
 class PixArtSigma:
     """
-    PixArtAlpha for T2I tasks. Require diffusers >= 0.24.0 and transformers >=0.35.0
-    Reference: https://huggingface.co/docs/diffusers/api/pipelines/pixart
+    PixArtSigma for T2I tasks
+    Reference: https://huggingface.co/spaces/PixArt-alpha/PixArt-Sigma/blob/main/app.py
     """
 
     def __init__(
