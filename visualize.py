@@ -1,10 +1,11 @@
 import os
 import argparse
 from omegaconf import OmegaConf
-from imagen_hub.utils.visualizer import build_html
-from imagen_hub.utils.file_helper import count_files_in_subdirectories
 import sys
 sys.path.append("src")
+from imagen_hub.utils.visualizer import build_html
+from imagen_hub.utils.file_helper import count_files_in_subdirectories
+
 
 def parser():
     parser = argparse.ArgumentParser(
