@@ -7,14 +7,16 @@ class PixArtSigma:
     Reference: https://huggingface.co/docs/diffusers/api/pipelines/pixart
     """
 
-    def __init__(self, device="cuda", weight="PixArt-alpha/PixArt-XL-2-1024-MS"):
+    def __init__(
+        self, device="cuda", weight="PixArt-alpha/pixart_sigma_sdxlvae_T5_diffusers"
+    ):
         """
         Attributes:
             pipe (AutoPipelineForText2Image): The underlying image generation pipeline object.
 
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
-            weight (str, optional): The pretrained model weights for image generation. Default is "PixArt-alpha/PixArt-XL-2-1024-MS".
+            weight (str, optional): The pretrained model weights for image generation. Default is "PixArt-alpha/pixart_sigma_sdxlvae_T5_diffusers".
         """
         from diffusers import PixArtSigmaPipeline
 
@@ -31,7 +33,7 @@ class PixArtSigma:
             prompt (str, optional): The prompt for the image generation. Default is None.
             seed (int, optional): The seed for random generator. Default is 42.
 
-        Returns:
+        Returns:git
             PIL.Image.Image: The inferred image.
         """
 
