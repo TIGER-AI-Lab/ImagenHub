@@ -21,7 +21,7 @@ class CosXL():
         from imagen_hub.pipelines.cosxl.utils import set_timesteps_patched
 
         EDMEulerScheduler.set_timesteps = set_timesteps_patched
-        normal_file = hf_hub_download(repo_id="stabilityai/cosxl", filename="cosxl.safetensors")
+        normal_file = hf_hub_download(repo_id="TIGER-Lab/cosxl", filename="cosxl.safetensors")
         self.pipe = StableDiffusionXLPipeline.from_single_file(normal_file, 
                                                                torch_dtype=torch.float16, 
                                                                safety_checker=None)
@@ -66,7 +66,7 @@ class CosXLEdit():
         from imagen_hub.pipelines.cosxl.utils import set_timesteps_patched
 
         EDMEulerScheduler.set_timesteps = set_timesteps_patched
-        edit_file = hf_hub_download(repo_id="stabilityai/cosxl", filename="cosxl_edit.safetensors")
+        edit_file = hf_hub_download(repo_id="TIGER-Lab/cosxl", filename="cosxl_edit.safetensors")
         self.pipe = CosStableDiffusionXLInstructPix2PixPipeline.from_single_file(
             edit_file, num_in_channels=8
         )
