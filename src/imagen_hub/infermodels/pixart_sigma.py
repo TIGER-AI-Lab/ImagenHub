@@ -18,7 +18,7 @@ class PixArtSigma:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
             weight (str, optional): The pretrained model weights for image generation. Default is "PixArt-alpha/pixart_sigma_sdxlvae_T5_diffusers".
         """
-        from diffusers import PixArtSigmaPipeline
+        from imagen_hub.pipelines.pixart.sigma.diffusers_patches import PixArtSigmaPipeline
 
         self.pipe = PixArtSigmaPipeline.from_pretrained(
             weight,
