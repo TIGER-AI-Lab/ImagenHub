@@ -1,4 +1,5 @@
 import torch
+from PIL import Image
 
 # Directly run `python -m pytest` or
 # Directly run `python -m pytest -v -s --disable-warnings` for Debugging
@@ -24,8 +25,8 @@ def test_SD():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_OpenJourney():
@@ -36,8 +37,8 @@ def test_OpenJourney():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_LCM():
@@ -48,8 +49,8 @@ def test_LCM():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_PlayGroundV2():
@@ -60,8 +61,8 @@ def test_PlayGroundV2():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_StableCascade():
@@ -72,8 +73,8 @@ def test_StableCascade():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_SDXL():
@@ -84,8 +85,8 @@ def test_SDXL():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_SDXLTurbo():
@@ -96,8 +97,8 @@ def test_SDXLTurbo():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_SSD():
@@ -108,8 +109,8 @@ def test_SSD():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_SDXLLightning():
@@ -120,8 +121,8 @@ def test_SDXLLightning():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_DeepFloydIF():
@@ -132,8 +133,8 @@ def test_DeepFloydIF():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_DALLE2():
@@ -144,8 +145,8 @@ def test_DALLE2():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_DALLE3():
@@ -156,8 +157,8 @@ def test_DALLE3():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_StableUnCLIP():
@@ -168,8 +169,8 @@ def test_StableUnCLIP():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_UniDiffuser():
@@ -180,8 +181,8 @@ def test_UniDiffuser():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_Kandinsky():
@@ -192,8 +193,8 @@ def test_Kandinsky():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_PixArtAlpha():
@@ -204,8 +205,8 @@ def test_PixArtAlpha():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_Wuerstchen():
@@ -216,8 +217,8 @@ def test_Wuerstchen():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
 
 
 def test_CosXL():
@@ -228,5 +229,5 @@ def test_CosXL():
     out_image = model.infer_one_image(dummy_prompts[0])
     assert out_image is not None
     # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
+    assert isinstance(out_image, Image.Image)
+    print(out_image.size)
