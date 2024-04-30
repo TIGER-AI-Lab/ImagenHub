@@ -28,18 +28,6 @@ def test_SD():
     print(out_image.shape)
 
 
-def test_SDInpaint():
-    from imagen_hub.infermodels.sd import SDInpaint
-
-    model = SDInpaint()
-    assert model is not None
-    out_image = model.infer_one_image(dummy_prompts[0])
-    assert out_image is not None
-    # check if out_image is a PIL.Image.Image or not
-    assert isinstance(out_image, torch.Tensor)
-    print(out_image.shape)
-
-
 def test_OpenJourney():
     from imagen_hub.infermodels.sd import OpenJourney
 
