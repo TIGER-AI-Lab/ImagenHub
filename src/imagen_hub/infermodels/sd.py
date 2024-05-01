@@ -173,6 +173,41 @@ class PlayGroundV2(SD):
         ).images[0]
         return image
 
+class PlayGroundV2_5():
+    def __init__(self, device="cuda", weight="playgroundai/playground-v2.5-1024px-aesthetic"):
+        """
+        A class for the PlayGroundAI image generation model. v2.5
+
+        Args:
+            device (str, optional): The device on which the model should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for PlayGroundV2. Default is "playgroundai/playground-v2.5-1024px-aesthetic".
+        """
+        self.pipe = DiffusionPipeline.from_pretrained(
+            weight,
+            torch_dtype=torch.float16,
+            variant="fp16",
+        ).to(device)
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed. It is recommend to use guidance_scale=3.0.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+
+        generator = torch.manual_seed(seed)
+        image = self.pipe(
+            prompt=prompt,
+            generator=generator, 
+            guidance_scale=3.0,
+        ).images[0]
+        return image
+    
 class StableCascade(SD):
     def __init__(self, device="cuda", weight="stabilityai/stable-cascade"):
         """
