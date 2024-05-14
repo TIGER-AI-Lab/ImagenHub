@@ -17,7 +17,7 @@ setup(
     version=__version__,
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
-    description='',
+    description='A one-stop library to standardize the inference and evaluation of all the conditional image generation models.',
     long_description=readme,
     author='Max Ku',
     author_email='m3ku@uwaterloo.ca',
