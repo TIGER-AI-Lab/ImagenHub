@@ -10,6 +10,7 @@ from .pixart_alpha import PixArtAlpha
 from .pixart_sigma import PixArtSigma
 from .wuerstchen import Wuerstchen
 from .cosxl import CosXL
+from .hunyuan import HunyuanDiT
 
 # ==========================================================
 # Text-guided Image Editing
