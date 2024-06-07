@@ -5,10 +5,6 @@ import os
 from pathlib import Path
 
 from diffusers.pipelines import StableDiffusionPipeline
-from imagen_hub.pipelines.dreambooth.pipeline_dreambooth import DreamBoothPipeline
-from imagen_hub.pipelines.dreambooth_lora.pipeline_dreambooth_lora import DreamBoothLoraPipeline
-from imagen_hub.pipelines.dreambooth.pipeline_dreambooth_multiple_subject import DreamBoothPipelineMulti
-
 
 
 class DreamBooth():
@@ -61,12 +57,13 @@ class DreamBooth():
                 with target images or a list of images. Defaults to current data path.
             output_dir (str or None, optional): Path where model checkpoints will be saved. Defaults to current model path.
         """
+        from imagen_hub.pipelines.dreambooth.pipeline_dreambooth import DreamBoothPipeline
         #override identifier etc.
         self.model_path = output_dir if output_dir is not None else self.model_path
         self.subject_name = subject_name if subject_name is not None else self.subject_name
         self.data_path = data_path if data_path is not None else self.data_path
         self.identifier = identifier if identifier is not None else self.identifier
-
+        
         self.pipe = DreamBoothPipeline(device=self.device,
                     subject_name=self.subject_name,
                     identifier=self.identifier,
@@ -128,7 +125,7 @@ class DreamBoothLora():
                  identifier=None,
                  data_path=None,
                  output_dir=None):
-
+        from imagen_hub.pipelines.dreambooth_lora.pipeline_dreambooth_lora import DreamBoothLoraPipeline
         #override identifier etc.
         self.model_path = output_dir if output_dir is not None else self.model_path
         self.subject_name = subject_name if subject_name is not None else self.subject_name
@@ -216,6 +213,7 @@ class DreamBoothMulti():
                 with target images or a list of images. Defaults to current data path.
             output_dir (str or None, optional): Path where model checkpoints will be saved. Defaults to current model path.
         """
+        from imagen_hub.pipelines.dreambooth.pipeline_dreambooth_multiple_subject import DreamBoothPipelineMulti
         #override identifier etc.
         self.model_path = output_dir if output_dir is not None else self.model_path
         self.subject_name = subject_name if subject_name is not None else self.subject_name
