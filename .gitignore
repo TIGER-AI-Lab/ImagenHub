@@ -1,7 +1,11 @@
-# Src
-env_cfg/src
-results/
+# gh-pages
+eval/*
+src/*
 checkpoints/*
+data/*
+docs/*
+env_cfg/*
+results/*
 keys/*
 
 # models from metrics
