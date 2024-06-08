@@ -28,6 +28,7 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 </div>
 
 ## 📰 News
+* 2024 Jun 07: ImagenHub is finally on PyPI! Check: [https://pypi.org/project/imagen-hub/](https://pypi.org/project/imagen-hub/)
 * 2024 Apr 07: We released [Human evaluation ratings](https://github.com/TIGER-AI-Lab/ImagenHub/tree/main/eval/human_ratings) According to our latest Arxiv paper.
 * 2024 Feb 14: Checkout [⚔️ GenAI-Arena ⚔️ : Benchmarking Visual Generative Models in the Wild](https://huggingface.co/spaces/TIGER-Lab/GenAI-Arena)! 
 * 2024 Jan 15: Paper accepted to ICLR 2024! See you in Vienna! 
@@ -50,6 +51,13 @@ ImagenHub is a one-stop library to standardize the inference and evaluation of a
 - [🎫 License](#-license-)
 
 ## 🛠️ Installation [🔝](#-table-of-contents)
+
+Install from PyPI:
+```
+pip install imagen-hub
+```
+
+Or build from source:
 ```python
 git clone https://github.com/TIGER-AI-Lab/ImagenHub.git
 cd ImagenHub
