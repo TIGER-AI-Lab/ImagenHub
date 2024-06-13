@@ -11,6 +11,7 @@ from .pixart_sigma import PixArtSigma
 from .wuerstchen import Wuerstchen
 from .cosxl import CosXL
 from .hunyuan import HunyuanDiT
+from .sd3 import SD3
 
 # ==========================================================
 # Text-guided Image Editing

@@ -12,6 +12,7 @@ info:
   running_models: [
       "SD",
       "SDXL",
+      "SD3",
       "OpenJourney",
       "DeepFloydIF",
       "DALLE2",
