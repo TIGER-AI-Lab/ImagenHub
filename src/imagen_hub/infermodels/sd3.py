@@ -1,7 +1,7 @@
 import torch
 
 class SD3():
-    def __init__(self, device="cuda", weight="stabilityai/stable-diffusion-3-medium-diffusers"):
+    def __init__(self, device="cuda", weight="stabilityai/stable-diffusion-3-medium-diffusers", drop_encoder=True):
         """
         Attributes:
             pipe (StableDiffusion3Pipeline): The underlying image generation pipeline object.
@@ -9,9 +9,13 @@ class SD3():
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
             weight (str, optional): The pretrained model weights for image generation. Default is "stabilityai/stable-diffusion-3-medium-diffusers".
+            drop_encoder (bool, optional): Whether to drop the text encoder or not. Default is True. Significantly decrease the memory requirements for SD3 with only a slight loss in performance.
         """
         from diffusers import StableDiffusion3Pipeline
-        self.pipe = StableDiffusion3Pipeline.from_pretrained(weight, torch_dtype=torch.float16).to(device)
+        if drop_encoder:
+            self.pipe = StableDiffusion3Pipeline.from_pretrained(weight, text_encoder_3=None, tokenizer_3=None, torch_dtype=torch.float16).to(device)
+        else:
+            self.pipe = StableDiffusion3Pipeline.from_pretrained(weight, torch_dtype=torch.float16).to(device)
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
