@@ -20,22 +20,6 @@ imagen\_hub.utils.configs module
    :undoc-members:
    :show-inheritance:
 
-imagen\_hub.utils.eval\_human module
-------------------------------------
-
-.. automodule:: imagen_hub.utils.eval_human
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-imagen\_hub.utils.eval\_metric module
--------------------------------------
-
-.. automodule:: imagen_hub.utils.eval_metric
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 imagen\_hub.utils.file\_helper module
 -------------------------------------
 

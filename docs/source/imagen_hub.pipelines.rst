@@ -13,6 +13,7 @@ Subpackages
    imagen_hub.pipelines.dreambooth
    imagen_hub.pipelines.dreambooth_lora
    imagen_hub.pipelines.dreamedit
+   imagen_hub.pipelines.freecontrol
    imagen_hub.pipelines.glide
    imagen_hub.pipelines.photoswap
    imagen_hub.pipelines.pix2pix_zero

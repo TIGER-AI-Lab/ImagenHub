@@ -28,6 +28,14 @@ imagen\_hub.infermodels.control\_net module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.infermodels.cosxl module
+------------------------------------
+
+.. automodule:: imagen_hub.infermodels.cosxl
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.infermodels.custom\_diffusion module
 ------------------------------------------------
 
@@ -84,6 +92,14 @@ imagen\_hub.infermodels.dreamedit module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.infermodels.freecontrol module
+------------------------------------------
+
+.. automodule:: imagen_hub.infermodels.freecontrol
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.infermodels.glide module
 ------------------------------------
 
@@ -92,10 +108,26 @@ imagen\_hub.infermodels.glide module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.infermodels.hunyuan module
+--------------------------------------
+
+.. automodule:: imagen_hub.infermodels.hunyuan
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.infermodels.imagic module
 -------------------------------------
 
 .. automodule:: imagen_hub.infermodels.imagic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.infermodels.infedit module
+--------------------------------------
+
+.. automodule:: imagen_hub.infermodels.infedit
    :members:
    :undoc-members:
    :show-inheritance:
@@ -140,6 +172,22 @@ imagen\_hub.infermodels.pixart\_alpha module
    :undoc-members:
    :show-inheritance:
 
+imagen\_hub.infermodels.pixart\_sigma module
+--------------------------------------------
+
+.. automodule:: imagen_hub.infermodels.pixart_sigma
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.infermodels.pnp module
+----------------------------------
+
+.. automodule:: imagen_hub.infermodels.pnp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 imagen\_hub.infermodels.prompt2prompt module
 --------------------------------------------
 
@@ -152,6 +200,14 @@ imagen\_hub.infermodels.sd module
 ---------------------------------
 
 .. automodule:: imagen_hub.infermodels.sd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.infermodels.sd3 module
+----------------------------------
+
+.. automodule:: imagen_hub.infermodels.sd3
    :members:
    :undoc-members:
    :show-inheritance:
@@ -200,6 +256,14 @@ imagen\_hub.infermodels.unidiffuser module
 ------------------------------------------
 
 .. automodule:: imagen_hub.infermodels.unidiffuser
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+imagen\_hub.infermodels.wuerstchen module
+-----------------------------------------
+
+.. automodule:: imagen_hub.infermodels.wuerstchen
    :members:
    :undoc-members:
    :show-inheritance:
