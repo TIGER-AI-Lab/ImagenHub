@@ -26,6 +26,7 @@ from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
 from .cosxl import CosXLEdit
+from .ultraedit import UltraEdit
 
 # ==========================================================
 # Mask-guided Image Editing
