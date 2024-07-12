@@ -12,6 +12,8 @@ from .wuerstchen import Wuerstchen
 from .cosxl import CosXL
 from .hunyuan import HunyuanDiT
 from .sd3 import SD3
+#from .auraflow import AuraFlow # Not available in the current release
+from .kolors import Kolors
 
 # ==========================================================
 # Text-guided Image Editing
