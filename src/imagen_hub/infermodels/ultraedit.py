@@ -8,7 +8,7 @@ class UltraEdit():
     This implementation only support Free-form image editing.
     Reference: https://ultra-editing.github.io/
     """
-    def __init__(self, device="cuda", weight="BleachNick/SD3_UltraEdit_w_mask"):
+    def __init__(self, device="cuda", weight="BleachNick/SD3_UltraEdit_freeform"):
         """
         Attributes:
             pipe (StableDiffusion3InstructPix2PixPipeline): The SD3InstructPix2Pix pipeline for image transformation.
@@ -39,10 +39,9 @@ class UltraEdit():
         """
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
-        mask_img = PIL.Image.new("RGB", src_image.size, (255, 255, 255))
         image = self.pipe(instruct_prompt, 
                           image=src_image,
-                          mask_img=mask_img,
+                          mask_img=None,
                           num_inference_steps=50,
                           image_guidance_scale=1.5,
                           guidance_scale=7.5,
