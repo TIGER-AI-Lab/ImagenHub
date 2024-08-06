@@ -5,14 +5,14 @@ class AuraFlow():
     AuraFlow v0.1 is the fully open-sourced largest flow-based text-to-image generation model.
     Reference: https://huggingface.co/fal/AuraFlow
     """
-    def __init__(self, device="cuda", weight="fal/AuraFlow"):
+    def __init__(self, device="cuda", weight="fal/AuraFlow-v0.2"):
         """
         Attributes:
             pipe (AuraFlowPipeline): The underlying image generation pipeline object.
 
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
-            weight (str, optional): The pretrained model weights for image generation. Default is "fal/AuraFlow".
+            weight (str, optional): The pretrained model weights for image generation. Default is "fal/AuraFlow-v0.2".
         """
         from diffusers import AuraFlowPipeline
         self.pipe = AuraFlowPipeline.from_pretrained(
