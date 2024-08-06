@@ -40,4 +40,4 @@ params:
   save_to_folder: "results"
   experiment_basename: "ImagenHub_Text-Guided_IG" # outputs will be saved to <save_to_folder>/<experiment_basename>/
 visualize:
-  prioritize_folders: ["HunyuanDiT", "Midjourney", "DALLE3", "SDXL"]  # The folder that you want to put in front. Support list. # <= Fix this one later.
+  prioritize_folders: ["FluxTimestep", "FluxGuidance", "Kolors", "AuraFlow", "HunyuanDiT", "Midjourney", "DALLE3", "SDXL"]  # The folder that you want to put in front. Support list. # <= Fix this one later.
