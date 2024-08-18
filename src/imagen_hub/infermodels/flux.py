@@ -1,6 +1,6 @@
 import torch
 
-class FluxTimestep():
+class FLUX1schnell():
     """
     Timestep-distilled Flux is a series of text-to-image generation models based on diffusion transformers. 
     Reference: https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux
@@ -40,7 +40,7 @@ class FluxTimestep():
 
         return image
 
-class FluxGuidance():
+class FLUX1dev():
     """
     Guidance-distilled Flux is a series of text-to-image generation models based on diffusion transformers. 
     Reference: https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux

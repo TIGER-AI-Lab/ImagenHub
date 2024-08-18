@@ -14,7 +14,7 @@ from .hunyuan import HunyuanDiT
 from .sd3 import SD3
 from .auraflow import AuraFlow
 from .kolors import Kolors
-from .flux import FluxTimestep, FluxGuidance
+from .flux import FLUX1schnell, FLUX1dev
 
 # ==========================================================
 # Text-guided Image Editing
