@@ -2,7 +2,7 @@ import torch
 
 class AuraFlow():
     """
-    AuraFlow v0.1 is the fully open-sourced largest flow-based text-to-image generation model.
+    AuraFlow v0.2 is the fully open-sourced largest flow-based text-to-image generation model.
     Reference: https://huggingface.co/fal/AuraFlow
     """
     def __init__(self, device="cuda", weight="fal/AuraFlow-v0.2"):
@@ -17,7 +17,8 @@ class AuraFlow():
         from diffusers import AuraFlowPipeline
         self.pipe = AuraFlowPipeline.from_pretrained(
             weight,
-            torch_dtype=torch.float16).to(device)
+            torch_dtype=torch.float16)
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -31,6 +32,7 @@ class AuraFlow():
             PIL.Image.Image: The inferred image.
         """
 
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(prompt=prompt,
                         height=1024,

@@ -24,7 +24,7 @@ class Prompt2prompt():
 
         self.device = device
         self.pipe = StableDiffusionPipeline.from_pretrained(weight,
-                                                            safety_checker=None).to(self.device)
+                                                            safety_checker=None)
         self.pipe.scheduler = DDIMScheduler(
             beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", clip_sample=False, set_alpha_to_one=False)
         try:
@@ -54,6 +54,7 @@ class Prompt2prompt():
         Returns:
             PIL.Image: Transformed image based on the provided prompts.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.Generator(self.device).manual_seed(seed)
         x_t, uncond_embeddings = self.ptp_pipe.null_text_inverion(

@@ -22,13 +22,14 @@ class Wuerstchen():
         from diffusers import WuerstchenPriorPipeline, WuerstchenDecoderPipeline
         from diffusers.pipelines.wuerstchen import DEFAULT_STAGE_C_TIMESTEPS
         self.stage_c_timesteps = DEFAULT_STAGE_C_TIMESTEPS
+        self.device = device
         self.prior_pipeline = WuerstchenPriorPipeline.from_pretrained("warp-ai/wuerstchen-prior",
                                                                       torch_dtype=dtype,
-                                                                      low_cpu_mem_usage=True).to(device)
+                                                                      low_cpu_mem_usage=True)
         self.decoder_pipelne = WuerstchenDecoderPipeline.from_pretrained("warp-ai/wuerstchen",
                                                                          torch_dtype=dtype,
-                                                                         low_cpu_mem_usage=True).to(device)
-
+                                                                         low_cpu_mem_usage=True)
+        
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
         Generate a image using Wuerstchen Model
@@ -40,6 +41,7 @@ class Wuerstchen():
             PIL.Image.Image: The generated image.
 
         """
+        self.pipe.to(self.device)
         negative_caption = None
         torch.manual_seed(seed)
         prior_output = self.prior_pipeline(prompt=prompt,

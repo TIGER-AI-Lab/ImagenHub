@@ -27,7 +27,7 @@ class Imagic():
         self.pipe = DiffusionPipeline.from_pretrained(weight,
                                                       custom_pipeline="imagic_stable_diffusion",
                                                       safety_checker=None,
-                                                      ).to(self.device)
+                                                      )
         self.pipe.scheduler = DDIMScheduler.from_config(
             self.pipe.scheduler.config)
         self.cur_image = None
@@ -46,6 +46,7 @@ class Imagic():
         Returns:
             PIL.Image.Image: The transformed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.Generator(self.device).manual_seed(seed)
 

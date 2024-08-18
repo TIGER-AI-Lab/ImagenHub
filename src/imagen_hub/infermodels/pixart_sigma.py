@@ -30,7 +30,8 @@ class PixArtSigma:
             transformer=transformer,
             torch_dtype=torch.float16,
             use_safetensors=True,
-        ).to(device)
+        )
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -43,7 +44,7 @@ class PixArtSigma:
         Returns:git
             PIL.Image.Image: The inferred image.
         """
-
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(
             prompt=prompt,

@@ -34,7 +34,7 @@ class Pix2PixZero():
         self.pipe.inverse_scheduler = DDIMInverseScheduler.from_config(
             self.pipe.scheduler.config)
         # self.pipe.enable_model_cpu_offload()
-        self.pipe.to(device)
+        self.device = device
         self.pix2pixzeropipe = Pix2PixZeroPipeline()
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed=42):
@@ -51,6 +51,7 @@ class Pix2PixZero():
         Returns:
             PIL.Image: Modified image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
         # configs from https://huggingface.co/docs/diffusers/api/pipelines/pix2pix_zero

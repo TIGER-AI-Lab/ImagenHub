@@ -26,7 +26,7 @@ class CosXL():
                                                                torch_dtype=torch.float16, 
                                                                safety_checker=None)
         self.pipe.scheduler = EDMEulerScheduler(sigma_min=0.002, sigma_max=120.0, sigma_data=1.0, prediction_type="v_prediction")
-        self.pipe.to(device)
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -39,7 +39,7 @@ class CosXL():
         Returns:
             PIL.Image.Image: The inferred image.
         """
-
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(prompt, 
                        negative_prompt="", 
@@ -71,7 +71,7 @@ class CosXLEdit():
             edit_file, num_in_channels=8
         )
         self.pipe.scheduler = EDMEulerScheduler(sigma_min=0.002, sigma_max=120.0, sigma_data=1.0, prediction_type="v_prediction")
-        self.pipe.to(device)
+        self.device = device
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
         """
@@ -85,6 +85,7 @@ class CosXLEdit():
         Returns:
             PIL.Image.Image: The transformed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
 

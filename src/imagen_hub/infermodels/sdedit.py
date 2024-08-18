@@ -19,8 +19,9 @@ class SDEdit():
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
             weight (str, optional): The pretrained model weights for image-to-image transformations. Default is "runwayml/stable-diffusion-v1-5".
         """
+        self.device = device
         self.pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
-            weight, torch_dtype=torch.float16).to(device)
+            weight, torch_dtype=torch.float16)
         self.pipe.scheduler = DDIMScheduler.from_config(
             self.pipe.scheduler.config)
         self.pipe.inverse_scheduler = DDIMInverseScheduler.from_config(
@@ -44,6 +45,7 @@ class SDEdit():
         Returns:
             PIL.Image.Image: The transformed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
         image = self.pipe(
