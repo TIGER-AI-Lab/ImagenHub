@@ -1,7 +1,7 @@
 import torch
 
 class SD3():
-    def __init__(self, device="cuda", weight="stabilityai/stable-diffusion-3-medium-diffusers", drop_encoder=True):
+    def __init__(self, device="cuda", weight="v2ray/stable-diffusion-3-medium-diffusers", drop_encoder=True):
         """
         Attributes:
             pipe (StableDiffusion3Pipeline): The underlying image generation pipeline object.
