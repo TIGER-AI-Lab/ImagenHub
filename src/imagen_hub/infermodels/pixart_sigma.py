@@ -22,13 +22,11 @@ class PixArtSigma:
             "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
             subfolder="text_encoder",
             load_in_8bit=True,
-            device_map="auto",
         )
         self.pipe = PixArtSigmaPipeline.from_pretrained(
             "PixArt-alpha/PixArt-Sigma-XL-2-1024-MS",
             text_encoder=text_encoder,
             transformer=None,
-            device_map="balanced"
         )
         self.device = device
 
