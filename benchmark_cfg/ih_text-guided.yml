@@ -22,7 +22,8 @@ info:
       "PNP",
       "InfEdit",
       "CosXLEdit",
-      "UltraEdit"
+      "UltraEdit",
+      "AURORA"
     ] # Determine which model to run
 params:
   limit_images_amount: null # Run only certain amount of images. null means running all of them

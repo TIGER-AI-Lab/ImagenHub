@@ -20,7 +20,7 @@ from .flux import FLUX1schnell, FLUX1dev
 # Text-guided Image Editing
 from .diffedit import DiffEdit
 from .imagic import Imagic
-from .instructpix2pix import InstructPix2Pix, MagicBrush
+from .instructpix2pix import InstructPix2Pix, MagicBrush, AURORA
 from .prompt2prompt import Prompt2prompt
 from .text2live import Text2Live
 from .sdedit import SDEdit
