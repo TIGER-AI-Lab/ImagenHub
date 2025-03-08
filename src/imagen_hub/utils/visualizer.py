@@ -113,7 +113,17 @@ def build_html(result_folder_path: Union[str, os.PathLike], image_width: int = 5
     dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     html.add_header(f"Generated on {dt_string}")
     html.add_header("Images might take a while to load.", header_type=4)
+    
     outputs = gather_outputs(result_folder_path, input_folder_name=input_folder_name)
+    
+    # Get all unique model names to create toggle buttons
+    all_model_names = set()
+    for _, txts, _, _ in outputs:
+        all_model_names.update(txts)
+    
+    # Add toggle buttons for all model folders
+    html.add_toggle_buttons(list(all_model_names))
+    
     for (ims, txts, links, info) in outputs:
         html.add_paragraph(info)
         html.add_images(ims, txts, links, width=image_width)

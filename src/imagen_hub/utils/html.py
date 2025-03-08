@@ -1,6 +1,6 @@
 # modified from https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/util/html.py
 import dominate
-from dominate.tags import meta, h1, h2, h3, h4, h5, h6, table, tr, td, p, a, img, br
+from dominate.tags import meta, h1, h2, h3, h4, h5, h6, table, tr, td, p, a, img, br, div, script, button, style
 import os
 from typing import Union, List
 
@@ -33,6 +33,32 @@ class HTML:
         if refresh > 0:
             with self.doc.head:
                 meta(http_equiv="refresh", content=str(refresh))
+        
+        # Add CSS for toggle buttons
+        with self.doc.head:
+            style("""
+                .toggle-button {
+                    padding: 8px 16px;
+                    margin: 5px;
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                .toggle-button:hover {
+                    background-color: #45a049;
+                }
+                .toggle-button.active {
+                    background-color: #3e8e41;
+                }
+                .toggle-container {
+                    margin: 10px 0;
+                    padding: 10px;
+                    background-color: #f5f5f5;
+                    border-radius: 4px;
+                }
+            """)
 
     def add_header(self, text, header_type=1):
         """
@@ -92,13 +118,80 @@ class HTML:
         with self.t:
             with tr():
                 for im, txt, link in zip(ims, txts, links):
-                    with td(style="word-wrap: break-word;", halign="center", valign="top"):
+                    with td(style="word-wrap: break-word;", halign="center", valign="top", cls=f"column-{txt}"):
                         with p():
                             with a(href=os.path.join(link)):
                                 img(style="width:%dpx" %
                                     width, src=os.path.join(im))
                             br()
                             p(txt)
+
+    def add_toggle_buttons(self, folder_names: List[str]):
+        """
+        Add toggle buttons to show/hide specific columns in the HTML document.
+        
+        Args:
+            folder_names (List[str]): List of folder names to create toggle buttons for.
+        """
+        with self.doc:
+            with div(cls="toggle-container"):
+                h3("Toggle Visibility")
+                button("Show All", cls="toggle-button", onclick="showAll()")
+                button("Hide All", cls="toggle-button", onclick="hideAll()")
+                for folder in folder_names:
+                    button(f"Toggle {folder}", cls="toggle-button active", 
+                           id=f"btn-{folder}", onclick=f"toggleColumn('{folder}')")
+            
+            # Add JavaScript for toggling columns
+            with script(type="text/javascript"):
+                from dominate.util import raw
+                js_code = """
+                function toggleColumn(folderName) {
+                    const columns = document.querySelectorAll(`.column-${folderName}`);
+                    const button = document.getElementById(`btn-${folderName}`);
+                    
+                    let isVisible = !button.classList.contains('active');
+                    
+                    columns.forEach(col => {
+                        col.style.display = isVisible ? 'table-cell' : 'none';
+                    });
+                    
+                    if (isVisible) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                }
+                
+                function showAll() {
+                    const buttons = document.querySelectorAll('.toggle-button');
+                    buttons.forEach(btn => {
+                        if (btn.id && btn.id.startsWith('btn-')) {
+                            btn.classList.add('active');
+                            const folderName = btn.id.replace('btn-', '');
+                            const columns = document.querySelectorAll(`.column-${folderName}`);
+                            columns.forEach(col => {
+                                col.style.display = 'table-cell';
+                            });
+                        }
+                    });
+                }
+                
+                function hideAll() {
+                    const buttons = document.querySelectorAll('.toggle-button');
+                    buttons.forEach(btn => {
+                        if (btn.id && btn.id.startsWith('btn-')) {
+                            btn.classList.remove('active');
+                            const folderName = btn.id.replace('btn-', '');
+                            const columns = document.querySelectorAll(`.column-${folderName}`);
+                            columns.forEach(col => {
+                                col.style.display = 'none';
+                            });
+                        }
+                    });
+                }
+                """
+                raw(js_code)
 
     def save(self, filename='index.html'):
         """
@@ -125,6 +218,9 @@ if __name__ == '__main__':  # we show an example usage here.
         txts.append('text_%d' % n)
         links.append('image_%d.png' % n)
 
+    # Adding toggle buttons for folder names
+    html.add_toggle_buttons(['text_0', 'text_1', 'text_2', 'text_3'])
+    
     # Adding mulitple rows
     html.add_paragraph('row1')
     html.add_images(ims, txts, links)
