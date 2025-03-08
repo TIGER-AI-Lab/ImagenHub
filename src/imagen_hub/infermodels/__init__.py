@@ -15,6 +15,7 @@ from .sd3 import SD3
 from .auraflow import AuraFlow
 from .kolors import Kolors
 from .flux import FLUX1schnell, FLUX1dev
+from .cogview import CogView3Plus
 
 # ==========================================================
 # Text-guided Image Editing
@@ -30,6 +31,8 @@ from .pnp import PNP
 from .infedit import InfEdit
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
+from .flowedit import FlowEdit_SD3
+#from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 
 # ==========================================================
 # Mask-guided Image Editing

@@ -23,11 +23,12 @@ info:
       "InfEdit",
       "CosXLEdit",
       "UltraEdit",
-      "AURORA"
+      "AURORA",
+      "FlowEdit_SD3"
     ] # Determine which model to run
 params:
   limit_images_amount: null # Run only certain amount of images. null means running all of them
   save_to_folder: "results"
   experiment_basename: "ImagenHub_Text-Guided_IE" # outputs will be saved to <save_to_folder>/<experiment_basename>/
 visualize:
-  prioritize_folders: ["input", "GroundTruth", "UltraEdit", "CosXLEdit", "InfEdit", "InstructPix2Pix", "MagicBrush"] # The folder that you want to put in front. Support list.
+  prioritize_folders: ["input", "GroundTruth", "FlowEdit_SD3"] # The folder that you want to put in front. Support list.
