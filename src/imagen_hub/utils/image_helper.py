@@ -3,7 +3,9 @@ import numpy as np
 from PIL import Image, ImageOps
 import os
 import requests
-
+import base64
+from io import BytesIO
+import re
 
 
 def load_image(image: Union[str, Image.Image], format: str = "RGB", size: Optional[Tuple] = None) -> Image.Image:
@@ -187,3 +189,26 @@ def highlight_masked_region(image_gen: Image.Image, mask: np.ndarray, dark_facto
     highlighted_image_pil = Image.fromarray(highlighted_image)
 
     return highlighted_image_pil
+
+def decode_base64_to_image(base64_data):
+    """
+    Decodes a base64-encoded image to a PIL Image.
+
+    Args:
+        base64_data (str or bytes): The Base64 encoded image.
+
+    Returns:
+        PIL.Image.Image: The decoded image.
+    """
+    # Ensure base64_data is a string
+    if isinstance(base64_data, bytes):
+        base64_data = base64_data.decode("utf-8")  # Convert bytes to string
+
+    # Remove Base64 header if present (e.g., 'data:image/png;base64,')
+    base64_data = re.sub(r"^data:image/[^;]+;base64,", "", base64_data)
+
+    # Decode the Base64 string
+    image_data = base64.b64decode(base64_data)
+
+    # Convert bytes to a BytesIO stream and open with PIL
+    return Image.open(BytesIO(image_data))
