@@ -32,6 +32,7 @@ from .infedit import InfEdit
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
 from .flowedit import FlowEdit_SD3
+from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 
 # ==========================================================
