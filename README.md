@@ -19,7 +19,7 @@ ICLR 2024
 
 ImagenHub is a one-stop library to standardize the inference and evaluation of all the conditional image generation models.
 * We define 7 prominent tasks and curate 7 high-quality evaluation datasets for each task. 
-* We built a unified inference pipeline to ensure fair comparison. We currently support around 30 models.
+* We built a unified inference pipeline to ensure fair comparison. We currently support over 50 models.
 * We designed two human evaluation scores, i.e. Semantic Consistency and Perceptual Quality, along with comprehensive guidelines to evaluate generated images. 
 * We provide code for visualization, autometrics and Amazon mechanical turk templates.
 
