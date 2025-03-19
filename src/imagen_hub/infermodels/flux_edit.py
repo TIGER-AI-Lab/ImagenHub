@@ -25,14 +25,7 @@ class FluxEdit:
             "black-forest-labs/FLUX.1-dev", transformer=transformer, torch_dtype=self.torch_dtype
         ).to(self.device)
         
-    def infer_one_image(
-            self, 
-            src_image: PIL.Image.Image = None, 
-            instruct_prompt: str = None, 
-            height: int = 1024, 
-            width: int = 1024, 
-            seed: int = 42,
-        ):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None,height = 512,width=512, seed: int = 42):
         """
         Perform inference on a source image based on provided prompt.
         Args:
@@ -47,7 +40,7 @@ class FluxEdit:
         src_image = src_image.resize((int(src_image.width * ratio), int(src_image.height * ratio)))
 
         image = self.pipe(
-            control_image=image,
+            control_image=src_image,
             prompt=instruct_prompt,
             guidance_scale=30., # change this as needed.
             num_inference_steps=50, # change this as needed.
