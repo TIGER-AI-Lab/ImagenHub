@@ -29,6 +29,7 @@ from .cyclediffusion import CycleDiffusion
 from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
+from .flux_edit import FluxEdit
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
 from .flowedit import FlowEdit_SD3
