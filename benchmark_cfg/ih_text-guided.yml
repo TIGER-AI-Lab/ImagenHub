@@ -26,6 +26,7 @@ info:
       "AURORA",
       "FlowEdit_SD3",
       "Gemini2NativeEdit",
+      "FluxEdit"
     ] # Determine which model to run
 params:
   limit_images_amount: null # Run only certain amount of images. null means running all of them
