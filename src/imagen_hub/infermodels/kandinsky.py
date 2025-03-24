@@ -18,7 +18,8 @@ class Kandinsky():
         """
         self.pipe = AutoPipelineForText2Image.from_pretrained(
             weight,
-            torch_dtype=torch.float16).to(device)
+            torch_dtype=torch.float16)
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -31,7 +32,7 @@ class Kandinsky():
         Returns:
             PIL.Image.Image: The inferred image.
         """
-
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(prompt=prompt,
                           prior_guidance_scale=1.0,

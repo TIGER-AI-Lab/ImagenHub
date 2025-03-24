@@ -59,6 +59,7 @@ class DeepFloydIF():
         Returns:
             PIL.Image.Image: The inferred image.
         """
+        self.stage_1.to(self.device)
         generator = torch.manual_seed(seed)
         prompt_embeds, negative_embeds = self.stage_1.encode_prompt(prompt)
 

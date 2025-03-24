@@ -20,12 +20,12 @@ class DiffEdit():
             weight (str, optional): Model weight to be loaded into the pipeline. Default is "stabilityai/stable-diffusion-2-1".
         """
         from diffusers import DDIMScheduler, DDIMInverseScheduler, StableDiffusionDiffEditPipeline
-
+        self.device = device
         self.pipe = StableDiffusionDiffEditPipeline.from_pretrained(
             weight,
             torch_dtype=torch.float16,
             safety_checker=None,
-        ).to(device)
+        )
         self.pipe.scheduler = DDIMScheduler.from_config(
             self.pipe.scheduler.config)
         self.pipe.inverse_scheduler = DDIMInverseScheduler.from_config(
@@ -47,6 +47,7 @@ class DiffEdit():
         Returns:
             PIL.Image.Image: Edited image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
         mask_image = self.pipe.generate_mask(

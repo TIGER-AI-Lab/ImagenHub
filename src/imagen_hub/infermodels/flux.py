@@ -1,6 +1,6 @@
 import torch
 
-class FluxTimestep():
+class FLUX1schnell():
     """
     Timestep-distilled Flux is a series of text-to-image generation models based on diffusion transformers. 
     Reference: https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux
@@ -15,7 +15,8 @@ class FluxTimestep():
             weight (str, optional): The pretrained model weights for image generation. Default is "black-forest-labs/FLUX.1-schnell".
         """
         from diffusers import FluxPipeline
-        self.pipe = FluxPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16).to(device)
+        self.pipe = FluxPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16)
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -28,7 +29,7 @@ class FluxTimestep():
         Returns:
             PIL.Image.Image: The inferred image.
         """
-
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(prompt=prompt,
                         guidance_scale=0.,
@@ -40,7 +41,7 @@ class FluxTimestep():
 
         return image
 
-class FluxGuidance():
+class FLUX1dev():
     """
     Guidance-distilled Flux is a series of text-to-image generation models based on diffusion transformers. 
     Reference: https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux
@@ -55,7 +56,8 @@ class FluxGuidance():
             weight (str, optional): The pretrained model weights for image generation. Default is "black-forest-labs/FLUX.1-dev".
         """
         from diffusers import FluxPipeline
-        self.pipe = FluxPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16).to(device)
+        self.pipe = FluxPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16)
+        self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
         """
@@ -68,7 +70,7 @@ class FluxGuidance():
         Returns:
             PIL.Image.Image: The inferred image.
         """
-
+        self.pipe.to(self.device)
         generator = torch.manual_seed(seed)
         image = self.pipe(prompt=prompt,
                         guidance_scale=3.5,

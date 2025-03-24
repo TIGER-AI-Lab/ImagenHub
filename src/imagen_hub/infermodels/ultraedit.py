@@ -22,7 +22,8 @@ class UltraEdit():
             weight,
             torch_dtype=torch.float16,
             safety_checker=None,
-        ).to(device)
+        )
+        self.device = device
 
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
@@ -37,6 +38,7 @@ class UltraEdit():
         Returns:
             PIL.Image.Image: The transformed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
         image = self.pipe(instruct_prompt, 

@@ -1,17 +1,23 @@
 import torch
+import PIL
 
-class HunyuanDiT():
-    def __init__(self, device="cuda", weight="Tencent-Hunyuan/HunyuanDiT-Diffusers"):
+class CogView3Plus():
+    """
+    CogView3-Plus-3B.
+    Reference: https://huggingface.co/spaces/THUDM-HF-SPACE/CogView3-Plus-3B-Space/blob/main/app.py
+    """
+    def __init__(self, device="cuda", weight="THUDM/CogView3-Plus-3B"):
         """
         Attributes:
-            pipe (DiffusionPipeline): The underlying image generation pipeline object. Requires diffusers >= 0.28.1.
+            pipe (CogView3PlusPipeline): The underlying image generation pipeline object.
 
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
-            weight (str, optional): The pretrained model weights for image generation. Default is "Tencent-Hunyuan/HunyuanDiT-Diffusers". You can use "Tencent-Hunyuan/HunyuanDiT-Diffusers-Distilled" for distilled model (faster).
+            weight (str, optional): The pretrained model weights for image generation.
         """
-        from diffusers import HunyuanDiTPipeline
-        self.pipe = HunyuanDiTPipeline.from_pretrained(weight, torch_dtype=torch.float16)
+        from diffusers import CogView3PlusPipeline
+
+        self.pipe = CogView3PlusPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16)
         self.device = device
 
     def infer_one_image(self, prompt: str = None, seed: int = 42):
@@ -29,6 +35,12 @@ class HunyuanDiT():
         generator = torch.manual_seed(seed)
         image = self.pipe(
             prompt=prompt,
+            guidance_scale=7,
+            num_images_per_prompt=1,
+            num_inference_steps=50,
+            width=1024,
+            height=1024,
             generator=generator,
         ).images[0]
+
         return image

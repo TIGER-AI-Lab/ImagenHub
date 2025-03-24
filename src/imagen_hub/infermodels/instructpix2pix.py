@@ -23,9 +23,10 @@ class InstructPix2Pix():
             weight,
             torch_dtype=torch.float16,
             safety_checker=None,
-        ).to(device)
+        )
         self.pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(
             self.pipe.scheduler.config)
+        self.device = device
 
     def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
         """
@@ -39,6 +40,7 @@ class InstructPix2Pix():
         Returns:
             PIL.Image.Image: The transformed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
 
@@ -59,6 +61,20 @@ class MagicBrush(InstructPix2Pix):
         Args:
             device (str, optional): The device on which the model should run. Default is "cuda".
             weight (str, optional): The pretrained model weights for MagicBrush. Default is "vinesmsuic/magicbrush-jul7".
+        """
+        super().__init__(device=device, weight=weight)
+
+    def infer_one_image(self, src_image: PIL.Image.Image = None, src_prompt: str = None, target_prompt: str = None, instruct_prompt: str = None, seed: int = 42):
+        return super().infer_one_image(src_image, src_prompt, target_prompt, instruct_prompt, seed)
+
+class AURORA(InstructPix2Pix):
+    def __init__(self, device="cuda", weight="McGill-NLP/AURORA"):
+        """
+        A class for AURORA: Learning Action and Reasoning-Centric Image Editing from Videos and Simulation.
+
+        Args:
+            device (str, optional): The device on which the model should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for AURORA.
         """
         super().__init__(device=device, weight=weight)
 

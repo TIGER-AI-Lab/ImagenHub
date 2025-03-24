@@ -14,13 +14,14 @@ from .hunyuan import HunyuanDiT
 from .sd3 import SD3
 from .auraflow import AuraFlow
 from .kolors import Kolors
-from .flux import FluxTimestep, FluxGuidance
+from .flux import FLUX1schnell, FLUX1dev
+from .cogview import CogView3Plus
 
 # ==========================================================
 # Text-guided Image Editing
 from .diffedit import DiffEdit
 from .imagic import Imagic
-from .instructpix2pix import InstructPix2Pix, MagicBrush
+from .instructpix2pix import InstructPix2Pix, MagicBrush, AURORA
 from .prompt2prompt import Prompt2prompt
 from .text2live import Text2Live
 from .sdedit import SDEdit
@@ -28,8 +29,12 @@ from .cyclediffusion import CycleDiffusion
 from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
+from .flux_edit import FluxEdit
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
+from .flowedit import FlowEdit_SD3
+from .gemini import Gemini2NativeEdit
+#from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 
 # ==========================================================
 # Mask-guided Image Editing

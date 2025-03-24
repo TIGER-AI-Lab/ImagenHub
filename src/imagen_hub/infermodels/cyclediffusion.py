@@ -21,7 +21,7 @@ class CycleDiffusion():
             weight,
             torch_dtype=torch.float16,
             safety_checker=None,
-        ).to(device)
+        )
         self.pipe.scheduler = DDIMScheduler.from_config(
             self.pipe.scheduler.config)
 
@@ -39,6 +39,7 @@ class CycleDiffusion():
         Returns:
             PIL.Image.Image: Processed image.
         """
+        self.pipe.to(self.device)
         src_image = src_image.convert('RGB') # force it to RGB format
         generator = torch.manual_seed(seed)
         image = self.pipe(
