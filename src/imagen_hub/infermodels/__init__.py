@@ -12,6 +12,8 @@ from .wuerstchen import Wuerstchen
 from .cosxl import CosXL
 from .hunyuan import HunyuanDiT
 from .sd3 import SD3
+from .sd3_5_large import SD3_5_Large
+from .sana import SANA
 from .auraflow import AuraFlow
 from .kolors import Kolors
 from .flux import FLUX1schnell, FLUX1dev
