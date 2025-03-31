@@ -4,12 +4,12 @@ class SANA:
     def __init__(self, device="cuda", weight="Efficient-Large-Model/SANA1.5_1.6B_1024px_diffusers",pag_applied_layers="transformer_blocks.8"):
         """
         Attributes:
-            pipe (StableDiffusion3Pipeline): The underlying image generation pipeline object.
+            pipe (SanaPAGPipelin): The underlying image generation pipeline object.
 
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
-            weight (str, optional): The pretrained model weights for image generation. Default is "stabilityai/stable-diffusion-3-medium-diffusers".
-            drop_encoder (bool, optional): Whether to drop the text encoder or not. Default is True. Significantly decrease the memory requirements for SD3 with only a slight loss in performance.
+            weight (str, optional): The pretrained model weights for image generation. Default is "Efficient-Large-Model/SANA1.5_1.6B_1024px_diffusers".
+            pag_applied_layers (str, optional): The specific layers where the PAG (Parameter-Efficient Adaptation) technique is applied. Default is "transformer_blocks.8".
         """
         from diffusers import SanaPAGPipeline
 

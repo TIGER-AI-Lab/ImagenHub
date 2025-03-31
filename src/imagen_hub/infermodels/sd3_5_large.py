@@ -8,8 +8,7 @@ class SD3_5_Large:
 
         Args:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
-            weight (str, optional): The pretrained model weights for image generation. Default is "stabilityai/stable-diffusion-3-medium-diffusers".
-            drop_encoder (bool, optional): Whether to drop the text encoder or not. Default is True. Significantly decrease the memory requirements for SD3 with only a slight loss in performance.
+            weight (str, optional): The pretrained model weights for image generation. Default is "stabilityai/stable-diffusion-3.5-large".
         """
         from diffusers import StableDiffusion3Pipeline
         self.pipe = StableDiffusion3Pipeline.from_pretrained(
