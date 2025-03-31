@@ -13,6 +13,8 @@ info:
       "SD",
       "SDXL",
       "SD3",
+      "SD3_5_Large",
+      "SANA",
       "OpenJourney",
       "DeepFloydIF",
       "DALLE2",
