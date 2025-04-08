@@ -1,0 +1,1 @@
+# Copied from https://github.com/deepseek-ai/Janus.git for simplicity
