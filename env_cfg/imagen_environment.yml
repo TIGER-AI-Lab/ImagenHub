@@ -56,4 +56,14 @@ dependencies:
     - nltk~=3.8.1
     - krippendorff
     - statsmodels
-
+    - sentencepiece
+    - protobuf
+    - pyinstrument
+    - attrdict
+    - timm
+    - flash-attn
+    - black
+    - hydra-core
+    - pendulum
+    - loguru
+    - megfile
