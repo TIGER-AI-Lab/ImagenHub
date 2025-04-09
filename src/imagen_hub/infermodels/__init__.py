@@ -13,6 +13,10 @@ from .cosxl import CosXL
 from .hunyuan import HunyuanDiT
 from .sd3 import SD3
 from .sd3_5_large import SD3_5_Large
+from .janus import Janus, JanusPro , JanusFlow
+from .dreamllm import DreamLLM
+from .emu3 import Emu3
+from .llamagen import LlamaGen
 from .sana import SANA
 from .auraflow import AuraFlow
 from .kolors import Kolors
@@ -100,7 +104,7 @@ def get_model(model_name: str = None, init_with_default_params: bool = True):
 
     if not hasattr(sys.modules[__name__], model_name):
         raise ValueError(f"No model named {model_name} found in infermodels.")
-
+    
     model_class = getattr(sys.modules[__name__], model_name)
     if init_with_default_params:
         model_instance = model_class()
