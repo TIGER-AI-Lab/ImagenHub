@@ -1,6 +1,3 @@
-from argparse import Namespace
-from types import SimpleNamespace as Namespace  # if not already imported
-
 class LlamaGen:
     def __init__(self, vq_model_name="VQ-16",gpt_model_name="GPT-XL", device = "cuda"):
     
