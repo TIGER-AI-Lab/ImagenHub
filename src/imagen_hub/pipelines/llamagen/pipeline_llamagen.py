@@ -52,7 +52,7 @@ class LlamaGenPipeline:
         t5_ckpt_url = 'google/flan-t5-xl'
         self.vq_ckpt_path =  os.path.join(os.path.dirname(__file__), "../../../../checkpoint/llamagen/vq_ds16_t2i.pt")
         self.gpt_ckpt_path =  os.path.join(os.path.dirname(__file__), "../../../../checkpoint/llamagen/t2i_XL_stage1_256.pt")
-        self.t5_path =  os.path.join(os.path.dirname(__file__), "../../../../checkpoint/llamagen/")
+        self.t5_path =  os.path.join(os.path.dirname(__file__), "../../../../checkpoint/")
         
         download_if_not_exists(gpt_ckpt_url, self.gpt_ckpt_path)
         download_if_not_exists(vq_ckpt_url, self.vq_ckpt_path)

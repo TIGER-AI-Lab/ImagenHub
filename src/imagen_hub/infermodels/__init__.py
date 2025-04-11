@@ -18,6 +18,7 @@ from .dreamllm import DreamLLM
 from .emu3 import Emu3
 from .llamagen import LlamaGen
 from .hart import Hart
+from .infinity import Infinity
 from .sana import SANA
 from .auraflow import AuraFlow
 from .kolors import Kolors
