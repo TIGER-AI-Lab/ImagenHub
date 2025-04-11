@@ -11,7 +11,7 @@ class Emu3Pipeline:
     def __init__(self,
                  model_path="BAAI/Emu3-Gen",
                  vq_path="BAAI/Emu3-VisionTokenizer",
-                 device="cuda:0",
+                 device="cuda",
                  guidance_scale=3.0):
 
         self.device = device
