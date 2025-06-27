@@ -38,6 +38,7 @@ from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
 from .flux_edit import FluxEdit
+from .flux import FLUX1Kontextdev
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
 from .flowedit import FlowEdit_SD3

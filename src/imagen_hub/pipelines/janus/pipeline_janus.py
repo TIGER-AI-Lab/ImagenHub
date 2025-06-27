@@ -11,6 +11,7 @@ from .janus_src.janusflow.models import MultiModalityCausalLM as MultiModalityCa
 
 from diffusers.models import AutoencoderKL
 import torchvision
+from transformers import AutoConfig
 
 
 class JanusPipeline:
@@ -19,7 +20,10 @@ class JanusPipeline:
         self.device = device
         self.vl_chat_processor = VLChatProcessor.from_pretrained(weight)
         self.tokenizer = self.vl_chat_processor.tokenizer
-        self.model =  MultiModalityCausalLM.from_pretrained(weight, trust_remote_code=True)
+        self.model = MultiModalityCausalLM.from_pretrained(
+            weight, 
+            trust_remote_code=True
+        )
         self.model = self.model.to(torch.bfloat16).to(device).eval()
 
     def set_seed(self, seed):

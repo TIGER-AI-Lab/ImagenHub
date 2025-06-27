@@ -1,13 +1,11 @@
-name: imagen
+name: imagen310
 channels:
   - pytorch
   - conda-forge
-  - xformers
   - defaults
 dependencies:
-  - python=3.9
-  - xformers
-  - pip=20.3
+  - python=3.10
+  - pip
   - pip:
     - flask
     - flask_restful
@@ -35,13 +33,14 @@ dependencies:
     - einops>=0.4.1
     - torch-fidelity>=0.3.0
     - setuptools>=59.5.0
-    - transformers~=4.28.0
+    - transformers>=4.40.0
     - torchmetrics>=0.6.0
     - lpips
     - dreamsim
     - image-reward
     - kornia>=0.6
-    - diffusers>=0.18.0
+    - diffusers>=0.24.0
+    - huggingface_hub>=0.17.0
     - accelerate>=0.20.3
     - safetensors
     - datasets
@@ -51,19 +50,7 @@ dependencies:
     - madgrad>=1.1
     - -e git+https://github.com/openai/CLIP.git@main#egg=clip
     - dominate>=2.8.0
-    - -e git+https://github.com/CompVis/latent-diffusion.git#egg=latent-diffusion #ldm
     - openai
     - nltk~=3.8.1
     - krippendorff
     - statsmodels
-    - sentencepiece
-    - protobuf
-    - pyinstrument
-    - attrdict
-    - timm
-    - flash-attn
-    - black
-    - hydra-core
-    - pendulum
-    - loguru
-    - megfile
