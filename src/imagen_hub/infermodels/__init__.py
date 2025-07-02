@@ -81,6 +81,9 @@ from .freecontrol import FreeControl
 # ==========================================================
 # from .crossdomain_composition import CrossDomainComposition
 # from .styledrop import StyleDrop
+# ==========================================================
+# Multi-Task models
+from .omnigen2 import OmniGen2
 
 import sys
 from functools import partial
