@@ -1,4 +1,4 @@
-name: imagen310
+name: imagen
 channels:
   - pytorch
   - conda-forge
