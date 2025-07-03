@@ -85,6 +85,7 @@ from .freecontrol import FreeControl
 # Multi-Task models
 from .omnigen2 import OmniGen2
 from .bagel import BagelEdit, BagelGeneration
+from .uno import UNO
 
 import sys
 from functools import partial
