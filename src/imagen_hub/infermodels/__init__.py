@@ -44,6 +44,7 @@ from .ultraedit import UltraEdit
 from .flowedit import FlowEdit_SD3
 from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
+from .step1xedit import Step1XEdit
 
 # ==========================================================
 # Mask-guided Image Editing
