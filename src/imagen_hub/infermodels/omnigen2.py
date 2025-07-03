@@ -3,9 +3,10 @@ from torchvision.transforms.functional import to_tensor
 
 from ..pipelines.omnigen2.omnigen2_src.omnigen2.pipelines.omnigen2.pipeline_omnigen2 import OmniGen2Pipeline
 from ..pipelines.omnigen2.omnigen2_src.omnigen2.models.transformers.transformer_omnigen2 import OmniGen2Transformer2DModel
+import accelerate
 
 class OmniGen2:
-    def __init__(self, device="cuda",weight="OmniGen2/OmniGen2",torch_dtype=torch.bfloat16):
+    def __init__(self,weight="OmniGen2/OmniGen2",device=None,torch_dtype=torch.bfloat16):
         """
         Attributes:
             pipe (OmniGEn2Pipeline): The main pipeline used for image generation.
@@ -14,7 +15,11 @@ class OmniGen2:
             device (str, optional): The device on which the pipeline should run. Default is "cuda".
             weight (str, optional): The pretrained model weights for stable-cascade. Default is "OmniGen2/OmniGen2".
         """
-        self.device = device
+        if(device):
+            self.device = device
+        else:
+            accelerator = accelerate.Accelerator()
+            self.device = accelerator.device
         # Load pipeline
         self.pipeline = OmniGen2Pipeline.from_pretrained(
             weight,
@@ -30,7 +35,7 @@ class OmniGen2:
         )
 
         # Move to device
-        self.pipeline = self.pipeline.to(device, dtype=torch_dtype)
+        self.pipeline = self.pipeline.to(self.device, dtype=torch_dtype)
         
 
     def infer_one_image(
