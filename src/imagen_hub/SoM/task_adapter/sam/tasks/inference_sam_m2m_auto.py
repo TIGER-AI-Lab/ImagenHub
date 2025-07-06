@@ -32,7 +32,7 @@ def inference_sam_m2m_auto(model, image, text_size, label_mode='1', alpha=0.1, a
 
     from task_adapter.utils.visualizer import Visualizer
     visual = Visualizer(image_ori, metadata=metadata)
-    sorted_anns = sorted(outputs, key=(lambda x: x['area']), reverse=True)
+    sorted_anns = sorted(outputs, key=(lambda x: x['area']), reverse=True)[:15]
     label = 1
     # for ann in sorted_anns:
     #     mask = ann['segmentation']
