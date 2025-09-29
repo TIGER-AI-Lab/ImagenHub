@@ -227,7 +227,7 @@ def load_subject_driven_ie_dataset(with_name_att: bool = False, name_att: str = 
         train: 158 rows for 30 subjects
         eval: 154 = 7 samples * 22 objects
     """
-    data = load_dataset("ImagenHub/DreamBooth-Concepts")
+    data = load_dataset("ImagenHub/DreamBooth_Concepts")
     data['eval'] = load_dataset(
         'ImagenHub/Subject_Driven_Image_Editing')['eval']
     return data, name_att if with_name_att else data
