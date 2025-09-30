@@ -378,7 +378,7 @@ class Visualizer:
         self._default_font_size = max(
             np.sqrt(self.output.height * self.output.width) // 90, 10 // scale
         )
-        self._default_font_size = 18
+        self._default_font_size = 22
         self._instance_mode = instance_mode
         self.keypoint_threshold = _KEYPOINT_THRESHOLD
 

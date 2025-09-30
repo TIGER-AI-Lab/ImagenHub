@@ -14,4 +14,3 @@ som_path = os.path.join(os.path.dirname(__file__), "SoM")
 if som_path not in sys.path:
     sys.path.insert(0, som_path)
 from .infermodels import load, get_model, load_model
-from .SoM import SoM

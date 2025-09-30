@@ -38,11 +38,14 @@ from .pix2pixzero import Pix2PixZero
 from .pnp import PNP
 from .infedit import InfEdit
 from .flux_edit import FluxEdit
+from .flux import FLUX1Kontextdev
 from .cosxl import CosXLEdit
 from .ultraedit import UltraEdit
 from .flowedit import FlowEdit_SD3
 from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
+from .step1xedit import Step1XEdit
+from .icedit import ICEdit
 
 # ==========================================================
 # Mask-guided Image Editing
@@ -80,6 +83,11 @@ from .freecontrol import FreeControl
 # ==========================================================
 # from .crossdomain_composition import CrossDomainComposition
 # from .styledrop import StyleDrop
+# ==========================================================
+# Multi-Task models
+from .omnigen2 import OmniGen2
+from .bagel import BagelEdit, BagelGeneration
+from .uno import UNO
 
 import sys
 from functools import partial

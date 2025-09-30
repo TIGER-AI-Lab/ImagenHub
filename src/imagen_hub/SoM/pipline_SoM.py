@@ -14,7 +14,7 @@ from task_adapter.seem.tasks import inference_seem_pano
 from segment_anything import sam_model_registry
 from task_adapter.sam.tasks.inference_sam_m2m_auto import inference_sam_m2m_auto
 import os
-from PIL import Image
+
 
 def resolve_path(path):
     base_dir = os.path.dirname(__file__)
@@ -50,26 +50,53 @@ class SoM:
                 )
 
     @torch.no_grad()
-    def add_marks(self, image_path, method='semantic-sam', alpha=0.1, label_mode='Number', anno_mode=['Mask', 'Mark']):
+    def add_marks(self, slider , image_path, method= None, alpha=0.1, label_mode='Number', anno_mode=['Mask', 'Mark'],text_size=200):
         img = Image.open(image_path).convert("RGB")
-
-        label_mode_internal = 'a' if label_mode == 'Alphabet' else '1'
-
-        if method == 'semantic-sam':
-            output, mask = inference_semsam_m2m_auto(
-                self.model_semsam, img, level=[4], all_classes=None, thresh=None, all_parts=None,
-                text_size=400, hole_scale=100, island_scale=100,
-                semantic=False, label_mode=label_mode_internal, alpha=alpha, anno_mode=anno_mode
-            )
-        elif method == 'sam':
-            output, mask = inference_sam_m2m_auto(
-                self.model_sam, img, text_size=800, label_mode=label_mode_internal, alpha=alpha, anno_mode=anno_mode
-            )
-        elif method == 'seem':
-            output, mask = inference_seem_pano(
-                self.model_seem, img, text_size=400, label_mode=label_mode_internal, alpha=alpha, anno_mode=anno_mode
-            )
+        model_name = method
+        if slider < 1.5:
+            model_name = 'seem'
+        elif slider > 2.5:
+            model_name = 'sam'
         else:
-            raise ValueError(f"Unknown method: {method}")
+            model_name = 'semantic-sam'
+            if slider < 1.5 + 0.14:
+                level = [1]
+            elif slider < 1.5 + 0.28:
+                level = [2]
+            elif slider < 1.5 + 0.42:
+                level = [3]
+            elif slider < 1.5 + 0.56:
+                level = [4]
+            elif slider < 1.5 + 0.70:
+                level = [5]
+            elif slider < 1.5 + 0.84:
+                level = [6]
+            else:
+                level = [6, 1, 2, 3, 4, 5]
+
+        
+            
+        if label_mode == 'Alphabet':
+            label_mode = 'a'
+        else:
+            label_mode = '1'
+
+        text_size, hole_scale, island_scale=640,100,100
+        text, text_part, text_thresh = '','','0.0'
+        with torch.autocast(device_type='cuda', dtype=torch.float16):
+            semantic=False
+
+            if model_name == 'semantic-sam':
+                model = self.model_semsam
+                output, mask = inference_semsam_m2m_auto(model, img, level, text, text_part, text_thresh, text_size, hole_scale, island_scale, semantic, label_mode=label_mode, alpha=alpha, anno_mode=anno_mode)
+
+            elif model_name == 'sam':
+                model = self.model_sam
+                output, mask = inference_sam_m2m_auto(model, img, text_size, label_mode, alpha, anno_mode)
+
+            elif model_name == 'seem':
+                model = self.model_seem
+                output, mask = inference_seem_pano(model, img, text_size, label_mode, alpha, anno_mode)
+                
 
         return Image.fromarray(output) 
