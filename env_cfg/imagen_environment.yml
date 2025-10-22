@@ -1,4 +1,4 @@
-name: imagentest
+name: imagen
 channels:
   - pytorch
   - conda-forge
