@@ -22,8 +22,9 @@ from .infinity import Infinity
 from .sana import SANA
 from .auraflow import AuraFlow
 from .kolors import Kolors
-from .flux import FLUX1schnell, FLUX1dev
+from .flux import FLUX1schnell, FLUX1dev, FLUX1Kreadev
 from .cogview import CogView3Plus
+from .qwen_image import QwenImage
 
 # ==========================================================
 # Text-guided Image Editing

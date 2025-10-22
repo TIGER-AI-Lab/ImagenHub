@@ -1,4 +1,4 @@
-name: imagen
+name: imagentest
 channels:
   - pytorch
   - conda-forge
@@ -33,13 +33,13 @@ dependencies:
     - einops>=0.4.1
     - torch-fidelity>=0.3.0
     - setuptools>=59.5.0
-    - transformers>=4.40.0
+    - git+https://github.com/huggingface/diffusers.git@v0.35.0
+    - git+https://github.com/huggingface/transformers.git@v4.54.0
     - torchmetrics>=0.6.0
     - lpips
     - dreamsim
     - image-reward
     - kornia>=0.6
-    - diffusers>=0.24.0
     - huggingface_hub>=0.17.0
     - accelerate>=0.20.3
     - safetensors
