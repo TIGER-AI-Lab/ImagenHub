@@ -46,6 +46,7 @@ from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 from .step1xedit import Step1XEdit
 from .icedit import ICEdit
+from .realedit import RealEdit
 
 # ==========================================================
 # Mask-guided Image Editing
@@ -85,7 +86,7 @@ from .freecontrol import FreeControl
 # from .styledrop import StyleDrop
 # ==========================================================
 # Multi-Task models
-from .omnigen2 import OmniGen2
+# from .omnigen2 import OmniGen2  # Commented out - requires CUDA at import time
 from .bagel import BagelEdit, BagelGeneration
 from .uno import UNO
 
