@@ -86,7 +86,7 @@ from .freecontrol import FreeControl
 # from .styledrop import StyleDrop
 # ==========================================================
 # Multi-Task models
-# from .omnigen2 import OmniGen2  # Commented out - requires CUDA at import time
+from .omnigen2 import OmniGen2
 from .bagel import BagelEdit, BagelGeneration
 from .uno import UNO
 
