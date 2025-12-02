@@ -99,7 +99,7 @@ class FLUX1Kontextdev():
         self.pipe = FluxKontextPipeline.from_pretrained(weight, torch_dtype=torch.bfloat16)
         self.device = device
 
-    def infer_one_image(self, src_image: PIL.Image.Image = None, instruct_prompt: str = None, seed: int = 42):
+    def infer_one_image(self, src_image: PIL.Image.Image = None, prompt: str = None, seed: int = 42):
         """
         Infer an image based on the given prompt and seed.
 
@@ -113,8 +113,48 @@ class FLUX1Kontextdev():
         self.pipe.to(self.device)
         image = self.pipe(
             image=src_image,
-            prompt=instruct_prompt,
+            prompt=prompt,
             guidance_scale=2.5,
             generator=torch.manual_seed(seed)
         ).images[0]
+        return image 
+
+class FLUX1Kreadev():
+    """
+    Reference: https://huggingface.co/black-forest-labs/FLUX.1-Krea-dev
+    """
+    def __init__(self, device="cuda", weight="black-forest-labs/FLUX.1-Krea-dev"):
+        """
+        Attributes:
+            pipe (FluxKreaPipeline): The underlying image generation pipeline object.
+
+        Args:
+            device (str, optional): The device on which the pipeline should run. Default is "cuda".
+            weight (str, optional): The pretrained model weights for image generation. Default is "black-forest-labs/FLUX.1-Krea-dev".
+        """
+        from diffusers import FluxPipeline
+        self.pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-Krea-dev", torch_dtype=torch.bfloat16)
+        #self.pipe.enable_model_cpu_offload()
+        self.device = device
+
+    def infer_one_image(self, prompt: str = None, seed: int = 42):
+        """
+        Infer an image based on the given prompt and seed.
+
+        Args:
+            prompt (str, optional): The prompt for the image generation. Default is None.
+            seed (int, optional): The seed for random generator. Default is 42.
+
+        Returns:
+            PIL.Image.Image: The inferred image.
+        """
+        self.pipe.to(self.device)
+        image = self.pipe(
+            prompt,
+            height=1024,
+            width=1024,
+            guidance_scale=4.5,
+            generator=torch.manual_seed(seed)
+        ).images[0]
+
         return image 
