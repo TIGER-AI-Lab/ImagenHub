@@ -22,8 +22,9 @@ from .infinity import Infinity
 from .sana import SANA
 from .auraflow import AuraFlow
 from .kolors import Kolors
-from .flux import FLUX1schnell, FLUX1dev
+from .flux import FLUX1schnell, FLUX1dev, FLUX1Kreadev
 from .cogview import CogView3Plus
+from .qwen_image import QwenImage
 
 # ==========================================================
 # Text-guided Image Editing
@@ -46,6 +47,7 @@ from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 from .step1xedit import Step1XEdit
 from .icedit import ICEdit
+from .realedit import RealEdit
 
 # ==========================================================
 # Mask-guided Image Editing
