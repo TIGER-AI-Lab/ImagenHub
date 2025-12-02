@@ -47,6 +47,7 @@ from .gemini import Gemini2NativeEdit
 #from .flowedit import FlowEdit_FLUX # Not working for now TODO: fix
 from .step1xedit import Step1XEdit
 from .icedit import ICEdit
+from .realedit import RealEdit
 
 # ==========================================================
 # Mask-guided Image Editing
